@@ -2,14 +2,12 @@
 
 import React, { useRef } from "react";
 import { DipakHero, dipakHeroContent } from "@/features/dipak-hero";
-import { MobileNav } from "@/features/dipak-hero/MobileNav";
 import { DipakIdentityAct, identityContent } from "@/features/dipak-identity";
 import { DipakPresenceAct, presenceContent } from "@/features/dipak-presence";
 import { DipakMissionAct, missionContent } from "@/features/dipak-mission";
 import { DipakTopicsAct, topicsContent } from "@/features/dipak-topics";
 import { DipakThinkingAct, thinkingContent } from "@/features/dipak-thinking";
 import { DipakBridgeAct, bridgeContent } from "@/features/dipak-bridge";
-import { SitePreloader } from "@/features/site-preloader";
 import type { FeaturedArticle } from "@/features/dipak-thinking/thinking.types";
 import { useHomeIntroTimeline } from "./useHomeIntroTimeline";
 import styles from "./home-intro-story.module.css";
@@ -31,9 +29,7 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
   });
 
   return (
-    <>
-      <SitePreloader />
-      <div className={styles.masterStoryWrapper}>
+    <div className={styles.masterStoryWrapper}>
       {/* Pinned Cinematic Story Stage: Act 1 (Hero) -> Act 2 (Identity) -> Act 3 (Presence) -> Act 4 (Mission) */}
       <div ref={shellRef} className={styles.storyShell}>
         <div ref={stageRef} className={styles.storyStage}>
@@ -47,54 +43,14 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
 
 
 
-          {/* Global Sticky Brand Header (Untouched during all Act transitions) */}
-          <header className={styles.persistentHeader} data-story-header="true">
-            <a className={styles.wordmark} href="#hero" aria-label="Dipak Vishwakarma homepage">
-              <span className={styles.wordmarkFirst}>{dipakHeroContent.brandFirstLine}</span>
-              <span className={styles.wordmarkSecond}>{dipakHeroContent.brandSecondLine}</span>
-            </a>
-
-            <nav className={styles.desktopNav} aria-label="Primary navigation">
-              {dipakHeroContent.navLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className={`${styles.navLink} ${link.active ? styles.navLinkActive : ""}`}
-                >
-                  <span>{link.label}</span>
-                  {link.active ? <span className={styles.activeIndicator} aria-hidden="true" /> : null}
-                </a>
-              ))}
-            </nav>
-
-            <div className={styles.headerActions}>
-              <MobileNav
-                navLinks={dipakHeroContent.navLinks}
-                ctas={dipakHeroContent.ctas}
-                brandFirstLine={dipakHeroContent.brandFirstLine}
-                brandSecondLine={dipakHeroContent.brandSecondLine}
-              />
-            </div>
-          </header>
-
-          {/* Act 1: Belief & Philosophy (Hero Page Surface - Physical 3D Magazine Page Roll) */}
+          {/* Act 1: Belief & Philosophy (Hero - Luxury Magazine Cover) */}
           <div className={styles.act1Wrapper} data-story-act1-wrapper="true">
-            <DipakHero content={dipakHeroContent} hideHeader={true} />
-            {/* Dynamic Corner Peel Rim & Specular Flare */}
-            <div
-              className={styles.peelEdgeHighlight}
-              data-story-peel-edge="true"
-              aria-hidden="true"
-            />
-            {/* Cast Shadow beneath the curling bottom edge */}
-            <div
-              className={styles.peelCastShadow}
-              data-story-peel-shadow="true"
-              aria-hidden="true"
-            />
+            <div className={styles.act1PageShadow} data-story-page-shadow="true" aria-hidden="true" />
+            <div className={styles.act1PageSheen} data-story-page-sheen="true" aria-hidden="true" />
+            <DipakHero content={dipakHeroContent} />
           </div>
 
-          {/* Act 2: The Person & Credentials (Identity - stationed directly beneath) */}
+          {/* Act 2: The Person & Credentials (Identity) */}
           <div className={styles.act2Wrapper} data-story-act2-wrapper="true">
             <DipakIdentityAct content={identityContent} />
           </div>
@@ -126,6 +82,5 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
         <DipakBridgeAct content={bridgeContent} />
       </div>
     </div>
-    </>
   );
 }

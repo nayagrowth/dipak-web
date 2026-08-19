@@ -51,9 +51,23 @@ export function useHomeIntroTimeline({
       // PART 1-4: PINNED 4-ACT STORY TIMELINE (Acts 1 to 4)
       // -----------------------------------------------------------------------
       const act1Wrapper = stage.querySelector("[data-story-act1-wrapper]");
+      const act1PageShadow = stage.querySelector("[data-story-page-shadow]");
+      const act1PageSheen = stage.querySelector("[data-story-page-sheen]");
       const act2Wrapper = stage.querySelector("[data-story-act2-wrapper]");
       const act3Wrapper = stage.querySelector("[data-story-act3-wrapper]");
       const act4Wrapper = stage.querySelector("[data-story-act4-wrapper]");
+
+      const heroHeader = stage.querySelector("[data-story-header]");
+      const heroGoldRule = stage.querySelector("[data-story-gold-rule]");
+      const heroHeadlineLines = stage.querySelectorAll(
+        "[data-story-headline-line]"
+      );
+      const heroCopy = stage.querySelector("[data-story-copy]");
+      const heroCtaRow = stage.querySelector("[data-story-cta-row]");
+      const heroQuote = stage.querySelector("[data-story-quote]");
+      const heroPortraitRoot = stage.querySelector("[data-story-portrait-root]");
+      const heroHalo = stage.querySelector("[data-hero-halo]");
+      const heroLeftAccent = stage.querySelector("[data-story-left-accent]");
 
       const act2Index = stage.querySelector("[data-story-act2-index]");
       const act2HeadlineLines = stage.querySelectorAll(
@@ -96,9 +110,6 @@ export function useHomeIntroTimeline({
       const act4Tenets = stage.querySelector("[data-story-act4-tenets]");
       const act4Enso = stage.querySelector("[data-story-act4-enso]");
 
-      const peelEdge = stage.querySelector("[data-story-peel-edge]");
-      const peelShadow = stage.querySelector("[data-story-peel-shadow]");
-
       if (bridgeRule) {
         gsap.set(bridgeRule, {
           scaleX: 0,
@@ -107,46 +118,39 @@ export function useHomeIntroTimeline({
         });
       }
 
-      gsap.set(act1Wrapper, {
-        transformOrigin: "20% 0%",
-        rotateX: 0,
-        rotateY: 0,
-        rotateZ: 0,
-        yPercent: 0,
-        xPercent: 0,
-        scale: 1,
-        filter: "drop-shadow(0px 0px 0px rgba(0,0,0,0))",
-        opacity: 1,
-        visibility: "visible",
-      });
-      if (peelEdge) gsap.set(peelEdge, { opacity: 0 });
-      if (peelShadow) gsap.set(peelShadow, { opacity: 0 });
+      // Initial 3D Spatial States
+      if (act1Wrapper) {
+        gsap.set(act1Wrapper, {
+          rotateY: 0,
+          rotateZ: 0,
+          x: 0,
+          y: 0,
+          transformOrigin: "left center",
+        });
+      }
+      if (act1PageShadow) gsap.set(act1PageShadow, { opacity: 0 });
+      if (act1PageSheen) gsap.set(act1PageSheen, { opacity: 0 });
 
-      // Act 2 is already stationed in full clarity directly beneath
-      gsap.set(act2Wrapper, {
-        visibility: "visible",
-        opacity: 1,
-        scale: 1,
-      });
+      gsap.set(act2Wrapper, { visibility: "hidden", opacity: 0, scale: 0.96, filter: "blur(4px)" });
       gsap.set(act3Wrapper, { visibility: "hidden", opacity: 0 });
       gsap.set(act4Wrapper, { visibility: "hidden", opacity: 0 });
 
-      if (act2Sunlight) gsap.set(act2Sunlight, { opacity: 0.35, x: 0 });
-      if (act2ShadowLeft) gsap.set(act2ShadowLeft, { opacity: 0.25, x: 0 });
-      if (act2ShadowMid) gsap.set(act2ShadowMid, { opacity: 0.2, x: 0 });
-      if (act2Ambient) gsap.set(act2Ambient, { opacity: 0.2 });
-      if (act23DHeadline) gsap.set(act23DHeadline, { perspective: 1000, rotateY: 0, rotateX: 0 });
+      if (act2Sunlight) gsap.set(act2Sunlight, { opacity: 0, x: -30 });
+      if (act2ShadowLeft) gsap.set(act2ShadowLeft, { opacity: 0, x: -20 });
+      if (act2ShadowMid) gsap.set(act2ShadowMid, { opacity: 0, x: -15 });
+      if (act2Ambient) gsap.set(act2Ambient, { opacity: 0 });
+      if (act23DHeadline) gsap.set(act23DHeadline, { perspective: 1000, rotateY: -3, rotateX: 2 });
 
-      gsap.set(act2Index, { opacity: 1, y: 0 });
-      gsap.set(act2HeadlineLines, { yPercent: 0 });
+      gsap.set(act2Index, { opacity: 0, y: -8 });
+      gsap.set(act2HeadlineLines, { yPercent: 105 });
       gsap.set(act2StructuralRules, {
-        scaleX: 1,
-        opacity: 0.85,
+        scaleX: 0,
+        opacity: 0,
         transformOrigin: "left center",
       });
-      gsap.set(act2Role, { opacity: 1, y: 0 });
-      gsap.set(act2Bio, { opacity: 1, y: 0 });
-      gsap.set(act2Stats, { opacity: 1, y: 0 });
+      gsap.set(act2Role, { opacity: 0, y: 10 });
+      gsap.set(act2Bio, { opacity: 0, y: 12 });
+      gsap.set(act2Stats, { opacity: 0, y: 14 });
 
       gsap.set(act3Ticket, {
         opacity: 0,
@@ -204,28 +208,49 @@ export function useHomeIntroTimeline({
       });
 
       // -----------------------------------------------------------------------
-      // BEAT 1: PHYSICAL 3D MAGAZINE PAGE ROLL (BOTTOM-UP & SLIGHTLY LEFT)
-      // The hero cover page rolls upwards with authentic 3D curvature, revealing
-      // Act 2 already situated in full focus beneath.
+      // BEAT 1: 3D LUXURY MAGAZINE PAGE FLIP & CURL (0.0 -> 0.45)
+      // Act 1 turns on its spine like a thick editorial cover, revealing Act 2
       // -----------------------------------------------------------------------
-      masterTl.addLabel("PAGE_ROLL", 0.0);
+      masterTl.addLabel("PAGE_FLIP", 0.0);
 
-      // 1. 3D Page Curl Motion: lifts from bottom-right, rolls upward and slightly left
+      // 1. Dynamic Travelling Paper Sheen & Spine Shadow
+      if (act1PageShadow) {
+        masterTl.to(
+          act1PageShadow,
+          {
+            opacity: 0.85,
+            duration: 0.22,
+            ease: "power2.inOut",
+          },
+          "PAGE_FLIP"
+        );
+      }
+      if (act1PageSheen) {
+        masterTl.to(
+          act1PageSheen,
+          {
+            opacity: 0.9,
+            duration: 0.2,
+            ease: "power1.inOut",
+          },
+          "PAGE_FLIP"
+        );
+      }
+
+      // 2. Pure 3D Page Turn: Rotate along left spine with curl & perspective translation
       if (act1Wrapper) {
         masterTl.to(
           act1Wrapper,
           {
-            rotateX: 42,
-            rotateY: -28,
-            rotateZ: 6,
-            yPercent: -105,
-            xPercent: -8,
-            scale: 0.94,
-            filter: "drop-shadow(-20px -30px 45px rgba(25, 20, 15, 0.35))",
-            duration: 0.48,
+            rotateY: -74,
+            rotateZ: -4,
+            xPercent: -18,
+            scale: 0.93,
+            boxShadow: "-30px 20px 60px rgba(17, 17, 15, 0.45)",
+            duration: 0.38,
             ease: "power2.inOut",
           },
-          "PAGE_ROLL"
+          "PAGE_FLIP"
         );
         masterTl.to(
           act1Wrapper,
@@ -234,74 +259,38 @@ export function useHomeIntroTimeline({
             duration: 0.12,
             ease: "power1.in",
           },
-          "PAGE_ROLL+=0.36"
+          "PAGE_FLIP+=0.28"
         );
         masterTl.set(
           act1Wrapper,
           {
             visibility: "hidden",
           },
-          "PAGE_ROLL+=0.48"
+          "PAGE_FLIP+=0.42"
         );
       }
 
-      // 2. Dynamic Corner Peel Rim Highlight & Reflection
-      if (peelEdge) {
-        masterTl.fromTo(
-          peelEdge,
-          {
-            opacity: 0,
-          },
-          {
-            opacity: 0.9,
-            duration: 0.2,
-            ease: "power1.out",
-          },
-          "PAGE_ROLL"
-        );
-        masterTl.to(
-          peelEdge,
-          {
-            opacity: 0,
-            duration: 0.2,
-            ease: "power1.in",
-          },
-          "PAGE_ROLL+=0.28"
-        );
-      }
+      // 3. Act 2 Emerges from Depth underneath the turning page
+      masterTl.addLabel("ACT2_ENTER", 0.16);
+      masterTl.set(
+        act2Wrapper,
+        {
+          visibility: "visible",
+          opacity: 1,
+        },
+        "ACT2_ENTER"
+      );
 
-      // 3. Volumetric Cast Shadow Beneath the Curled Page
-      if (peelShadow) {
-        masterTl.fromTo(
-          peelShadow,
-          {
-            opacity: 0,
-            scale: 0.6,
-          },
-          {
-            opacity: 0.75,
-            scale: 1,
-            duration: 0.25,
-            ease: "power2.out",
-          },
-          "PAGE_ROLL"
-        );
-        masterTl.to(
-          peelShadow,
-          {
-            opacity: 0,
-            duration: 0.2,
-            ease: "power1.in",
-          },
-          "PAGE_ROLL+=0.28"
-        );
-      }
-
-      // -----------------------------------------------------------------------
-      // BEAT 2: ACT 2 HOLD (0.48 -> 1.2)
-      // Act 2 is already there, fully visible as soon as the cover peels off.
-      // -----------------------------------------------------------------------
-      masterTl.addLabel("ACT2_ENTER", 0.48);
+      masterTl.to(
+        act2Wrapper,
+        {
+          scale: 1,
+          filter: "blur(0px)",
+          duration: 0.35,
+          ease: "power2.out",
+        },
+        "ACT2_ENTER"
+      );
 
       if (act2Sunlight) {
         masterTl.to(
