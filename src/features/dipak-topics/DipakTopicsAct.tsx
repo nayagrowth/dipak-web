@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import type { TopicsContent } from "./topics.types";
 import { topicsContent } from "./topics.content";
 import styles from "./dipak-topics-act.module.css";
@@ -57,8 +58,9 @@ export function DipakTopicsAct({
           data-story-act5-ledger="true"
         >
           {content.topics.map((item) => (
-            <article
+            <Link
               key={item.id}
+              href={item.href || "/blog"}
               className={styles.topicCard}
               data-story-act5-item="true"
             >
@@ -87,7 +89,7 @@ export function DipakTopicsAct({
                 </div>
                 <p className={styles.cardDescription}>{item.description}</p>
               </div>
-            </article>
+            </Link>
           ))}
         </div>
       </div>

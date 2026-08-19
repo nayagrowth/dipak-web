@@ -22,6 +22,7 @@ export const topicsContent: TopicsContent = {
       description:
         "Why people hesitate, what creates trust, and how decisions are actually made.",
       image: "/topics/buyer-psychology.jpg",
+      href: "/blog/buyer-psychology-undecided-mind",
     },
     {
       id: "high-ticket-sales",
@@ -31,6 +32,7 @@ export const topicsContent: TopicsContent = {
       description:
         "How to lead complex conversations without pressure, scripts or manipulation.",
       image: "/topics/high-ticket-sales.jpg",
+      href: "/blog/the-architecture-of-high-ticket-sales",
     },
     {
       id: "communication",
@@ -40,6 +42,7 @@ export const topicsContent: TopicsContent = {
       description:
         "Questions, listening, framing and the language that changes how people understand value.",
       image: "/topics/communication.jpg",
+      href: "/blog/the-true-meaning-of-communication",
     },
     {
       id: "personal-branding",
@@ -49,42 +52,47 @@ export const topicsContent: TopicsContent = {
       description:
         "How expertise becomes authority — and how authority compounds over time.",
       image: "/topics/personal-branding.jpg",
+      href: "/blog/personal-branding-in-the-age-of-ai",
     },
     {
       id: "ai",
       number: "05",
       tag: "Applied Intelligence",
-      title: "AI",
+      title: "AI & Sales Engineering",
       description:
         "How AI can improve learning, practice, feedback and decision-making without replacing human judgment.",
       image: "/topics/ai.jpg",
+      href: "/blog/ai-and-the-future-of-sales",
     },
     {
       id: "entrepreneurship",
       number: "06",
       tag: "Operating Reality",
-      title: "Entrepreneurship",
+      title: "Entrepreneurship & Scale",
       description:
         "Building systems, teams and products around a clear market problem.",
       image: "/topics/entrepreneurship.jpg",
+      href: "/blog/sales-number-one-skill-for-founders",
     },
     {
       id: "startups",
       number: "07",
       tag: "Founder-Led Growth",
-      title: "Startups & Scale",
+      title: "Startups & Deal Velocity",
       description:
         "Sales systems, founder-led growth and the transition from instinct to repeatability.",
       image: "/topics/authority-building.jpg",
+      href: "/blog/sales-number-one-skill-for-founders",
     },
     {
       id: "public-speaking",
       number: "08",
       tag: "Stage Craft",
-      title: "Leadership & Speaking",
+      title: "Public Speaking & Leverage",
       description:
-        "Communicating ideas with clarity, structure and conviction.",
+        "Communicating ideas with clarity, structure and conviction to influence multiple decision-makers.",
       image: "/topics/sales-leadership.jpg",
+      href: "/blog/public-speaking-as-business-leverage",
     },
   ],
 };

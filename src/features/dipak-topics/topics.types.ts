@@ -6,6 +6,7 @@ export interface TopicItem {
   title: string;
   description: string;
   image?: string;
+  href?: string;
 }
 
 export interface TopicsContent {
