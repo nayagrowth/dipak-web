@@ -95,10 +95,16 @@ export function getAllArticles(): Article[] {
 }
 
 export function getArticleBySlug(slug: string): Article | null {
-  const file = path.join(ARTICLES_DIR, `${slug}.md`);
+  const cleanSlug = decodeURIComponent(slug).trim().toLowerCase().replace(/[\s_]+/g, "-");
+  let file = path.join(ARTICLES_DIR, `${cleanSlug}.md`);
+  let resolvedSlug = cleanSlug;
+  if (!fs.existsSync(file)) {
+    file = path.join(ARTICLES_DIR, `${slug}.md`);
+    resolvedSlug = slug;
+  }
   if (!fs.existsSync(file)) return null;
 
-  const article = readArticleFile(`${slug}.md`);
+  const article = readArticleFile(`${resolvedSlug}.md`);
   return article && !article.draft ? article : null;
 }
 

@@ -149,7 +149,11 @@ export class FileSystemContentProvider implements ContentProvider {
   }
 
   getBlogPostBySlug(slug: string): BlogPostItem | null {
-    const filePath = path.join(BLOG_DIR, `${slug}.md`);
+    const cleanSlug = decodeURIComponent(slug).trim().toLowerCase().replace(/[\s_]+/g, "-");
+    let filePath = path.join(BLOG_DIR, `${cleanSlug}.md`);
+    if (!fs.existsSync(filePath)) {
+      filePath = path.join(BLOG_DIR, `${slug}.md`);
+    }
     if (!fs.existsSync(filePath)) return null;
 
     const parsed = parseMarkdownFile<Record<string, unknown>>(filePath);
