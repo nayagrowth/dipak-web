@@ -284,8 +284,9 @@
     transparent 92%
   );
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: 0% 100%;
   background-position: left center;
+  will-change: background-size;
 }
 
 .tm {

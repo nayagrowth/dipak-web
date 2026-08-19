@@ -61,6 +61,9 @@ export function useHomeIntroTimeline({
       const act2HeadlineLines = stage.querySelectorAll(
         "[data-story-act2-headline]"
       );
+      const act2Highlights = stage.querySelectorAll(
+        "[data-story-act2-highlight]"
+      );
       const act2StructuralRules = stage.querySelectorAll(
         "[data-story-act2-rule], [data-story-act2-rule2]"
       );
@@ -131,6 +134,9 @@ export function useHomeIntroTimeline({
 
       gsap.set(act2Index, { opacity: 0, y: -8 });
       gsap.set(act2HeadlineLines, { yPercent: 105 });
+      if (act2Highlights.length) {
+        gsap.set(act2Highlights, { backgroundSize: "0% 100%" });
+      }
       gsap.set(act2StructuralRules, {
         scaleX: 0,
         opacity: 0,
@@ -363,6 +369,18 @@ export function useHomeIntroTimeline({
             ease: "power3.out",
           },
           "ACT2_ENTER+=0.04"
+        );
+      }
+      if (act2Highlights.length) {
+        masterTl.to(
+          act2Highlights,
+          {
+            backgroundSize: "100% 100%",
+            duration: 0.42,
+            stagger: 0.12,
+            ease: "power2.out",
+          },
+          "ACT2_ENTER+=0.16"
         );
       }
       if (act2StructuralRules.length) {

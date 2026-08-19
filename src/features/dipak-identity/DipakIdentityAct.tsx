@@ -60,7 +60,7 @@ export function DipakIdentityAct({
                 className={styles.headlineLine}
                 data-story-act2-headline="true"
               >
-                <span className={styles.highlightSmudge}>
+                <span className={styles.highlightSmudge} data-story-act2-highlight="true">
                   {content.headlinePart1}
                 </span>
               </span>
@@ -70,7 +70,7 @@ export function DipakIdentityAct({
                 className={styles.headlineLine}
                 data-story-act2-headline="true"
               >
-                <span className={styles.highlightSmudge}>
+                <span className={styles.highlightSmudge} data-story-act2-highlight="true">
                   {content.headlineWord2}
                   <span className={styles.tm}>™</span>
                 </span>
