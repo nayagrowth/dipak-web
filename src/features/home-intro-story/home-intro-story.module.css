@@ -83,6 +83,11 @@
   font-weight: 600;
 }
 
+.headerActions {
+  display: flex;
+  align-items: center;
+}
+
 .activeIndicator {
   position: absolute;
   bottom: -4px;

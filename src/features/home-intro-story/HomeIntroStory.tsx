@@ -65,11 +65,20 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
                 </a>
               ))}
             </nav>
+
+            <div className={styles.headerActions}>
+              <MobileNav
+                navLinks={dipakHeroContent.navLinks}
+                ctas={dipakHeroContent.ctas}
+                brandFirstLine={dipakHeroContent.brandFirstLine}
+                brandSecondLine={dipakHeroContent.brandSecondLine}
+              />
+            </div>
           </header>
 
           {/* Act 1: Belief & Philosophy (Hero Page Surface - Physical 3D Magazine Page Roll) */}
           <div className={styles.act1Wrapper} data-story-act1-wrapper="true">
-            <DipakHero content={dipakHeroContent} />
+            <DipakHero content={dipakHeroContent} hideHeader={true} />
             {/* Dynamic Corner Peel Rim & Specular Flare */}
             <div
               className={styles.peelEdgeHighlight}

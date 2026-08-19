@@ -32,7 +32,13 @@ function CtaButton({ cta }: { cta: HeroCta }) {
   );
 }
 
-export function DipakHero({ content }: { content: HeroContent }) {
+export function DipakHero({
+  content,
+  hideHeader = false,
+}: {
+  content: HeroContent;
+  hideHeader?: boolean;
+}) {
   return (
     <section
       id="hero"
@@ -48,34 +54,36 @@ export function DipakHero({ content }: { content: HeroContent }) {
       />
 
       {/* Top Header & Navigation */}
-      <header className={styles.header} data-story-header="true">
-        <a className={styles.wordmark} href="#hero" aria-label="Dipak Vishwakarma homepage">
-          <span className={styles.wordmarkFirst}>{content.brandFirstLine}</span>
-          <span className={styles.wordmarkSecond}>{content.brandSecondLine}</span>
-        </a>
+      {!hideHeader && (
+        <header className={styles.header} data-story-header="true">
+          <a className={styles.wordmark} href="#hero" aria-label="Dipak Vishwakarma homepage">
+            <span className={styles.wordmarkFirst}>{content.brandFirstLine}</span>
+            <span className={styles.wordmarkSecond}>{content.brandSecondLine}</span>
+          </a>
 
-        <nav className={styles.desktopNav} aria-label="Primary navigation">
-          {content.navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className={`${styles.navLink} ${link.active ? styles.navLinkActive : ""}`}
-            >
-              <span>{link.label}</span>
-              {link.active ? <span className={styles.activeIndicator} aria-hidden="true" /> : null}
-            </a>
-          ))}
-        </nav>
+          <nav className={styles.desktopNav} aria-label="Primary navigation">
+            {content.navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className={`${styles.navLink} ${link.active ? styles.navLinkActive : ""}`}
+              >
+                <span>{link.label}</span>
+                {link.active ? <span className={styles.activeIndicator} aria-hidden="true" /> : null}
+              </a>
+            ))}
+          </nav>
 
-        <div className={styles.headerActions}>
-          <MobileNav
-            navLinks={content.navLinks}
-            ctas={content.ctas}
-            brandFirstLine={content.brandFirstLine}
-            brandSecondLine={content.brandSecondLine}
-          />
-        </div>
-      </header>
+          <div className={styles.headerActions}>
+            <MobileNav
+              navLinks={content.navLinks}
+              ctas={content.ctas}
+              brandFirstLine={content.brandFirstLine}
+              brandSecondLine={content.brandSecondLine}
+            />
+          </div>
+        </header>
+      )}
 
       {/* Viewport Grid */}
       <div className={styles.heroGrid}>
