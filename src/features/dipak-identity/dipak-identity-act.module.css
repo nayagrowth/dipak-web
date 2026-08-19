@@ -115,6 +115,30 @@
   opacity: 0.9;
 }
 
+/* Subtle Architectural Geometric Seal in background */
+.watermarkEmblem {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(420px, 46vw, 720px);
+  height: clamp(420px, 46vw, 720px);
+  transform: translate(-50%, -50%);
+  color: var(--dv-gold-art);
+  opacity: 0.07;
+  pointer-events: none;
+  z-index: 0;
+  animation: slowEmblemRotate 120s linear infinite;
+}
+
+@keyframes slowEmblemRotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
 /* ==========================================================================
    Container Structure
    ========================================================================== */
@@ -163,6 +187,31 @@
   gap: 0.65rem;
   margin: 0;
   white-space: nowrap;
+}
+
+.livePulseDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--dv-gold-art);
+  box-shadow: 0 0 0 0 rgba(200, 149, 69, 0.7);
+  animation: pulseGoldDot 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  display: inline-block;
+}
+
+@keyframes pulseGoldDot {
+  0% {
+    box-shadow: 0 0 0 0 rgba(200, 149, 69, 0.7);
+    transform: scale(0.95);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(200, 149, 69, 0);
+    transform: scale(1.15);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(200, 149, 69, 0);
+    transform: scale(0.95);
+  }
 }
 
 .headerHairlineTrack {

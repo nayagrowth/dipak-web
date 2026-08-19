@@ -25,6 +25,17 @@ export function DipakIdentityAct({
         <div className={styles.shadowStripLeft} data-story-act2-shadow-left="true" />
         <div className={styles.shadowStripMid} data-story-act2-shadow-mid="true" />
         <div className={styles.ambientLightWash} data-story-act2-ambient="true" />
+        {/* Subtle Architectural Seal Watermark Background */}
+        <div className={styles.watermarkEmblem} data-story-act2-emblem="true" aria-hidden="true">
+          <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="95" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
+            <circle cx="100" cy="100" r="82" stroke="currentColor" strokeWidth="0.75" />
+            <circle cx="100" cy="100" r="48" stroke="currentColor" strokeWidth="0.5" />
+            <line x1="100" y1="0" x2="100" y2="200" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 4" />
+            <line x1="0" y1="100" x2="200" y2="100" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 4" />
+            <polygon points="100,20 180,100 100,180 20,100" stroke="currentColor" strokeWidth="0.75" />
+          </svg>
+        </div>
       </div>
 
       <div className={styles.identityContainer}>
@@ -32,6 +43,7 @@ export function DipakIdentityAct({
         <header className={styles.topRow}>
           <div className={styles.sectionIndexWrapper} data-story-act2-index="true">
             <div className={styles.sectionIndex}>
+              <span className={styles.livePulseDot} aria-hidden="true" />
               <span>{content.sectionNumber}</span>
               <span aria-hidden="true">/</span>
               <span>{content.sectionTitle}</span>
