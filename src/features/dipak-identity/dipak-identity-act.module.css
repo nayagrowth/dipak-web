@@ -262,6 +262,32 @@
   will-change: transform, opacity;
 }
 
+/* Minimal organic yellow smudge highlight behind CERTAINTY BUILDER */
+.highlightSmudge {
+  position: relative;
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0.04em 0.18em 0.08em;
+  margin: 0 -0.06em;
+  border-radius: 2px 4px 3px 5px;
+  
+  /* 
+    Minimal crisp bottom-half yellow marker stripe 
+    matching documentary editorial highlight
+  */
+  background-image: linear-gradient(
+    to bottom,
+    transparent 38%,
+    rgba(255, 234, 120, 0.92) 38%,
+    rgba(255, 220, 72, 0.96) 92%,
+    transparent 92%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: left center;
+}
+
 .tm {
   font-family: var(--dv-sans);
   font-size: 0.32em;
