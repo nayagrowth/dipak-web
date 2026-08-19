@@ -13,6 +13,84 @@
   max-height: 100dvh;
   overflow: clip;
   background-color: #faf5ed;
+  perspective: 1600px;
+  perspective-origin: 50% 100%;
+  transform-style: preserve-3d;
+}
+
+/* Global Persistent Header: completely unaffected by Act transitions */
+.persistentHeader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: clamp(3.2rem, 5.5vh, 4.2rem);
+  width: 100%;
+  max-width: 110rem;
+  margin: 0 auto;
+  padding: clamp(0.8rem, 2vh, 1.8rem) clamp(1.5rem, 5vw, 6rem) 0;
+  box-sizing: border-box;
+  pointer-events: auto;
+}
+
+.wordmark {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.12rem;
+  text-decoration: none;
+  font-family: var(--font-serif), "Playfair Display", serif;
+  font-size: clamp(1.02rem, 1.2vw, 1.24rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  color: #11110f;
+}
+
+.wordmarkSecond {
+  letter-spacing: 0.19em;
+}
+
+.desktopNav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 2.5vw, 3rem);
+}
+
+.navLink {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-sans), "Plus Jakarta Sans", sans-serif;
+  font-size: clamp(0.88rem, 0.95vw, 0.98rem);
+  font-weight: 500;
+  color: #2b2925;
+  text-decoration: none;
+  padding-block: 0.3rem;
+  transition: color 150ms ease;
+}
+
+.navLink:hover {
+  color: #000000;
+}
+
+.navLinkActive {
+  color: #000000;
+  font-weight: 600;
+}
+
+.activeIndicator {
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #c89545;
+  border-radius: 2px;
 }
 
 .act1Wrapper,
@@ -26,14 +104,17 @@
   box-sizing: border-box;
 }
 
-/* Act 1: Cover surface with bottom-right corner peel */
+/* Act 1: 3D Flexible Magazine Cover Page Rolling from Bottom-Right to Upper-Left */
 .act1Wrapper {
   z-index: 10;
-  will-change: clip-path, opacity;
+  transform-origin: 30% 0%;
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
   background-color: #f4f1ea;
+  box-shadow: 0 30px 60px rgba(17, 17, 15, 0.08);
 }
 
-/* Diagonal Gold/Shadow Rim along the curled peeling edge */
+/* Dynamic Page Curl Lighting Rim */
 .peelEdgeHighlight {
   position: absolute;
   inset: 0;
@@ -41,12 +122,31 @@
   z-index: 15;
   opacity: 0;
   background: linear-gradient(
-    -45deg,
-    rgba(200, 149, 69, 0.4) 0%,
-    rgba(255, 255, 255, 0.85) 1.5%,
-    rgba(20, 18, 14, 0.25) 3.5%,
-    transparent 6%
+    -35deg,
+    rgba(255, 255, 255, 0.0) 0%,
+    rgba(200, 149, 69, 0.35) 4%,
+    rgba(255, 255, 255, 0.9) 6%,
+    rgba(20, 18, 14, 0.25) 9%,
+    transparent 14%
   );
+  mix-blend-mode: overlay;
+  will-change: opacity, transform;
+}
+
+/* Soft Volumetric Cast Shadow Beneath the Curled Edge */
+.peelCastShadow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 8;
+  opacity: 0;
+  background: radial-gradient(
+    ellipse 80% 60% at 85% 90%,
+    rgba(15, 14, 12, 0.5) 0%,
+    rgba(15, 14, 12, 0.2) 50%,
+    transparent 80%
+  );
+  mix-blend-mode: multiply;
   will-change: opacity, transform;
 }
 

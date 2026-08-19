@@ -97,6 +97,7 @@ export function useHomeIntroTimeline({
       const act4Enso = stage.querySelector("[data-story-act4-enso]");
 
       const peelEdge = stage.querySelector("[data-story-peel-edge]");
+      const peelShadow = stage.querySelector("[data-story-peel-shadow]");
 
       if (bridgeRule) {
         gsap.set(bridgeRule, {
@@ -107,13 +108,21 @@ export function useHomeIntroTimeline({
       }
 
       gsap.set(act1Wrapper, {
-        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+        transformOrigin: "20% 0%",
+        rotateX: 0,
+        rotateY: 0,
+        rotateZ: 0,
+        yPercent: 0,
+        xPercent: 0,
+        scale: 1,
+        filter: "drop-shadow(0px 0px 0px rgba(0,0,0,0))",
         opacity: 1,
         visibility: "visible",
       });
       if (peelEdge) gsap.set(peelEdge, { opacity: 0 });
+      if (peelShadow) gsap.set(peelShadow, { opacity: 0 });
 
-      // Act 2 is already present underneath
+      // Act 2 is already stationed in full clarity directly beneath
       gsap.set(act2Wrapper, {
         visibility: "visible",
         opacity: 1,
@@ -195,45 +204,48 @@ export function useHomeIntroTimeline({
       });
 
       // -----------------------------------------------------------------------
-      // BEAT 1: BOTTOM-RIGHT CORNER MAGAZINE PEEL REVEAL (0.0 -> 0.5)
-      // The hero cover peels upward and to the left from the bottom-right corner,
-      // revealing Act 2 already situated in full focus beneath.
+      // BEAT 1: PHYSICAL 3D MAGAZINE PAGE ROLL (BOTTOM-UP & SLIGHTLY LEFT)
+      // The hero cover page rolls upwards with authentic 3D curvature, revealing
+      // Act 2 already situated in full focus beneath.
       // -----------------------------------------------------------------------
-      masterTl.addLabel("CORNER_PEEL", 0.0);
+      masterTl.addLabel("PAGE_ROLL", 0.0);
 
-      // 1. Polygon Clip-Path Peeling from Bottom-Right (100% 100%) to Top-Left (-20% -20%)
+      // 1. 3D Page Curl Motion: lifts from bottom-right, rolls upward and slightly left
       if (act1Wrapper) {
-        masterTl.fromTo(
+        masterTl.to(
           act1Wrapper,
           {
-            clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-          },
-          {
-            clipPath: "polygon(0% 0%, 100% 0%, 0% 0%, 0% 100%)",
+            rotateX: 42,
+            rotateY: -28,
+            rotateZ: 6,
+            yPercent: -105,
+            xPercent: -8,
+            scale: 0.94,
+            filter: "drop-shadow(-20px -30px 45px rgba(25, 20, 15, 0.35))",
             duration: 0.48,
             ease: "power2.inOut",
           },
-          "CORNER_PEEL"
+          "PAGE_ROLL"
         );
         masterTl.to(
           act1Wrapper,
           {
             opacity: 0,
-            duration: 0.1,
+            duration: 0.12,
             ease: "power1.in",
           },
-          "CORNER_PEEL+=0.38"
+          "PAGE_ROLL+=0.36"
         );
         masterTl.set(
           act1Wrapper,
           {
             visibility: "hidden",
           },
-          "CORNER_PEEL+=0.48"
+          "PAGE_ROLL+=0.48"
         );
       }
 
-      // 2. Diagonal Peel Edge Rim Highlight & Drop Reflection
+      // 2. Dynamic Corner Peel Rim Highlight & Reflection
       if (peelEdge) {
         masterTl.fromTo(
           peelEdge,
@@ -241,11 +253,11 @@ export function useHomeIntroTimeline({
             opacity: 0,
           },
           {
-            opacity: 1,
-            duration: 0.15,
+            opacity: 0.9,
+            duration: 0.2,
             ease: "power1.out",
           },
-          "CORNER_PEEL"
+          "PAGE_ROLL"
         );
         masterTl.to(
           peelEdge,
@@ -254,7 +266,34 @@ export function useHomeIntroTimeline({
             duration: 0.2,
             ease: "power1.in",
           },
-          "CORNER_PEEL+=0.28"
+          "PAGE_ROLL+=0.28"
+        );
+      }
+
+      // 3. Volumetric Cast Shadow Beneath the Curled Page
+      if (peelShadow) {
+        masterTl.fromTo(
+          peelShadow,
+          {
+            opacity: 0,
+            scale: 0.6,
+          },
+          {
+            opacity: 0.75,
+            scale: 1,
+            duration: 0.25,
+            ease: "power2.out",
+          },
+          "PAGE_ROLL"
+        );
+        masterTl.to(
+          peelShadow,
+          {
+            opacity: 0,
+            duration: 0.2,
+            ease: "power1.in",
+          },
+          "PAGE_ROLL+=0.28"
         );
       }
 

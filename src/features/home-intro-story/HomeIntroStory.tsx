@@ -46,13 +46,40 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
 
 
 
-          {/* Act 1: Belief & Philosophy (Hero Cover) */}
+          {/* Global Sticky Brand Header (Untouched during all Act transitions) */}
+          <header className={styles.persistentHeader} data-story-header="true">
+            <a className={styles.wordmark} href="#hero" aria-label="Dipak Vishwakarma homepage">
+              <span className={styles.wordmarkFirst}>{dipakHeroContent.brandFirstLine}</span>
+              <span className={styles.wordmarkSecond}>{dipakHeroContent.brandSecondLine}</span>
+            </a>
+
+            <nav className={styles.desktopNav} aria-label="Primary navigation">
+              {dipakHeroContent.navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className={`${styles.navLink} ${link.active ? styles.navLinkActive : ""}`}
+                >
+                  <span>{link.label}</span>
+                  {link.active ? <span className={styles.activeIndicator} aria-hidden="true" /> : null}
+                </a>
+              ))}
+            </nav>
+          </header>
+
+          {/* Act 1: Belief & Philosophy (Hero Page Surface - Physical 3D Magazine Page Roll) */}
           <div className={styles.act1Wrapper} data-story-act1-wrapper="true">
             <DipakHero content={dipakHeroContent} />
-            {/* Dynamic Corner Peel Edge Rim Highlight */}
+            {/* Dynamic Corner Peel Rim & Specular Flare */}
             <div
               className={styles.peelEdgeHighlight}
               data-story-peel-edge="true"
+              aria-hidden="true"
+            />
+            {/* Cast Shadow beneath the curling bottom edge */}
+            <div
+              className={styles.peelCastShadow}
+              data-story-peel-shadow="true"
               aria-hidden="true"
             />
           </div>
