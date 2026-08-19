@@ -1,0 +1,139 @@
+.preloaderSurface {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: #f4f1ea;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 650ms cubic-bezier(0.16, 1, 0.3, 1), visibility 650ms ease;
+  pointer-events: all;
+}
+
+.preloaderSurface.dismissed {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.brandCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.monogramRing {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ringSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: #c89545;
+  animation: rotateRing 8s linear infinite;
+}
+
+@keyframes rotateRing {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.monogramText {
+  font-family: var(--font-serif, "Playfair Display", serif);
+  font-size: 1.55rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #11110f;
+  animation: pulseMonogram 2s ease-in-out infinite alternate;
+}
+
+@keyframes pulseMonogram {
+  0% {
+    opacity: 0.65;
+    transform: scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1.02);
+  }
+}
+
+.brandWordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  text-align: center;
+}
+
+.brandName {
+  font-family: var(--font-serif, "Playfair Display", serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  color: #11110f;
+  text-transform: uppercase;
+}
+
+.brandKicker {
+  font-family: var(--font-sans, "Plus Jakarta Sans", sans-serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: #8f621f;
+  text-transform: uppercase;
+}
+
+.progressBarContainer {
+  margin-top: 1.8rem;
+  width: 140px;
+  height: 2px;
+  background-color: rgba(200, 149, 69, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressBarFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #c89545, #dfb772);
+  transform-origin: left center;
+  animation: fillProgress 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fillProgress {
+  0% {
+    transform: scaleX(0.05);
+  }
+  60% {
+    transform: scaleX(0.75);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloaderSurface {
+    display: none !important;
+  }
+}

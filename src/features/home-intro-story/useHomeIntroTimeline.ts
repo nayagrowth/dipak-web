@@ -188,28 +188,28 @@ export function useHomeIntroTimeline({
         gsap.set(act4Enso, { opacity: 0, rotate: -25, scale: 0.85 });
       }
 
-      // MASTER TIMELINE: Single-Intent Guided Flow (1 Arrow / 1 Swipe smoothly completes full page flip and highlight)
+      // MASTER TIMELINE: Leisurely 1.2s Paced Editorial Flow with Strict Act Checkpoint Stops
       const masterTl = gsap.timeline({
         scrollTrigger: {
           trigger: shell,
           start: "top top",
           end: "bottom bottom",
-          scrub: 0.2, // Clean kinetic follow-through
+          scrub: 0.35, // Smooth, cinematic physical inertia
           pin: stage,
           anticipatePin: 1,
           fastScrollEnd: true,
           invalidateOnRefresh: true,
           snap: {
-            snapTo: [0, 0.28, 0.62, 1.0], // Hero, Act 2 (Complete page flip + highlight), Act 3, Act 4
-            duration: { min: 0.45, max: 0.75 },
-            delay: 0.02,
+            snapTo: [0, 0.30, 0.65, 1.0], // Hero (0), Act 2 Checkpoint (0.30), Act 3 (0.65), Act 4 (1.0)
+            duration: { min: 0.8, max: 1.2 }, // Paced 1.2s graceful glide
+            delay: 0.05,
             ease: "power2.out",
             directional: true,
           },
         },
       });
 
-      // Keyboard Down Arrow / PageDown one-hit smooth trigger
+      // Keyboard Down Arrow / PageDown: 1 Click = Stately 1.2s transition to Act 2 and STRICTLY STOPS
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === "ArrowDown" || e.key === "PageDown" || e.key === " ") {
           const scrollY = window.scrollY;
@@ -217,10 +217,16 @@ export function useHomeIntroTimeline({
           const shellHeight = shell.offsetHeight - window.innerHeight;
           const progress = (scrollY - shellTop) / shellHeight;
 
-          // If at Hero (progress < 0.1), smoothly scroll to Act 2 snap point (0.28)
-          if (progress >= 0 && progress < 0.12) {
+          // Checkpoint 1: From Hero (progress < 0.15), glide smoothly to Act 2 (0.30) and STOP
+          if (progress >= 0 && progress < 0.15) {
             e.preventDefault();
-            const targetY = shellTop + shellHeight * 0.28;
+            const targetY = shellTop + shellHeight * 0.30;
+            window.scrollTo({ top: targetY, behavior: "smooth" });
+          }
+          // Checkpoint 2: From Act 2 (progress between 0.25 and 0.45), advance to Act 3 (0.65)
+          else if (progress >= 0.25 && progress < 0.45) {
+            e.preventDefault();
+            const targetY = shellTop + shellHeight * 0.65;
             window.scrollTo({ top: targetY, behavior: "smooth" });
           }
         }
@@ -477,14 +483,14 @@ export function useHomeIntroTimeline({
         );
       }
 
-      // ACT 2 CRISP HOLD
+      // ACT 2 SOLID READING HOLD (Prevents premature trigger into Act 3)
       masterTl.addLabel("ACT2_HOLD", 0.6);
-      masterTl.to({}, { duration: 0.6 }, "ACT2_HOLD");
+      masterTl.to({}, { duration: 1.0 }, "ACT2_HOLD");
 
       // -----------------------------------------------------------------------
-      // BEAT 3: ACT 2 ➔ ACT 3 (PRESENCE / ENVELOPE REDESIGN) (1.2 -> 2.2)
+      // BEAT 3: ACT 2 ➔ ACT 3 (PRESENCE / ENVELOPE REDESIGN) (1.8 -> 2.8)
       // -----------------------------------------------------------------------
-      masterTl.addLabel("ACT2_TO_ACT3", 1.2);
+      masterTl.addLabel("ACT2_TO_ACT3", 1.8);
 
       if (act2Sunlight) {
         masterTl.to(

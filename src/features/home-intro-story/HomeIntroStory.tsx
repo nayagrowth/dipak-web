@@ -8,6 +8,7 @@ import { DipakMissionAct, missionContent } from "@/features/dipak-mission";
 import { DipakTopicsAct, topicsContent } from "@/features/dipak-topics";
 import { DipakThinkingAct, thinkingContent } from "@/features/dipak-thinking";
 import { DipakBridgeAct, bridgeContent } from "@/features/dipak-bridge";
+import { EditorialPreloader } from "@/features/site-chrome";
 import type { FeaturedArticle } from "@/features/dipak-thinking/thinking.types";
 import { useHomeIntroTimeline } from "./useHomeIntroTimeline";
 import styles from "./home-intro-story.module.css";
@@ -30,6 +31,9 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
 
   return (
     <div className={styles.masterStoryWrapper}>
+      {/* Editorial Preloader: Holds until fonts & hero images are decoded */}
+      <EditorialPreloader />
+
       {/* Pinned Cinematic Story Stage: Act 1 (Hero) -> Act 2 (Identity) -> Act 3 (Presence) -> Act 4 (Mission) */}
       <div ref={shellRef} className={styles.storyShell}>
         <div ref={stageRef} className={styles.storyStage}>

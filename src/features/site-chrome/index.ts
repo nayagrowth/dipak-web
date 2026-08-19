@@ -1,5 +1,6 @@
 export { SiteHeader } from "./SiteHeader";
 export { SiteFooter } from "./SiteFooter";
+export { EditorialPreloader } from "./EditorialPreloader";
 export {
   siteBrand,
   primaryNav,
