@@ -274,14 +274,14 @@
   
   /* 
     Minimal crisp bottom-half yellow marker stripe 
-    matching documentary editorial highlight
+    matching documentary editorial highlight (lowered to bottom ~45-50% baseline)
   */
   background-image: linear-gradient(
     to bottom,
-    transparent 38%,
-    rgba(255, 234, 120, 0.92) 38%,
-    rgba(255, 220, 72, 0.96) 92%,
-    transparent 92%
+    transparent 52%,
+    rgba(255, 234, 120, 0.92) 52%,
+    rgba(255, 220, 72, 0.96) 94%,
+    transparent 94%
   );
   background-repeat: no-repeat;
   background-size: 0% 100%;

@@ -188,17 +188,23 @@ export function useHomeIntroTimeline({
         gsap.set(act4Enso, { opacity: 0, rotate: -25, scale: 0.85 });
       }
 
-      // MASTER TIMELINE: Ultra-Snappy & Kinetic (0.15s scrub, instant feedback on pixel 1)
+      // MASTER TIMELINE: Smooth Magnetic Flip & Momentum Glide (small swipe completes full turn and highlight)
       const masterTl = gsap.timeline({
         scrollTrigger: {
           trigger: shell,
           start: "top top",
           end: "bottom bottom",
-          scrub: 0.15,
+          scrub: 0.35, // Smooth gliding interpolation
           pin: stage,
           anticipatePin: 1,
           fastScrollEnd: true,
           invalidateOnRefresh: true,
+          snap: {
+            snapTo: [0, 0.28, 0.62, 1.0], // Snaps cleanly to: Hero, Act 2 (Full Page Flip + Highlight complete), Act 3, Act 4
+            duration: { min: 0.35, max: 0.65 },
+            delay: 0.05,
+            ease: "power2.out",
+          },
         },
       });
 
