@@ -45,13 +45,35 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
 
           {/* Act 1: Belief & Philosophy (Hero - Luxury Magazine Cover) */}
           <div className={styles.act1Wrapper} data-story-act1-wrapper="true">
+            {/* Front of cover: Lighting & Sheen layers */}
             <div className={styles.act1PageShadow} data-story-page-shadow="true" aria-hidden="true" />
             <div className={styles.act1PageSheen} data-story-page-sheen="true" aria-hidden="true" />
-            <DipakHero content={dipakHeroContent} />
+            
+            {/* Front content */}
+            <div className={styles.act1FrontContent}>
+              <DipakHero content={dipakHeroContent} />
+            </div>
+
+            {/* Reverse Under-Sheet: Realistic matte paper back with gold monogram seal */}
+            <div className={styles.act1PageBack} data-story-page-back="true" aria-hidden="true">
+              <div className={styles.pageBackTexture} />
+              <div className={styles.pageBackSeal}>
+                <div className={styles.monogramOuter}>
+                  <svg viewBox="0 0 120 120" className={styles.sealSvg}>
+                    <circle cx="60" cy="60" r="54" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" />
+                    <circle cx="60" cy="60" r="46" stroke="currentColor" strokeWidth="0.5" />
+                  </svg>
+                  <span className={styles.sealText}>DV</span>
+                </div>
+                <span className={styles.sealKicker}>AUTHORITY CLOSERS · ACT 01 / FOLIO</span>
+              </div>
+            </div>
           </div>
 
           {/* Act 2: The Person & Credentials (Identity) */}
           <div className={styles.act2Wrapper} data-story-act2-wrapper="true">
+            {/* Dynamic cast shadow from the turning Act 1 cover */}
+            <div className={styles.act2CastShadow} data-story-act2-castshadow="true" aria-hidden="true" />
             <DipakIdentityAct content={identityContent} />
           </div>
 

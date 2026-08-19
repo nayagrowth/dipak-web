@@ -53,7 +53,9 @@ export function useHomeIntroTimeline({
       const act1Wrapper = stage.querySelector("[data-story-act1-wrapper]");
       const act1PageShadow = stage.querySelector("[data-story-page-shadow]");
       const act1PageSheen = stage.querySelector("[data-story-page-sheen]");
+      const act1PageBack = stage.querySelector("[data-story-page-back]");
       const act2Wrapper = stage.querySelector("[data-story-act2-wrapper]");
+      const act2CastShadow = stage.querySelector("[data-story-act2-castshadow]");
       const act3Wrapper = stage.querySelector("[data-story-act3-wrapper]");
       const act4Wrapper = stage.querySelector("[data-story-act4-wrapper]");
 
@@ -202,8 +204,8 @@ export function useHomeIntroTimeline({
       });
 
       // -----------------------------------------------------------------------
-      // BEAT 1: 3D LUXURY MAGAZINE PAGE FLIP & CURL (0.0 -> 0.45)
-      // Act 1 turns on its spine like a thick editorial cover, revealing Act 2
+      // BEAT 1: 3D LUXURY MAGAZINE PAGE FLIP & ASYMMETRICAL CORNER PEEL (0.0 -> 0.45)
+      // Act 1 lifts from the bottom-right corner, revealing the reverse matte under-sheet
       // -----------------------------------------------------------------------
       masterTl.addLabel("PAGE_FLIP", 0.0);
 
@@ -223,7 +225,7 @@ export function useHomeIntroTimeline({
         masterTl.to(
           act1PageSheen,
           {
-            opacity: 0.9,
+            opacity: 0.95,
             duration: 0.2,
             ease: "power1.inOut",
           },
@@ -231,17 +233,33 @@ export function useHomeIntroTimeline({
         );
       }
 
-      // 2. Pure 3D Page Turn: Rotate along left spine with curl & perspective translation
+      // 2. Cast shadow from the turning cover onto Act 2
+      if (act2CastShadow) {
+        masterTl.fromTo(
+          act2CastShadow,
+          { opacity: 0.65, xPercent: 0 },
+          {
+            opacity: 0,
+            xPercent: -35,
+            duration: 0.38,
+            ease: "power2.out",
+          },
+          "PAGE_FLIP+=0.06"
+        );
+      }
+
+      // 3. Asymmetrical 3D Page Turn: Rotate along left spine with curl & perspective translation
       if (act1Wrapper) {
         masterTl.to(
           act1Wrapper,
           {
-            rotateY: -74,
-            rotateZ: -4,
-            xPercent: -18,
-            scale: 0.93,
-            boxShadow: "-30px 20px 60px rgba(17, 17, 15, 0.45)",
-            duration: 0.38,
+            rotateY: -115,
+            rotateX: 4,
+            rotateZ: -5,
+            xPercent: -22,
+            scale: 0.92,
+            boxShadow: "-35px 25px 70px rgba(17, 17, 15, 0.5)",
+            duration: 0.42,
             ease: "power2.inOut",
           },
           "PAGE_FLIP"
@@ -250,22 +268,22 @@ export function useHomeIntroTimeline({
           act1Wrapper,
           {
             opacity: 0,
-            duration: 0.12,
+            duration: 0.08,
             ease: "power1.in",
           },
-          "PAGE_FLIP+=0.28"
+          "PAGE_FLIP+=0.38"
         );
         masterTl.set(
           act1Wrapper,
           {
             visibility: "hidden",
           },
-          "PAGE_FLIP+=0.42"
+          "PAGE_FLIP+=0.46"
         );
       }
 
-      // 3. Act 2 Emerges from Depth underneath the turning page
-      masterTl.addLabel("ACT2_ENTER", 0.16);
+      // 4. Act 2 Emerges from Depth underneath the turning page
+      masterTl.addLabel("ACT2_ENTER", 0.14);
       masterTl.set(
         act2Wrapper,
         {
@@ -275,12 +293,13 @@ export function useHomeIntroTimeline({
         "ACT2_ENTER"
       );
 
-      masterTl.to(
+      masterTl.fromTo(
         act2Wrapper,
+        { scale: 0.95, filter: "blur(3px)" },
         {
           scale: 1,
           filter: "blur(0px)",
-          duration: 0.35,
+          duration: 0.38,
           ease: "power2.out",
         },
         "ACT2_ENTER"
