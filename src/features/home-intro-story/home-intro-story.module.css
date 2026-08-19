@@ -13,9 +13,6 @@
   max-height: 100dvh;
   overflow: clip;
   background-color: #faf5ed;
-  perspective: 1800px;
-  perspective-origin: center center;
-  transform-style: preserve-3d;
 }
 
 .act1Wrapper,
@@ -29,59 +26,42 @@
   box-sizing: border-box;
 }
 
-/* Act 1: 3D Magazine Cover Leaf */
+/* Act 1: Cover surface with bottom-right corner peel */
 .act1Wrapper {
-  z-index: 20;
-  transform-origin: left 35%;
-  transform-style: preserve-3d;
-  will-change: transform, opacity, filter;
-  backface-visibility: hidden;
+  z-index: 10;
+  will-change: clip-path, opacity;
+  background-color: #f4f1ea;
 }
 
-/* Specular Light Sheen traveling across curling paper */
-.pageSheenOverlay {
+/* Diagonal Gold/Shadow Rim along the curled peeling edge */
+.peelEdgeHighlight {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  z-index: 30;
-  background: linear-gradient(
-    105deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.0) 25%,
-    rgba(255, 255, 255, 0.45) 45%,
-    rgba(255, 245, 220, 0.75) 50%,
-    rgba(255, 255, 255, 0.45) 55%,
-    rgba(255, 255, 255, 0.0) 75%,
-    transparent 100%
-  );
+  z-index: 15;
   opacity: 0;
-  mix-blend-mode: overlay;
-  will-change: transform, opacity;
-}
-
-/* Deep Crease & Spine Shadow beneath the curling page */
-.spineShadowOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 160px;
-  pointer-events: none;
-  z-index: 25;
   background: linear-gradient(
-    90deg,
-    rgba(20, 18, 14, 0.4) 0%,
-    rgba(20, 18, 14, 0.15) 40%,
-    transparent 100%
+    -45deg,
+    rgba(200, 149, 69, 0.4) 0%,
+    rgba(255, 255, 255, 0.85) 1.5%,
+    rgba(20, 18, 14, 0.25) 3.5%,
+    transparent 6%
   );
-  opacity: 0;
-  mix-blend-mode: multiply;
   will-change: opacity, transform;
 }
 
 .act2Wrapper {
-  z-index: 3;
-  will-change: transform, opacity;
+  z-index: 5;
+  background-color: #f6f2ea;
+  will-change: opacity, transform;
+}
+
+.act3Wrapper {
+  z-index: 6;
+}
+
+.act4Wrapper {
+  z-index: 7;
 }
 
 .act3Wrapper {

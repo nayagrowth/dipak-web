@@ -108,8 +108,7 @@ export function useHomeIntroTimeline({
       const act4Tenets = stage.querySelector("[data-story-act4-tenets]");
       const act4Enso = stage.querySelector("[data-story-act4-enso]");
 
-      const act1PageSheen = stage.querySelector("[data-story-page-sheen]");
-      const spineShadow = stage.querySelector("[data-story-spine-shadow]");
+      const peelEdge = stage.querySelector("[data-story-peel-edge]");
 
       if (bridgeRule) {
         gsap.set(bridgeRule, {
@@ -120,44 +119,37 @@ export function useHomeIntroTimeline({
       }
 
       gsap.set(act1Wrapper, {
-        transformOrigin: "left 35%",
-        rotateY: 0,
-        rotateZ: 0,
-        xPercent: 0,
-        yPercent: 0,
-        scale: 1,
-        filter: "drop-shadow(0px 0px 0px rgba(0,0,0,0))",
+        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
         opacity: 1,
         visibility: "visible",
       });
-      if (act1PageSheen) gsap.set(act1PageSheen, { opacity: 0, xPercent: -100 });
-      if (spineShadow) gsap.set(spineShadow, { opacity: 0, scaleX: 0.2 });
+      if (peelEdge) gsap.set(peelEdge, { opacity: 0 });
 
+      // Act 2 is already present underneath
       gsap.set(act2Wrapper, {
-        visibility: "hidden",
-        opacity: 0,
-        scale: 0.96,
-        transformOrigin: "center center",
+        visibility: "visible",
+        opacity: 1,
+        scale: 1,
       });
       gsap.set(act3Wrapper, { visibility: "hidden", opacity: 0 });
       gsap.set(act4Wrapper, { visibility: "hidden", opacity: 0 });
 
-      if (act2Sunlight) gsap.set(act2Sunlight, { opacity: 0, x: -30 });
-      if (act2ShadowLeft) gsap.set(act2ShadowLeft, { opacity: 0, x: -20 });
-      if (act2ShadowMid) gsap.set(act2ShadowMid, { opacity: 0, x: -15 });
-      if (act2Ambient) gsap.set(act2Ambient, { opacity: 0 });
-      if (act23DHeadline) gsap.set(act23DHeadline, { perspective: 1000, rotateY: -3, rotateX: 2 });
+      if (act2Sunlight) gsap.set(act2Sunlight, { opacity: 0.35, x: 0 });
+      if (act2ShadowLeft) gsap.set(act2ShadowLeft, { opacity: 0.25, x: 0 });
+      if (act2ShadowMid) gsap.set(act2ShadowMid, { opacity: 0.2, x: 0 });
+      if (act2Ambient) gsap.set(act2Ambient, { opacity: 0.2 });
+      if (act23DHeadline) gsap.set(act23DHeadline, { perspective: 1000, rotateY: 0, rotateX: 0 });
 
-      gsap.set(act2Index, { opacity: 0, y: -8 });
-      gsap.set(act2HeadlineLines, { yPercent: 105 });
+      gsap.set(act2Index, { opacity: 1, y: 0 });
+      gsap.set(act2HeadlineLines, { yPercent: 0 });
       gsap.set(act2StructuralRules, {
-        scaleX: 0,
-        opacity: 0,
+        scaleX: 1,
+        opacity: 0.85,
         transformOrigin: "left center",
       });
-      gsap.set(act2Role, { opacity: 0, y: 10 });
-      gsap.set(act2Bio, { opacity: 0, y: 12 });
-      gsap.set(act2Stats, { opacity: 0, y: 14 });
+      gsap.set(act2Role, { opacity: 1, y: 0 });
+      gsap.set(act2Bio, { opacity: 1, y: 0 });
+      gsap.set(act2Stats, { opacity: 1, y: 0 });
 
       gsap.set(act3Ticket, {
         opacity: 0,
@@ -215,154 +207,74 @@ export function useHomeIntroTimeline({
       });
 
       // -----------------------------------------------------------------------
-      // BEAT 1: PHYSICAL 3D MAGAZINE PAGE ROLL & CURL (0.0 -> 0.48)
+      // BEAT 1: BOTTOM-RIGHT CORNER MAGAZINE PEEL REVEAL (0.0 -> 0.5)
+      // The hero cover peels upward and to the left from the bottom-right corner,
+      // revealing Act 2 already situated in full focus beneath.
       // -----------------------------------------------------------------------
-      masterTl.addLabel("MAGAZINE_ROLL", 0.0);
+      masterTl.addLabel("CORNER_PEEL", 0.0);
 
-      // 1. Act 1 Leaf peels from right to left, curling backward in 3D perspective
+      // 1. Polygon Clip-Path Peeling from Bottom-Right (100% 100%) to Top-Left (-20% -20%)
       if (act1Wrapper) {
-        masterTl.to(
+        masterTl.fromTo(
           act1Wrapper,
           {
-            rotateY: -72,
-            rotateZ: -4.5,
-            xPercent: -28,
-            yPercent: -4,
-            scale: 0.93,
-            filter: "drop-shadow(-35px 25px 50px rgba(25, 20, 15, 0.45))",
+            clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          },
+          {
+            clipPath: "polygon(0% 0%, 100% 0%, 0% 0%, 0% 100%)",
             duration: 0.48,
             ease: "power2.inOut",
           },
-          "MAGAZINE_ROLL"
+          "CORNER_PEEL"
         );
         masterTl.to(
           act1Wrapper,
           {
             opacity: 0,
-            duration: 0.16,
+            duration: 0.1,
             ease: "power1.in",
           },
-          "MAGAZINE_ROLL+=0.32"
+          "CORNER_PEEL+=0.38"
         );
         masterTl.set(
           act1Wrapper,
           {
             visibility: "hidden",
           },
-          "MAGAZINE_ROLL+=0.48"
+          "CORNER_PEEL+=0.48"
         );
       }
 
-      // 2. Specular sheen travels across bending paper
-      if (act1PageSheen) {
-        masterTl.to(
-          act1PageSheen,
+      // 2. Diagonal Peel Edge Rim Highlight & Drop Reflection
+      if (peelEdge) {
+        masterTl.fromTo(
+          peelEdge,
           {
-            opacity: 0.9,
-            xPercent: 120,
-            duration: 0.44,
-            ease: "power1.inOut",
+            opacity: 0,
           },
-          "MAGAZINE_ROLL"
-        );
-      }
-
-      // 3. Spine crease shadow darkens along the left hinge
-      if (spineShadow) {
-        masterTl.to(
-          spineShadow,
           {
-            opacity: 0.85,
-            scaleX: 1,
-            duration: 0.28,
-            ease: "power2.out",
+            opacity: 1,
+            duration: 0.15,
+            ease: "power1.out",
           },
-          "MAGAZINE_ROLL"
+          "CORNER_PEEL"
         );
         masterTl.to(
-          spineShadow,
+          peelEdge,
           {
             opacity: 0,
             duration: 0.2,
-            ease: "power2.in",
+            ease: "power1.in",
           },
-          "MAGAZINE_ROLL+=0.28"
-        );
-      }
-
-      // Hero Internal Elements glide out softly into the fold
-      if (heroGoldRule) {
-        masterTl.to(
-          heroGoldRule,
-          {
-            scaleX: 0.6,
-            opacity: 0,
-            duration: 0.22,
-            ease: "power2.in",
-          },
-          "MAGAZINE_ROLL"
-        );
-      }
-      if (heroHeadlineLines.length) {
-        masterTl.to(
-          heroHeadlineLines,
-          {
-            xPercent: -15,
-            opacity: 0.4,
-            duration: 0.32,
-            stagger: 0.02,
-            ease: "power2.inOut",
-          },
-          "MAGAZINE_ROLL"
-        );
-      }
-      if (heroCopy) {
-        masterTl.to(
-          heroCopy,
-          {
-            xPercent: -10,
-            opacity: 0.3,
-            duration: 0.25,
-            ease: "power2.in",
-          },
-          "MAGAZINE_ROLL+=0.04"
-        );
-      }
-      if (heroPortraitRoot) {
-        masterTl.to(
-          heroPortraitRoot,
-          {
-            xPercent: -8,
-            opacity: 0.4,
-            duration: 0.35,
-            ease: "power2.in",
-          },
-          "MAGAZINE_ROLL+=0.02"
+          "CORNER_PEEL+=0.28"
         );
       }
 
       // -----------------------------------------------------------------------
-      // BEAT 2: ACT 2 (CERTAINTY BUILDER) REVEAL (0.18 -> 1.0)
-      // Emerges smoothly from depth as the magazine cover peels back
+      // BEAT 2: ACT 2 HOLD (0.48 -> 1.2)
+      // Act 2 is already there, fully visible as soon as the cover peels off.
       // -----------------------------------------------------------------------
-      masterTl.addLabel("ACT2_ENTER", 0.18);
-      masterTl.set(
-        act2Wrapper,
-        {
-          visibility: "visible",
-        },
-        "ACT2_ENTER"
-      );
-      masterTl.to(
-        act2Wrapper,
-        {
-          opacity: 1,
-          scale: 1,
-          duration: 0.42,
-          ease: "power2.out",
-        },
-        "ACT2_ENTER"
-      );
+      masterTl.addLabel("ACT2_ENTER", 0.48);
 
       if (act2Sunlight) {
         masterTl.to(

@@ -46,25 +46,18 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
 
 
 
-          {/* Act 1: Belief & Philosophy (Hero - 3D Magazine Cover) */}
+          {/* Act 1: Belief & Philosophy (Hero Cover) */}
           <div className={styles.act1Wrapper} data-story-act1-wrapper="true">
             <DipakHero content={dipakHeroContent} />
-            {/* Dynamic Specular Light Sheen across Curling Paper */}
+            {/* Dynamic Corner Peel Edge Rim Highlight */}
             <div
-              className={styles.pageSheenOverlay}
-              data-story-page-sheen="true"
+              className={styles.peelEdgeHighlight}
+              data-story-peel-edge="true"
               aria-hidden="true"
             />
           </div>
 
-          {/* Spine Crease & Cast Shadow Beneath Cover */}
-          <div
-            className={styles.spineShadowOverlay}
-            data-story-spine-shadow="true"
-            aria-hidden="true"
-          />
-
-          {/* Act 2: The Person & Credentials (Identity) */}
+          {/* Act 2: The Person & Credentials (Identity - stationed directly beneath) */}
           <div className={styles.act2Wrapper} data-story-act2-wrapper="true">
             <DipakIdentityAct content={identityContent} />
           </div>
