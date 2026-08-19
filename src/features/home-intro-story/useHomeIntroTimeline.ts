@@ -188,50 +188,19 @@ export function useHomeIntroTimeline({
         gsap.set(act4Enso, { opacity: 0, rotate: -25, scale: 0.85 });
       }
 
-      // MASTER TIMELINE: Leisurely 1.2s Paced Editorial Flow with Strict Act Checkpoint Stops
+      // MASTER TIMELINE: Pure Kinetic Direct-Scroll Scrub (Butter-smooth, 1:1 scroll responsiveness)
       const masterTl = gsap.timeline({
         scrollTrigger: {
           trigger: shell,
           start: "top top",
           end: "bottom bottom",
-          scrub: 0.35, // Smooth, cinematic physical inertia
+          scrub: 0.15, // Direct, instantaneous 1:1 physical scroll response
           pin: stage,
           anticipatePin: 1,
           fastScrollEnd: true,
           invalidateOnRefresh: true,
-          snap: {
-            snapTo: [0, 0.30, 0.65, 1.0], // Hero (0), Act 2 Checkpoint (0.30), Act 3 (0.65), Act 4 (1.0)
-            duration: { min: 0.8, max: 1.2 }, // Paced 1.2s graceful glide
-            delay: 0.05,
-            ease: "power2.out",
-            directional: true,
-          },
         },
       });
-
-      // Keyboard Down Arrow / PageDown: 1 Click = Stately 1.2s transition to Act 2 and STRICTLY STOPS
-      const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === "ArrowDown" || e.key === "PageDown" || e.key === " ") {
-          const scrollY = window.scrollY;
-          const shellTop = shell.offsetTop;
-          const shellHeight = shell.offsetHeight - window.innerHeight;
-          const progress = (scrollY - shellTop) / shellHeight;
-
-          // Checkpoint 1: From Hero (progress < 0.15), glide smoothly to Act 2 (0.30) and STOP
-          if (progress >= 0 && progress < 0.15) {
-            e.preventDefault();
-            const targetY = shellTop + shellHeight * 0.30;
-            window.scrollTo({ top: targetY, behavior: "smooth" });
-          }
-          // Checkpoint 2: From Act 2 (progress between 0.25 and 0.45), advance to Act 3 (0.65)
-          else if (progress >= 0.25 && progress < 0.45) {
-            e.preventDefault();
-            const targetY = shellTop + shellHeight * 0.65;
-            window.scrollTo({ top: targetY, behavior: "smooth" });
-          }
-        }
-      };
-      window.addEventListener("keydown", handleKeyDown, { passive: false });
 
       // -----------------------------------------------------------------------
       // BEAT 1: 3D LUXURY MAGAZINE PAGE FLIP & ASYMMETRICAL CORNER PEEL (0.0 -> 0.45)
