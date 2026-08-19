@@ -19,9 +19,11 @@ export function SitePreloader({ onComplete }: SitePreloaderProps) {
     ).matches;
 
     if (prefersReducedMotion) {
-      setIsComplete(true);
-      onComplete?.();
-      return;
+      const timer = setTimeout(() => {
+        setIsComplete(true);
+        onComplete?.();
+      }, 0);
+      return () => clearTimeout(timer);
     }
 
     // Lock scroll during luxury preloader sequence

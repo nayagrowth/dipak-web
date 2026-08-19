@@ -55,18 +55,6 @@ export function useHomeIntroTimeline({
       const act3Wrapper = stage.querySelector("[data-story-act3-wrapper]");
       const act4Wrapper = stage.querySelector("[data-story-act4-wrapper]");
 
-      const heroHeader = stage.querySelector("[data-story-header]");
-      const heroGoldRule = stage.querySelector("[data-story-gold-rule]");
-      const heroHeadlineLines = stage.querySelectorAll(
-        "[data-story-headline-line]"
-      );
-      const heroCopy = stage.querySelector("[data-story-copy]");
-      const heroCtaRow = stage.querySelector("[data-story-cta-row]");
-      const heroQuote = stage.querySelector("[data-story-quote]");
-      const heroPortraitRoot = stage.querySelector("[data-story-portrait-root]");
-      const heroHalo = stage.querySelector("[data-hero-halo]");
-      const heroLeftAccent = stage.querySelector("[data-story-left-accent]");
-
       const act2Index = stage.querySelector("[data-story-act2-index]");
       const act2HeadlineLines = stage.querySelectorAll(
         "[data-story-act2-headline]"
