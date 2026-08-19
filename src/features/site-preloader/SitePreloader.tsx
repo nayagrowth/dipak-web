@@ -10,20 +10,17 @@ interface SitePreloaderProps {
 export function SitePreloader({ onComplete }: SitePreloaderProps) {
   const [progress, setProgress] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
-  const [isComplete, setIsComplete] = useState(false);
+  const [isComplete, setIsComplete] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    }
+    return false;
+  });
 
   useEffect(() => {
-    // Check if user prefers reduced motion
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (prefersReducedMotion) {
-      const timer = setTimeout(() => {
-        setIsComplete(true);
-        onComplete?.();
-      }, 0);
-      return () => clearTimeout(timer);
+    if (isComplete) {
+      onComplete?.();
+      return;
     }
 
     // Lock scroll during luxury preloader sequence
@@ -58,7 +55,7 @@ export function SitePreloader({ onComplete }: SitePreloaderProps) {
       cancelAnimationFrame(frameId);
       document.body.style.overflow = "";
     };
-  }, [onComplete]);
+  }, [isComplete, onComplete]);
 
   if (isComplete) return null;
 
