@@ -108,6 +108,9 @@ export function useHomeIntroTimeline({
       const act4Tenets = stage.querySelector("[data-story-act4-tenets]");
       const act4Enso = stage.querySelector("[data-story-act4-enso]");
 
+      const act1PageSheen = stage.querySelector("[data-story-page-sheen]");
+      const spineShadow = stage.querySelector("[data-story-spine-shadow]");
+
       if (bridgeRule) {
         gsap.set(bridgeRule, {
           scaleX: 0,
@@ -116,7 +119,26 @@ export function useHomeIntroTimeline({
         });
       }
 
-      gsap.set(act2Wrapper, { visibility: "hidden", opacity: 0 });
+      gsap.set(act1Wrapper, {
+        transformOrigin: "left 35%",
+        rotateY: 0,
+        rotateZ: 0,
+        xPercent: 0,
+        yPercent: 0,
+        scale: 1,
+        filter: "drop-shadow(0px 0px 0px rgba(0,0,0,0))",
+        opacity: 1,
+        visibility: "visible",
+      });
+      if (act1PageSheen) gsap.set(act1PageSheen, { opacity: 0, xPercent: -100 });
+      if (spineShadow) gsap.set(spineShadow, { opacity: 0, scaleX: 0.2 });
+
+      gsap.set(act2Wrapper, {
+        visibility: "hidden",
+        opacity: 0,
+        scale: 0.96,
+        transformOrigin: "center center",
+      });
       gsap.set(act3Wrapper, { visibility: "hidden", opacity: 0 });
       gsap.set(act4Wrapper, { visibility: "hidden", opacity: 0 });
 
@@ -193,151 +215,151 @@ export function useHomeIntroTimeline({
       });
 
       // -----------------------------------------------------------------------
-      // BEAT 1: HERO DECONSTRUCTION & PHOTON LEAP (0.0 -> 0.35)
+      // BEAT 1: PHYSICAL 3D MAGAZINE PAGE ROLL & CURL (0.0 -> 0.48)
       // -----------------------------------------------------------------------
-      masterTl.addLabel("DECONSTRUCT", 0.0);
+      masterTl.addLabel("MAGAZINE_ROLL", 0.0);
 
-
-
-      if (heroGoldRule) {
-        masterTl.to(
-          heroGoldRule,
-          {
-            scaleX: 2.6,
-            opacity: 0,
-            transformOrigin: "left center",
-            duration: 0.28,
-            ease: "power2.out",
-          },
-          "DECONSTRUCT"
-        );
-      }
-      if (heroHeadlineLines.length) {
-        masterTl.to(
-          heroHeadlineLines,
-          {
-            yPercent: -105,
-            rotateX: 8,
-            duration: 0.32,
-            stagger: 0.02,
-            ease: "power2.inOut",
-          },
-          "DECONSTRUCT"
-        );
-      }
-      if (heroCopy) {
-        masterTl.to(
-          heroCopy,
-          {
-            y: -20,
-            opacity: 0,
-            duration: 0.25,
-            ease: "power2.in",
-          },
-          "DECONSTRUCT+=0.04"
-        );
-      }
-      if (heroCtaRow) {
-        masterTl.to(
-          heroCtaRow,
-          {
-            y: 20,
-            opacity: 0,
-            duration: 0.25,
-            ease: "power2.in",
-          },
-          "DECONSTRUCT+=0.04"
-        );
-      }
-      if (heroQuote) {
-        masterTl.to(
-          heroQuote,
-          {
-            y: -16,
-            opacity: 0,
-            duration: 0.25,
-            ease: "power2.in",
-          },
-          "DECONSTRUCT+=0.05"
-        );
-      }
-      if (heroPortraitRoot) {
-        masterTl.to(
-          heroPortraitRoot,
-          {
-            opacity: 0,
-            y: 20,
-            duration: 0.35,
-            ease: "power2.in",
-          },
-          "DECONSTRUCT+=0.02"
-        );
-      }
-      if (heroHalo) {
-        masterTl.to(
-          heroHalo,
-          {
-            scale: 1.25,
-            opacity: 0,
-            duration: 0.35,
-            ease: "power2.out",
-          },
-          "DECONSTRUCT"
-        );
-      }
-      if (heroLeftAccent) {
-        masterTl.to(
-          heroLeftAccent,
-          {
-            opacity: 0,
-            duration: 0.22,
-            ease: "power1.out",
-          },
-          "DECONSTRUCT"
-        );
-      }
-      if (heroHeader) {
-        masterTl.to(
-          heroHeader,
-          {
-            y: -20,
-            opacity: 0,
-            duration: 0.25,
-            ease: "power1.inOut",
-          },
-          "DECONSTRUCT+=0.04"
-        );
-      }
-
-      // Hide Act 1 Wrapper
+      // 1. Act 1 Leaf peels from right to left, curling backward in 3D perspective
       if (act1Wrapper) {
         masterTl.to(
           act1Wrapper,
           {
+            rotateY: -72,
+            rotateZ: -4.5,
+            xPercent: -28,
+            yPercent: -4,
+            scale: 0.93,
+            filter: "drop-shadow(-35px 25px 50px rgba(25, 20, 15, 0.45))",
+            duration: 0.48,
+            ease: "power2.inOut",
+          },
+          "MAGAZINE_ROLL"
+        );
+        masterTl.to(
+          act1Wrapper,
+          {
             opacity: 0,
-            duration: 0.2,
+            duration: 0.16,
             ease: "power1.in",
           },
-          "DECONSTRUCT+=0.15"
+          "MAGAZINE_ROLL+=0.32"
         );
         masterTl.set(
           act1Wrapper,
           {
             visibility: "hidden",
           },
-          "DECONSTRUCT+=0.35"
+          "MAGAZINE_ROLL+=0.48"
+        );
+      }
+
+      // 2. Specular sheen travels across bending paper
+      if (act1PageSheen) {
+        masterTl.to(
+          act1PageSheen,
+          {
+            opacity: 0.9,
+            xPercent: 120,
+            duration: 0.44,
+            ease: "power1.inOut",
+          },
+          "MAGAZINE_ROLL"
+        );
+      }
+
+      // 3. Spine crease shadow darkens along the left hinge
+      if (spineShadow) {
+        masterTl.to(
+          spineShadow,
+          {
+            opacity: 0.85,
+            scaleX: 1,
+            duration: 0.28,
+            ease: "power2.out",
+          },
+          "MAGAZINE_ROLL"
+        );
+        masterTl.to(
+          spineShadow,
+          {
+            opacity: 0,
+            duration: 0.2,
+            ease: "power2.in",
+          },
+          "MAGAZINE_ROLL+=0.28"
+        );
+      }
+
+      // Hero Internal Elements glide out softly into the fold
+      if (heroGoldRule) {
+        masterTl.to(
+          heroGoldRule,
+          {
+            scaleX: 0.6,
+            opacity: 0,
+            duration: 0.22,
+            ease: "power2.in",
+          },
+          "MAGAZINE_ROLL"
+        );
+      }
+      if (heroHeadlineLines.length) {
+        masterTl.to(
+          heroHeadlineLines,
+          {
+            xPercent: -15,
+            opacity: 0.4,
+            duration: 0.32,
+            stagger: 0.02,
+            ease: "power2.inOut",
+          },
+          "MAGAZINE_ROLL"
+        );
+      }
+      if (heroCopy) {
+        masterTl.to(
+          heroCopy,
+          {
+            xPercent: -10,
+            opacity: 0.3,
+            duration: 0.25,
+            ease: "power2.in",
+          },
+          "MAGAZINE_ROLL+=0.04"
+        );
+      }
+      if (heroPortraitRoot) {
+        masterTl.to(
+          heroPortraitRoot,
+          {
+            xPercent: -8,
+            opacity: 0.4,
+            duration: 0.35,
+            ease: "power2.in",
+          },
+          "MAGAZINE_ROLL+=0.02"
         );
       }
 
       // -----------------------------------------------------------------------
-      // BEAT 2: ACT 2 (CERTAINTY BUILDER) (0.22 -> 1.3) — FAST OVERLAPPING REVEAL
+      // BEAT 2: ACT 2 (CERTAINTY BUILDER) REVEAL (0.18 -> 1.0)
+      // Emerges smoothly from depth as the magazine cover peels back
       // -----------------------------------------------------------------------
-      masterTl.addLabel("ACT2_ENTER", 0.22);
+      masterTl.addLabel("ACT2_ENTER", 0.18);
       masterTl.set(
         act2Wrapper,
         {
           visibility: "visible",
+        },
+        "ACT2_ENTER"
+      );
+      masterTl.to(
+        act2Wrapper,
+        {
           opacity: 1,
+          scale: 1,
+          duration: 0.42,
+          ease: "power2.out",
         },
         "ACT2_ENTER"
       );

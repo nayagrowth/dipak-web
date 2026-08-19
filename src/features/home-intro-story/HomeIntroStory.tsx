@@ -8,6 +8,7 @@ import { DipakMissionAct, missionContent } from "@/features/dipak-mission";
 import { DipakTopicsAct, topicsContent } from "@/features/dipak-topics";
 import { DipakThinkingAct, thinkingContent } from "@/features/dipak-thinking";
 import { DipakBridgeAct, bridgeContent } from "@/features/dipak-bridge";
+import { SitePreloader } from "@/features/site-preloader";
 import type { FeaturedArticle } from "@/features/dipak-thinking/thinking.types";
 import { useHomeIntroTimeline } from "./useHomeIntroTimeline";
 import styles from "./home-intro-story.module.css";
@@ -29,7 +30,9 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
   });
 
   return (
-    <div className={styles.masterStoryWrapper}>
+    <>
+      <SitePreloader />
+      <div className={styles.masterStoryWrapper}>
       {/* Pinned Cinematic Story Stage: Act 1 (Hero) -> Act 2 (Identity) -> Act 3 (Presence) -> Act 4 (Mission) */}
       <div ref={shellRef} className={styles.storyShell}>
         <div ref={stageRef} className={styles.storyStage}>
@@ -43,10 +46,23 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
 
 
 
-          {/* Act 1: Belief & Philosophy (Hero) */}
+          {/* Act 1: Belief & Philosophy (Hero - 3D Magazine Cover) */}
           <div className={styles.act1Wrapper} data-story-act1-wrapper="true">
             <DipakHero content={dipakHeroContent} />
+            {/* Dynamic Specular Light Sheen across Curling Paper */}
+            <div
+              className={styles.pageSheenOverlay}
+              data-story-page-sheen="true"
+              aria-hidden="true"
+            />
           </div>
+
+          {/* Spine Crease & Cast Shadow Beneath Cover */}
+          <div
+            className={styles.spineShadowOverlay}
+            data-story-spine-shadow="true"
+            aria-hidden="true"
+          />
 
           {/* Act 2: The Person & Credentials (Identity) */}
           <div className={styles.act2Wrapper} data-story-act2-wrapper="true">
@@ -80,5 +96,6 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
         <DipakBridgeAct content={bridgeContent} />
       </div>
     </div>
+    </>
   );
 }
