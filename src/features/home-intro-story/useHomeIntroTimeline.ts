@@ -188,25 +188,44 @@ export function useHomeIntroTimeline({
         gsap.set(act4Enso, { opacity: 0, rotate: -25, scale: 0.85 });
       }
 
-      // MASTER TIMELINE: Smooth Magnetic Flip & Momentum Glide (small swipe completes full turn and highlight)
+      // MASTER TIMELINE: Single-Intent Guided Flow (1 Arrow / 1 Swipe smoothly completes full page flip and highlight)
       const masterTl = gsap.timeline({
         scrollTrigger: {
           trigger: shell,
           start: "top top",
           end: "bottom bottom",
-          scrub: 0.35, // Smooth gliding interpolation
+          scrub: 0.2, // Clean kinetic follow-through
           pin: stage,
           anticipatePin: 1,
           fastScrollEnd: true,
           invalidateOnRefresh: true,
           snap: {
-            snapTo: [0, 0.28, 0.62, 1.0], // Snaps cleanly to: Hero, Act 2 (Full Page Flip + Highlight complete), Act 3, Act 4
-            duration: { min: 0.35, max: 0.65 },
-            delay: 0.05,
+            snapTo: [0, 0.28, 0.62, 1.0], // Hero, Act 2 (Complete page flip + highlight), Act 3, Act 4
+            duration: { min: 0.45, max: 0.75 },
+            delay: 0.02,
             ease: "power2.out",
+            directional: true,
           },
         },
       });
+
+      // Keyboard Down Arrow / PageDown one-hit smooth trigger
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "ArrowDown" || e.key === "PageDown" || e.key === " ") {
+          const scrollY = window.scrollY;
+          const shellTop = shell.offsetTop;
+          const shellHeight = shell.offsetHeight - window.innerHeight;
+          const progress = (scrollY - shellTop) / shellHeight;
+
+          // If at Hero (progress < 0.1), smoothly scroll to Act 2 snap point (0.28)
+          if (progress >= 0 && progress < 0.12) {
+            e.preventDefault();
+            const targetY = shellTop + shellHeight * 0.28;
+            window.scrollTo({ top: targetY, behavior: "smooth" });
+          }
+        }
+      };
+      window.addEventListener("keydown", handleKeyDown, { passive: false });
 
       // -----------------------------------------------------------------------
       // BEAT 1: 3D LUXURY MAGAZINE PAGE FLIP & ASYMMETRICAL CORNER PEEL (0.0 -> 0.45)
