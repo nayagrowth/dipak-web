@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { DipakHero, dipakHeroContent } from "@/features/dipak-hero";
+import { MobileNav } from "@/features/dipak-hero/MobileNav";
 import { DipakIdentityAct, identityContent } from "@/features/dipak-identity";
 import { DipakPresenceAct, presenceContent } from "@/features/dipak-presence";
 import { DipakMissionAct, missionContent } from "@/features/dipak-mission";
