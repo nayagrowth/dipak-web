@@ -53,7 +53,6 @@ export function useHomeIntroTimeline({
       const act1Wrapper = stage.querySelector("[data-story-act1-wrapper]");
       const act1PageShadow = stage.querySelector("[data-story-page-shadow]");
       const act1PageSheen = stage.querySelector("[data-story-page-sheen]");
-      const act1PageBack = stage.querySelector("[data-story-page-back]");
       const act2Wrapper = stage.querySelector("[data-story-act2-wrapper]");
       const act2CastShadow = stage.querySelector("[data-story-act2-castshadow]");
       const act3Wrapper = stage.querySelector("[data-story-act3-wrapper]");
