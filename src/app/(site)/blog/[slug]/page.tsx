@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { contentProvider, formatContentDate } from "@/lib/content";
 import { authorityClosersCta } from "@/features/site-chrome";
+import { ProseBody } from "@/features/editorial";
 import editorial from "@/features/editorial/editorial.module.css";
 import styles from "../blog.module.css";
 
@@ -81,9 +82,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </header>
 
       <div className={editorial.containerNarrow}>
-        <div
+        <ProseBody
           className={styles.prose}
-          dangerouslySetInnerHTML={{ __html: post.html }}
+          html={post.html}
         />
 
         <aside className={editorial.ctaRow} style={{ marginTop: "4rem" }}>

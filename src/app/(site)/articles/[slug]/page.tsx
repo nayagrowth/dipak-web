@@ -8,6 +8,7 @@ import {
   formatArticleDate,
 } from "@/lib/articles";
 import { authorityClosersCta } from "@/features/site-chrome";
+import { ProseBody } from "@/features/editorial";
 import editorial from "@/features/editorial/editorial.module.css";
 import styles from "../articles.module.css";
 
@@ -81,14 +82,9 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       </header>
 
       <div className={editorial.containerNarrow}>
-        {/*
-          Body HTML is generated at build time from markdown authored in this
-          repository by the site owner — not from user input — so there is no
-          untrusted-HTML injection path here.
-        */}
-        <div
+        <ProseBody
           className={styles.prose}
-          dangerouslySetInnerHTML={{ __html: article.html }}
+          html={article.html}
         />
 
         <aside className={styles.postCta}>

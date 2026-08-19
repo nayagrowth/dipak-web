@@ -24,7 +24,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=proxy_net"
-      - "traefik.http.routers.dipak-web.rule=Host(`dipakvishwakarma.com`) || Host(`www.dipakvishwakarma.com`) || Host(`deepakvishwakarma.com`) || Host(`www.deepakvishwakarma.com`)"
+      - "traefik.http.routers.dipak-web.rule=Host(`dipakvishwakarma.com`) || Host(`www.dipakvishwakarma.com`)"
       - "traefik.http.routers.dipak-web.entrypoints=websecure"
       - "traefik.http.routers.dipak-web.tls.certresolver=letsencrypt"
       - "traefik.http.services.dipak-web.loadbalancer.server.port=3000"

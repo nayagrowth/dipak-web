@@ -36,9 +36,9 @@ That's when I started looking at communication differently.
 
 ### Here's the simplest definition of communication I've found.
 
-Communication is not what you say.
+<mark>Communication is not what you say.</mark>
 
-Communication is what the other person understands.
+<mark>Communication is what the other person understands.</mark>
 
 That's it.
 
@@ -101,9 +101,9 @@ But what happened after that?
 
 That's communication.
 
-Because communication doesn't end at your mouth.
+Because <mark>communication doesn't end at your mouth.</mark>
 
-It ends in their interpretation.
+<mark>It ends in </mark><mark>their interpretation.</mark>
 
 
 ## This is one of the biggest mistakes I see in salespeople.
@@ -341,9 +341,9 @@ Ask for decisions.
 
 Close.
 
-Communication is one of the weapons.
+<mark>Communication is one of the weapons.</mark>
 
-It isn't the entire battlefield.
+<mark>It isn't the entire battlefield.</mark>
 
 
 ## I've seen this mistake many times.
@@ -438,13 +438,13 @@ That's a much higher level of communication.
 
 ## And here's another thing people misunderstand.
 
-Good communication doesn't mean saying more.
+<mark>Good communication doesn't mean saying more.</mark>
 
-Sometimes the best communication is one sentence.
+<mark>Sometimes the best communication is one sentence.</mark>
 
-Sometimes it's one question.
+<mark>Sometimes it's one question.</mark>
 
-Sometimes it's silence.
+<mark>Sometimes it's silence.</mark>
 
 A customer says:
 
@@ -511,7 +511,7 @@ You didn't give a brilliant presentation.
 
 You simply became curious.
 
-And CURIOSITY IS ONE OF THE MOST UNDERRATED COMMUNICATION SKILLS.
+And <mark>CURIOSITY IS ONE OF THE MOST UNDERRATED COMMUNICATION SKILLS.</mark>
 
 
 ## There's another distinction I really like.
@@ -612,9 +612,9 @@ That's exactly how I think selling should feel.
 
 ## And this connects to one of my strongest beliefs about sales.
 
-“You are not in the business of making people like you.
+<mark>“You are not in the business of making people like you.</mark>
 
-You're in the business of HELPING THEM MAKE THE RIGHT DECISION.”
+<mark>You're in the business of </mark><mark>HELPING THEM MAKE THE RIGHT DECISION.”</mark>
 
 Sometimes that means asking an uncomfortable question.
 
@@ -716,9 +716,9 @@ That's the shift.
 
 Because ultimately...
 
-speaking is what happens from your side.
+<mark>speaking is what happens from your side.</mark>
 
-Communication is what happens between two minds.
+<mark>Communication is what happens between two minds.</mark>
 
 And in sales...
 
