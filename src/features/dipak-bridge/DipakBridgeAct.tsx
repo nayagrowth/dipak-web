@@ -24,7 +24,28 @@ export function DipakBridgeAct({
     >
       <div className={styles.atmosphereLayer} aria-hidden="true" />
 
+      {/* Restrained Wide Documentary Team Film Strip Layer */}
+      <div className={styles.teamFilmStrip} aria-hidden="true">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/media/08_img_1624.webp"
+          alt=""
+          className={styles.teamPhoto}
+        />
+        <div className={styles.teamGradientOverlay} />
+      </div>
+
       <div className={styles.bridgeContainer}>
+        {/* Transparent Authority Closers Brand Mark */}
+        <div className={styles.brandMarkContainer}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/media/authority_closers_png__1_.png"
+            alt="Authority Closers"
+            className={styles.brandMarkLogo}
+          />
+        </div>
+
         {/* Header Block */}
         <div className={styles.headerBlock}>
           <div className={styles.sectionIndex} data-story-act7-index="true">

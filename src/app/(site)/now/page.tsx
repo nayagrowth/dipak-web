@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { PageHero, Reveal } from "@/features/editorial";
 import editorial from "@/features/editorial/editorial.module.css";
 import styles from "./now.module.css";
@@ -77,6 +78,19 @@ export default function NowPage() {
         body={[
           "A simple, regularly updated page covering what I am building, learning and thinking about now.",
         ]}
+        aside={
+          <div className={styles.heroMediaFrame}>
+            <Image
+              src="/media/10_screenshot_2026-08-08_at_10.40.56_pm.png"
+              alt="Collaboration and working session"
+              width={800}
+              height={1000}
+              sizes="(max-width: 900px) 70vw, 24rem"
+              quality={90}
+              className={styles.heroMediaImage}
+            />
+          </div>
+        }
       />
 
       <section className={editorial.section}>

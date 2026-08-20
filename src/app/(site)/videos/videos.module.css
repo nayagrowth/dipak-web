@@ -1,6 +1,28 @@
-/* ==========================================================================
-   Videos page
-   ========================================================================== */
+/* --- Hero media plate ----------------------------------------------------- */
+
+.heroMediaPlate {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 0.8rem;
+}
+
+.heroMediaImage {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  filter: contrast(1.06) brightness(0.96);
+}
+
+.heroMediaCaption {
+  font-family: var(--font-family-mono);
+  font-size: var(--step-caption);
+  letter-spacing: 0.16em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
 
 .videoGrid {
   display: grid;

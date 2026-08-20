@@ -21,18 +21,14 @@ export function DipakMissionAct({
     >
       <div className={styles.atmosphereLayer} aria-hidden="true" />
       
-      {/* Cinematic Ambient Motion Video Layer */}
+      {/* Cinematic Window Silhouette Background Layer */}
       <div className={styles.videoBackgroundContainer} aria-hidden="true">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className={styles.backgroundVideo}
-          poster="/mission/crystal-light-bg.jpg"
-        >
-          <source src="/mission/mission-cinematic-bg.mp4" type="video/mp4" />
-        </video>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/media/02_screenshot_2026-07-29_at_4.45.57_pm__1_.png"
+          alt=""
+          className={styles.backgroundPhoto}
+        />
         <div className={styles.videoGradientWash} />
       </div>
 

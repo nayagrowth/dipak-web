@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { getAllArticles, formatArticleDate } from "@/lib/articles";
 import { PageHero, Reveal } from "@/features/editorial";
@@ -24,6 +25,19 @@ export default function ArticlesPage() {
         body={[
           "Ideas on sales, buyer psychology, communication, personal branding, AI, entrepreneurship, startups and public speaking.",
         ]}
+        aside={
+          <div className={styles.heroMediaFrame}>
+            <Image
+              src="/media/03_dsc06998.webp"
+              alt="Deep work and article drafting"
+              width={1000}
+              height={750}
+              sizes="(max-width: 900px) 70vw, 24rem"
+              quality={90}
+              className={styles.heroMediaImage}
+            />
+          </div>
+        }
       />
 
       <section className={editorial.section}>

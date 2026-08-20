@@ -13,8 +13,10 @@
 .heroPortrait {
   width: 100%;
   height: auto;
-  filter: grayscale(1) contrast(1.06);
-  mix-blend-mode: multiply;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  filter: contrast(1.04) brightness(0.98);
+  border-bottom: 2px solid var(--gold);
 }
 
 .portraitRule {

@@ -39,12 +39,12 @@ export default function ContactPage() {
             <div className={styles.portraitBlock}>
               <Image
                 className={styles.portrait}
-                src="/portraits/dipak-seated.png"
-                alt="Dipak Vishwakarma"
-                width={1128}
-                height={1404}
+                src="/media/09_screenshot_2026-08-08_at_10.33.36_pm.png"
+                alt="Dipak Vishwakarma on a call"
+                width={800}
+                height={1000}
                 sizes="(max-width: 900px) 50vw, 22rem"
-                quality={85}
+                quality={90}
               />
             </div>
 

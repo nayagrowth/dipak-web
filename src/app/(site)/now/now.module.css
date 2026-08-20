@@ -1,6 +1,19 @@
-/* ==========================================================================
-   /now page
-   ========================================================================== */
+/* --- Hero media frame ----------------------------------------------------- */
+
+.heroMediaFrame {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 0.6rem;
+}
+
+.heroMediaImage {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  filter: contrast(1.05) brightness(0.96);
+}
 
 .updatedStamp {
   margin: 0 0 clamp(2.5rem, 5vw, 4rem);

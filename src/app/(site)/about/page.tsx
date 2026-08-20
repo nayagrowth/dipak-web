@@ -28,10 +28,10 @@ export default function AboutPage() {
           <div className={styles.heroPortraitFrame}>
             <Image
               className={styles.heroPortrait}
-              src="/portraits/dipak-halfbody.png"
+              src="/media/01_dsc06974.webp"
               alt="Dipak Vishwakarma"
-              width={1128}
-              height={1404}
+              width={1200}
+              height={900}
               sizes="(max-width: 900px) 60vw, 30vw"
               quality={90}
               priority
@@ -97,7 +97,7 @@ export default function AboutPage() {
         aria-labelledby="philosophy-heading"
       >
         <BackgroundMedia
-          poster="/portraits/dipak-standing-dark.png"
+          poster="/media/02_screenshot_2026-07-29_at_4.45.57_pm__1_.png"
           overlay="strong"
           className={styles.philosophyBg}
         />

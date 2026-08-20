@@ -1,6 +1,19 @@
-/* ==========================================================================
-   Articles index + article detail
-   ========================================================================== */
+/* --- Hero media frame ----------------------------------------------------- */
+
+.heroMediaFrame {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 0.6rem;
+}
+
+.heroMediaImage {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  filter: contrast(1.06) brightness(0.96);
+}
 
 .emptyState {
   max-width: var(--measure);

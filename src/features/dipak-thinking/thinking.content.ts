@@ -27,6 +27,7 @@ export const thinkingContent: ThinkingContent = {
     title: "How to Build Unshakable Certainty in High-Ticket Sales",
     category: "SALES STRATEGY",
     duration: "14 MIN WATCH",
+    youtubeUrl: "https://www.youtube.com/@DipakVishwakarma",
     summary:
       "A complete breakdown of certainty transfer protocols, buyer friction elimination, and closing mechanics in high-ticket enterprise transactions.",
   },

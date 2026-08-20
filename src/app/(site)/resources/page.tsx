@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { leadMagnets } from "@/features/dipak-media/media.content";
 import { authorityClosersCta } from "@/features/site-chrome";
@@ -22,6 +23,19 @@ export default function ResourcesPage() {
         body={[
           "Practical tools to help you think, communicate and sell with more certainty.",
         ]}
+        aside={
+          <div className={styles.heroMediaFrame}>
+            <Image
+              src="/media/04_dsc07013.webp"
+              alt="Notebook and frameworks detail"
+              width={1000}
+              height={750}
+              sizes="(max-width: 900px) 70vw, 24rem"
+              quality={90}
+              className={styles.heroMediaImage}
+            />
+          </div>
+        }
       />
 
       <section className={editorial.section} aria-label="Available resources">

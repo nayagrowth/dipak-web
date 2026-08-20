@@ -26,6 +26,23 @@ export default function VideosPage() {
         body={[
           "Conversations, breakdowns and practical lessons on how buyers think and how better sales conversations are built.",
         ]}
+        aside={
+          <div className={styles.heroMediaPlate}>
+            <Image
+              src="/media/06_dsc04024.webp"
+              alt="Dipak Vishwakarma speaking on stage"
+              width={1200}
+              height={800}
+              sizes="(max-width: 900px) 90vw, 36vw"
+              quality={90}
+              className={styles.heroMediaImage}
+              priority
+            />
+            <span className={styles.heroMediaCaption}>
+              KEYNOTE · STAGE LECTURES &amp; BREAKDOWNS
+            </span>
+          </div>
+        }
       />
 
       {videoRails.map((rail, railIndex) => (
