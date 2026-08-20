@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { MobileNav } from "./MobileNav";
 import { BrushArtwork } from "./BrushArtwork";
 import type { HeroContent, HeroCta } from "./hero.types";
 import heroComposition from "./generated/hero-composition.json";

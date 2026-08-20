@@ -11,6 +11,7 @@ import { DipakBridgeAct, bridgeContent } from "@/features/dipak-bridge";
 import { EditorialPreloader } from "@/features/site-chrome";
 import type { FeaturedArticle } from "@/features/dipak-thinking/thinking.types";
 import { PersistentSiteHeader } from "./PersistentSiteHeader";
+import { HeroPageTurnCanvas, type PageTurnController } from "./page-turn";
 import { useHomeIntroTimeline } from "./useHomeIntroTimeline";
 import styles from "./home-intro-story.module.css";
 
@@ -23,11 +24,15 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
   const shellRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const bridgeRuleRef = useRef<HTMLDivElement>(null);
+  const heroFrontRef = useRef<HTMLDivElement>(null);
+  const pageTurnCtrlRef = useRef<PageTurnController | null>(null);
 
   useHomeIntroTimeline({
     shellRef,
     stageRef,
     bridgeRuleRef,
+    heroFrontRef,
+    pageTurnCtrlRef,
   });
 
   return (
@@ -49,33 +54,20 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
             aria-hidden="true"
           />
 
-
-
           {/* Act 1: Belief & Philosophy (Hero - Luxury Magazine Cover) */}
           <div className={styles.act1Wrapper} data-story-act1-wrapper="true">
-            {/* Front of cover: Lighting & Sheen layers */}
-            <div className={styles.act1PageShadow} data-story-page-shadow="true" aria-hidden="true" />
-            <div className={styles.act1PageSheen} data-story-page-sheen="true" aria-hidden="true" />
-            
-            {/* Front content */}
-            <div className={styles.act1FrontContent}>
+            {/* Front interactive DOM hero */}
+            <div ref={heroFrontRef} className={styles.act1FrontContent} data-story-act1-front="true">
               <DipakHero content={dipakHeroContent} />
             </div>
 
-            {/* Reverse Under-Sheet: Realistic matte paper back with gold monogram seal */}
-            <div className={styles.act1PageBack} data-story-page-back="true" aria-hidden="true">
-              <div className={styles.pageBackTexture} />
-              <div className={styles.pageBackSeal}>
-                <div className={styles.monogramOuter}>
-                  <svg viewBox="0 0 120 120" className={styles.sealSvg}>
-                    <circle cx="60" cy="60" r="54" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" />
-                    <circle cx="60" cy="60" r="46" stroke="currentColor" strokeWidth="0.5" />
-                  </svg>
-                  <span className={styles.sealText}>DV</span>
-                </div>
-                <span className={styles.sealKicker}>AUTHORITY CLOSERS · ACT 01 / FOLIO</span>
-              </div>
-            </div>
+            {/* Three.js Deformable Page-Turn Canvas */}
+            <HeroPageTurnCanvas
+              heroElementRef={heroFrontRef}
+              onControllerReady={(ctrl) => {
+                pageTurnCtrlRef.current = ctrl;
+              }}
+            />
           </div>
 
           {/* Act 2: The Person & Credentials (Identity) */}

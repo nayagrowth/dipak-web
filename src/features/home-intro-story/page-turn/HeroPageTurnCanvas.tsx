@@ -18,17 +18,14 @@ export function HeroPageTurnCanvas({
   className,
 }: HeroPageTurnCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const controllerRef = useRef<PageTurnController | null>(null);
-  const [debugEnabled, setDebugEnabled] = useState(false);
-  const [controllerReady, setControllerReady] = useState(false);
-
-  useEffect(() => {
-    // Check debug flag from URL query param ?debugPageTurn=1
+  const [controller, setController] = useState<PageTurnController | null>(null);
+  const [debugEnabled] = useState(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
-      setDebugEnabled(params.get("debugPageTurn") === "1");
+      return params.get("debugPageTurn") === "1";
     }
-  }, []);
+    return false;
+  });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -51,6 +48,7 @@ export function HeroPageTurnCanvas({
     }
 
     let isMounted = true;
+    let localController: PageTurnController | null = null;
 
     async function initPageTurn() {
       const heroEl = heroElementRef.current;
@@ -84,26 +82,26 @@ export function HeroPageTurnCanvas({
         return;
       }
 
-      const controller = new PageTurnController(refs);
-      controllerRef.current = controller;
-      setControllerReady(true);
-      onControllerReady?.(controller);
+      const ctrl = new PageTurnController(refs);
+      localController = ctrl;
+      setController(ctrl);
+      onControllerReady?.(ctrl);
 
       // 3. Initial render at p = 0
-      controller.setProgress(0);
+      ctrl.setProgress(0);
 
       // 4. Resize handling
       const handleResize = () => {
-        if (!heroElementRef.current || !controllerRef.current) return;
+        if (!heroElementRef.current || !localController) return;
         const r = heroElementRef.current.getBoundingClientRect();
-        controllerRef.current.resize(r.width || window.innerWidth, r.height || window.innerHeight);
+        localController.resize(r.width || window.innerWidth, r.height || window.innerHeight);
       };
 
       window.addEventListener("resize", handleResize, { passive: true });
 
       return () => {
         window.removeEventListener("resize", handleResize);
-        controller.dispose();
+        ctrl.dispose();
       };
     }
 
@@ -131,8 +129,8 @@ export function HeroPageTurnCanvas({
         }}
         aria-hidden="true"
       />
-      {debugEnabled && controllerReady && controllerRef.current && (
-        <PageTurnDebugOverlay controller={controllerRef.current} />
+      {debugEnabled && controller && (
+        <PageTurnDebugOverlay controller={controller} />
       )}
     </>
   );

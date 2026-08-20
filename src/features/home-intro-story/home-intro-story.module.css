@@ -1,18 +1,17 @@
 .storyShell {
   position: relative;
   width: 100%;
-  height: 320vh; /* Calibrated for immediate response, snappy transitions, and zero dead scroll */
+  height: 500vh; /* Calibrated 500vh budget for physical Three.js page turn and deliberate reading holds */
 }
 
 .storyStage {
-  position: sticky;
-  top: 0;
+  position: relative;
   width: 100%;
   height: 100dvh;
   min-height: 100dvh;
   max-height: 100dvh;
   overflow: clip;
-  background-color: #faf5ed;
+  background-color: var(--paper, #f4f1ea);
   perspective: 2000px;
   perspective-origin: 15% 50%;
   transform-style: preserve-3d;

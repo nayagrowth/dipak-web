@@ -3,6 +3,8 @@
 import { useLayoutEffect, type RefObject } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type { PageTurnController } from "./page-turn";
+import { range } from "./page-turn/pageTurnMath";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -12,17 +14,22 @@ interface UseHomeIntroTimelineProps {
   shellRef: RefObject<HTMLElement | null>;
   stageRef: RefObject<HTMLElement | null>;
   bridgeRuleRef: RefObject<HTMLElement | null>;
+  heroFrontRef?: RefObject<HTMLElement | null>;
+  pageTurnCtrlRef?: RefObject<PageTurnController | null>;
 }
 
 export function useHomeIntroTimeline({
   shellRef,
   stageRef,
   bridgeRuleRef,
+  heroFrontRef,
+  pageTurnCtrlRef,
 }: UseHomeIntroTimelineProps) {
   useLayoutEffect(() => {
     const shell = shellRef.current;
     const stage = stageRef.current;
     const bridgeRule = bridgeRuleRef.current;
+    const heroFront = heroFrontRef?.current;
 
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
@@ -51,10 +58,7 @@ export function useHomeIntroTimeline({
       // PART 1-4: PINNED 4-ACT STORY TIMELINE (Acts 1 to 4)
       // -----------------------------------------------------------------------
       const act1Wrapper = stage.querySelector("[data-story-act1-wrapper]");
-      const act1PageShadow = stage.querySelector("[data-story-page-shadow]");
-      const act1PageSheen = stage.querySelector("[data-story-page-sheen]");
       const act2Wrapper = stage.querySelector("[data-story-act2-wrapper]");
-      const act2CastShadow = stage.querySelector("[data-story-act2-castshadow]");
       const act3Wrapper = stage.querySelector("[data-story-act3-wrapper]");
       const act4Wrapper = stage.querySelector("[data-story-act4-wrapper]");
 
@@ -74,8 +78,6 @@ export function useHomeIntroTimeline({
         "[data-story-act2-stats] > div"
       );
       const act2Sunlight = stage.querySelector("[data-story-act2-sunlight]");
-      const act2ShadowLeft = stage.querySelector("[data-story-act2-shadow-left]");
-      const act2ShadowMid = stage.querySelector("[data-story-act2-shadow-mid]");
       const act2Ambient = stage.querySelector("[data-story-act2-ambient]");
       const act23DHeadline = stage.querySelector("[data-story-act2-3dheadline]");
 
@@ -113,26 +115,25 @@ export function useHomeIntroTimeline({
       // Initial 3D Spatial States
       if (act1Wrapper) {
         gsap.set(act1Wrapper, {
-          rotateY: 0,
-          rotateZ: 0,
-          x: 0,
-          y: 0,
-          transformOrigin: "left center",
+          opacity: 1,
+          visibility: "visible",
         });
       }
-      if (act1PageShadow) gsap.set(act1PageShadow, { opacity: 0 });
-      if (act1PageSheen) gsap.set(act1PageSheen, { opacity: 0 });
 
-      gsap.set(act2Wrapper, { visibility: "hidden", opacity: 0, scale: 0.96, filter: "blur(4px)" });
+      if (heroFront) {
+        gsap.set(heroFront, { opacity: 1 });
+      }
+
+      // Act 2 starts completely sharp & visible underneath the physical sheet (no scale or blur pops)
+      gsap.set(act2Wrapper, { visibility: "visible", opacity: 1, scale: 1 });
       gsap.set(act3Wrapper, { visibility: "hidden", opacity: 0 });
       gsap.set(act4Wrapper, { visibility: "hidden", opacity: 0 });
 
       if (act2Sunlight) gsap.set(act2Sunlight, { opacity: 0, x: -30 });
-      if (act2ShadowLeft) gsap.set(act2ShadowLeft, { opacity: 0, x: -20 });
-      if (act2ShadowMid) gsap.set(act2ShadowMid, { opacity: 0, x: -15 });
       if (act2Ambient) gsap.set(act2Ambient, { opacity: 0 });
-      if (act23DHeadline) gsap.set(act23DHeadline, { perspective: 1000, rotateY: -3, rotateX: 2 });
+      if (act23DHeadline) gsap.set(act23DHeadline, { perspective: 1000, rotateY: 0, rotateX: 0 });
 
+      // Internal text/content masks start hidden until physically uncovered
       gsap.set(act2Index, { opacity: 0, y: -8 });
       gsap.set(act2HeadlineLines, { yPercent: 105 });
       if (act2Highlights.length) {
@@ -188,13 +189,13 @@ export function useHomeIntroTimeline({
         gsap.set(act4Enso, { opacity: 0, rotate: -25, scale: 0.85 });
       }
 
-      // MASTER TIMELINE: Pure Kinetic Direct-Scroll Scrub (Butter-smooth, 1:1 scroll responsiveness)
+      // MASTER TIMELINE: Luxury Editorial Scrub (0.45 scrub for deliberate physical mass)
       const masterTl = gsap.timeline({
         scrollTrigger: {
           trigger: shell,
           start: "top top",
           end: "bottom bottom",
-          scrub: 0.15, // Direct, instantaneous 1:1 physical scroll response
+          scrub: 0.45, // Deliberate physical mass and tactile feedback
           pin: stage,
           anticipatePin: 1,
           fastScrollEnd: true,
@@ -203,106 +204,75 @@ export function useHomeIntroTimeline({
       });
 
       // -----------------------------------------------------------------------
-      // BEAT 1: 3D LUXURY MAGAZINE PAGE FLIP & ASYMMETRICAL CORNER PEEL (0.0 -> 0.45)
-      // Act 1 lifts from the bottom-right corner, revealing the reverse matte under-sheet
+      // BEAT 1: THREE.JS DEFORMABLE PAGE TURN (0.00 -> 0.27)
+      // Cylindrical curl lifts and turns the magazine cover, physically uncovering Act 2
       // -----------------------------------------------------------------------
       masterTl.addLabel("PAGE_FLIP", 0.0);
 
-      // 1. Dynamic Travelling Paper Sheen & Spine Shadow
-      if (act1PageShadow) {
+      // 1. Seamless DOM Hero -> WebGL Canvas Handoff (0.00 -> 0.035)
+      if (heroFront) {
         masterTl.to(
-          act1PageShadow,
+          heroFront,
           {
-            opacity: 0.85,
-            duration: 0.22,
-            ease: "power2.inOut",
-          },
-          "PAGE_FLIP"
-        );
-      }
-      if (act1PageSheen) {
-        masterTl.to(
-          act1PageSheen,
-          {
-            opacity: 0.95,
-            duration: 0.2,
+            opacity: 0,
+            duration: 0.035,
             ease: "power1.inOut",
           },
           "PAGE_FLIP"
         );
       }
 
-      // 2. Cast shadow from the turning cover onto Act 2
-      if (act2CastShadow) {
-        masterTl.fromTo(
-          act2CastShadow,
-          { opacity: 0.65, xPercent: 0 },
-          {
-            opacity: 0,
-            xPercent: -35,
-            duration: 0.38,
-            ease: "power2.out",
-          },
-          "PAGE_FLIP+=0.06"
-        );
-      }
+      // 2. Drive Three.js PageTurnController progress (0.00 -> 0.27)
+      const pageTurnProxy = { p: 0 };
+      masterTl.to(
+        pageTurnProxy,
+        {
+          p: 1.0,
+          duration: 0.27,
+          ease: "none",
+          onUpdate: () => {
+            if (pageTurnCtrlRef?.current) {
+              pageTurnCtrlRef.current.setProgress(pageTurnProxy.p);
 
-      // 3. Asymmetrical 3D Page Turn: Rotate along left spine with curl & perspective translation
+              // 3. Fold Edge -> DOM Gold Rule Bridge screen projection handoff (p = 0.52 to 0.66)
+              if (bridgeRule && pageTurnProxy.p >= 0.48 && pageTurnProxy.p <= 0.85) {
+                const coords = pageTurnCtrlRef.current.getFoldScreenCoordinates(
+                  window.innerWidth,
+                  window.innerHeight
+                );
+                if (coords) {
+                  const goldAlpha = range(pageTurnProxy.p, 0.48, 0.68);
+                  gsap.set(bridgeRule, {
+                    opacity: goldAlpha,
+                    x: coords.x - coords.length / 2,
+                    y: coords.y,
+                    rotation: (coords.angleRad * 180) / Math.PI,
+                    width: coords.length,
+                    scaleX: 1,
+                  });
+                }
+              }
+            }
+          },
+        },
+        "PAGE_FLIP"
+      );
+
       if (act1Wrapper) {
-        masterTl.to(
-          act1Wrapper,
-          {
-            rotateY: -115,
-            rotateX: 4,
-            rotateZ: -5,
-            xPercent: -22,
-            scale: 0.92,
-            boxShadow: "-35px 25px 70px rgba(17, 17, 15, 0.5)",
-            duration: 0.42,
-            ease: "power2.inOut",
-          },
-          "PAGE_FLIP"
-        );
-        masterTl.to(
-          act1Wrapper,
-          {
-            opacity: 0,
-            duration: 0.08,
-            ease: "power1.in",
-          },
-          "PAGE_FLIP+=0.38"
-        );
         masterTl.set(
           act1Wrapper,
           {
             visibility: "hidden",
           },
-          "PAGE_FLIP+=0.46"
+          "PAGE_FLIP+=0.27"
         );
       }
 
-      // 4. Act 2 Emerges from Depth underneath the turning page
-      masterTl.addLabel("ACT2_ENTER", 0.14);
-      masterTl.set(
-        act2Wrapper,
-        {
-          visibility: "visible",
-          opacity: 1,
-        },
-        "ACT2_ENTER"
-      );
-
-      masterTl.fromTo(
-        act2Wrapper,
-        { scale: 0.95, filter: "blur(3px)" },
-        {
-          scale: 1,
-          filter: "blur(0px)",
-          duration: 0.38,
-          ease: "power2.out",
-        },
-        "ACT2_ENTER"
-      );
+      // -----------------------------------------------------------------------
+      // BEAT 2: ACT 2 INTERNAL REVEALS (0.27 -> 0.42)
+      // Staggered luxury reveal as the page completely clears the viewport
+      // -----------------------------------------------------------------------
+      masterTl.addLabel("ACT2_ENTER", 0.27);
 
       if (act2Sunlight) {
         masterTl.to(
@@ -310,156 +280,134 @@ export function useHomeIntroTimeline({
           {
             opacity: 0.5,
             x: 0,
-            duration: 0.5,
+            duration: 0.15,
             ease: "power2.out",
           },
           "ACT2_ENTER"
         );
       }
-      if (act2ShadowLeft) {
-        masterTl.to(
-          act2ShadowLeft,
-          {
-            opacity: 0.38,
-            x: 0,
-            duration: 0.5,
-            ease: "power2.out",
-          },
-          "ACT2_ENTER+=0.02"
-        );
-      }
-      if (act2ShadowMid) {
-        masterTl.to(
-          act2ShadowMid,
-          {
-            opacity: 0.3,
-            x: 0,
-            duration: 0.5,
-            ease: "power2.out",
-          },
-          "ACT2_ENTER+=0.04"
-        );
-      }
+
       if (act2Ambient) {
         masterTl.to(
           act2Ambient,
           {
             opacity: 0.25,
-            duration: 0.5,
+            duration: 0.15,
             ease: "power2.out",
           },
           "ACT2_ENTER"
         );
       }
 
-      if (act23DHeadline) {
-        masterTl.to(
-          act23DHeadline,
-          {
-            rotateY: 0,
-            rotateX: 0,
-            duration: 0.45,
-            ease: "power2.out",
-          },
-          "ACT2_ENTER+=0.04"
-        );
-      }
-
+      // 1. Section Index
       if (act2Index) {
         masterTl.to(
           act2Index,
           {
             opacity: 1,
             y: 0,
-            duration: 0.25,
+            duration: 0.08,
             ease: "power2.out",
           },
-          "ACT2_ENTER+=0.02"
+          "ACT2_ENTER+=0.01"
         );
       }
+
+      // 2. THE CERTAINTY BUILDER™ Headline
       if (act2HeadlineLines.length) {
         masterTl.to(
           act2HeadlineLines,
           {
             yPercent: 0,
-            duration: 0.38,
-            stagger: 0.03,
+            duration: 0.12,
+            stagger: 0.025,
             ease: "power3.out",
           },
-          "ACT2_ENTER+=0.04"
+          "ACT2_ENTER+=0.02"
         );
       }
+
       if (act2Highlights.length) {
         masterTl.to(
           act2Highlights,
           {
             backgroundSize: "100% 100%",
-            duration: 0.42,
-            stagger: 0.12,
+            duration: 0.12,
+            stagger: 0.05,
             ease: "power2.out",
           },
-          "ACT2_ENTER+=0.16"
+          "ACT2_ENTER+=0.06"
         );
       }
+
+      // 3. Structural Rules
       if (act2StructuralRules.length) {
         masterTl.to(
           act2StructuralRules,
           {
             scaleX: 1,
             opacity: 0.85,
-            duration: 0.35,
-            stagger: 0.04,
+            duration: 0.1,
+            stagger: 0.03,
             ease: "power2.out",
           },
-          "ACT2_ENTER+=0.06"
+          "ACT2_ENTER+=0.04"
         );
       }
+
+      // 4. Founder Role & Bio
       if (act2Role) {
         masterTl.to(
           act2Role,
           {
             opacity: 1,
             y: 0,
-            duration: 0.3,
+            duration: 0.08,
             ease: "power2.out",
           },
-          "ACT2_ENTER+=0.08"
+          "ACT2_ENTER+=0.05"
         );
       }
+
       if (act2Bio) {
         masterTl.to(
           act2Bio,
           {
             opacity: 1,
             y: 0,
-            duration: 0.32,
+            duration: 0.09,
             ease: "power2.out",
           },
-          "ACT2_ENTER+=0.1"
+          "ACT2_ENTER+=0.06"
         );
       }
+
+      // 5. Metric Ledger (power3.out editorial ease, NO back bounce)
       if (act2Stats.length) {
         masterTl.to(
           act2Stats,
           {
             opacity: 1,
             y: 0,
-            duration: 0.35,
-            stagger: 0.03,
-            ease: "back.out(1.5)",
+            duration: 0.1,
+            stagger: 0.025,
+            ease: "power3.out",
           },
-          "ACT2_ENTER+=0.12"
+          "ACT2_ENTER+=0.08"
         );
       }
 
-      // ACT 2 SOLID READING HOLD (Prevents premature trigger into Act 3)
-      masterTl.addLabel("ACT2_HOLD", 0.6);
-      masterTl.to({}, { duration: 1.0 }, "ACT2_HOLD");
+      // -----------------------------------------------------------------------
+      // BEAT 2.5: ACT 2 SOLID READING HOLD (0.42 -> 0.63)
+      // Generous reading pause so user can absorb content before Act 3
+      // -----------------------------------------------------------------------
+      masterTl.addLabel("ACT2_HOLD", 0.42);
+      masterTl.to({}, { duration: 0.21 }, "ACT2_HOLD");
 
       // -----------------------------------------------------------------------
-      // BEAT 3: ACT 2 ➔ ACT 3 (PRESENCE / ENVELOPE REDESIGN) (1.8 -> 2.8)
+      // BEAT 3: ACT 2 ➔ ACT 3 (PRESENCE) (0.63 -> 0.74)
       // -----------------------------------------------------------------------
-      masterTl.addLabel("ACT2_TO_ACT3", 1.8);
+      masterTl.addLabel("ACT2_TO_ACT3", 0.63);
 
       if (act2Sunlight) {
         masterTl.to(
@@ -467,107 +415,85 @@ export function useHomeIntroTimeline({
           {
             opacity: 0,
             x: 15,
-            duration: 0.25,
-            ease: "power2.in",
-          },
-          "ACT2_TO_ACT3"
-        );
-      }
-      if (act2ShadowLeft) {
-        masterTl.to(
-          act2ShadowLeft,
-          {
-            opacity: 0,
-            x: 15,
-            duration: 0.25,
-            ease: "power2.in",
-          },
-          "ACT2_TO_ACT3"
-        );
-      }
-      if (act2ShadowMid) {
-        masterTl.to(
-          act2ShadowMid,
-          {
-            opacity: 0,
-            x: 15,
-            duration: 0.25,
-            ease: "power2.in",
-          },
-          "ACT2_TO_ACT3"
-        );
-      }
-      if (act2Ambient) {
-        masterTl.to(
-          act2Ambient,
-          {
-            opacity: 0,
-            duration: 0.25,
+            duration: 0.08,
             ease: "power2.in",
           },
           "ACT2_TO_ACT3"
         );
       }
 
-      // 1. Surrounding elements (role, bio, stats, index) dissolve first to isolate "Certainty Builder™."
+      if (act2Ambient) {
+        masterTl.to(
+          act2Ambient,
+          {
+            opacity: 0,
+            duration: 0.08,
+            ease: "power2.in",
+          },
+          "ACT2_TO_ACT3"
+        );
+      }
+
       if (act2Role) {
         masterTl.to(
           act2Role,
           {
             y: -14,
             opacity: 0,
-            duration: 0.22,
-            ease: "power2.in",
-          },
-          "ACT2_TO_ACT3"
-        );
-      }
-      if (act2Bio) {
-        masterTl.to(
-          act2Bio,
-          {
-            y: -14,
-            opacity: 0,
-            duration: 0.22,
-            ease: "power2.in",
-          },
-          "ACT2_TO_ACT3"
-        );
-      }
-      if (act2Stats.length) {
-        masterTl.to(
-          act2Stats,
-          {
-            y: 20,
-            opacity: 0,
-            duration: 0.22,
-            stagger: 0.02,
-            ease: "power2.in",
-          },
-          "ACT2_TO_ACT3"
-        );
-      }
-      if (act2Index) {
-        masterTl.to(
-          act2Index,
-          {
-            y: -16,
-            opacity: 0,
-            duration: 0.22,
+            duration: 0.06,
             ease: "power2.in",
           },
           "ACT2_TO_ACT3"
         );
       }
 
-      // 2. "Certainty Builder™." becomes the heroic focal point: scales up with majestic presence, then transitions
+      if (act2Bio) {
+        masterTl.to(
+          act2Bio,
+          {
+            y: -14,
+            opacity: 0,
+            duration: 0.06,
+            ease: "power2.in",
+          },
+          "ACT2_TO_ACT3"
+        );
+      }
+
+      if (act2Stats.length) {
+        masterTl.to(
+          act2Stats,
+          {
+            y: 20,
+            opacity: 0,
+            duration: 0.06,
+            stagger: 0.015,
+            ease: "power2.in",
+          },
+          "ACT2_TO_ACT3"
+        );
+      }
+
+      if (act2Index) {
+        masterTl.to(
+          act2Index,
+          {
+            y: -16,
+            opacity: 0,
+            duration: 0.06,
+            ease: "power2.in",
+          },
+          "ACT2_TO_ACT3"
+        );
+      }
+
       if (act23DHeadline) {
         masterTl.to(
           act23DHeadline,
           {
             scale: 1.08,
             letterSpacing: "0.02em",
-            duration: 0.22,
+            duration: 0.06,
             ease: "power2.out",
           },
           "ACT2_TO_ACT3"
@@ -578,46 +504,36 @@ export function useHomeIntroTimeline({
             scale: 1.14,
             opacity: 0,
             y: -18,
-            duration: 0.24,
+            duration: 0.07,
             ease: "power2.in",
           },
-          "ACT2_TO_ACT3+=0.16"
+          "ACT2_TO_ACT3+=0.04"
         );
       } else if (act2HeadlineLines.length) {
         masterTl.to(
           act2HeadlineLines,
           {
-            scale: 1.08,
-            duration: 0.2,
-            ease: "power2.out",
-          },
-          "ACT2_TO_ACT3"
-        );
-        masterTl.to(
-          act2HeadlineLines,
-          {
             yPercent: -105,
             opacity: 0,
-            duration: 0.24,
-            stagger: 0.02,
+            duration: 0.08,
+            stagger: 0.015,
             ease: "power2.inOut",
           },
-          "ACT2_TO_ACT3+=0.16"
+          "ACT2_TO_ACT3+=0.03"
         );
       }
 
-      // 3. Golden rules expand gracefully into the stage
       if (act2StructuralRules.length) {
         masterTl.to(
           act2StructuralRules,
           {
             scaleX: 1.25,
             opacity: 0,
-            duration: 0.36,
-            stagger: 0.04,
+            duration: 0.09,
+            stagger: 0.02,
             ease: "power2.inOut",
           },
-          "ACT2_TO_ACT3+=0.04"
+          "ACT2_TO_ACT3+=0.02"
         );
       }
 
@@ -625,22 +541,24 @@ export function useHomeIntroTimeline({
         act2Wrapper,
         {
           opacity: 0,
-          duration: 0.25,
+          duration: 0.08,
           ease: "power1.in",
         },
-        "ACT2_TO_ACT3+=0.08"
+        "ACT2_TO_ACT3+=0.03"
       );
+
       masterTl.set(
         act2Wrapper,
         {
           visibility: "hidden",
         },
-        "ACT2_TO_ACT3+=0.33"
+        "ACT2_TO_ACT3+=0.11"
       );
 
-      // ACT 3 ENTRANCE (Continuous Geometric Handoff into Certificate Frame)
-      // Overlaps seamlessly at 1.25 where Act 2's gold rules morph into Act 3's axis
-      masterTl.addLabel("ACT3_ENTER", 1.25);
+      // -----------------------------------------------------------------------
+      // BEAT 4: ACT 3 ENTRANCE & HOLD (0.74 -> 0.88)
+      // -----------------------------------------------------------------------
+      masterTl.addLabel("ACT3_ENTER", 0.74);
       masterTl.set(
         act3Wrapper,
         {
@@ -656,299 +574,233 @@ export function useHomeIntroTimeline({
           {
             opacity: 1,
             y: 0,
-            duration: 0.4,
+            duration: 0.08,
             ease: "power2.out",
           },
           "ACT3_ENTER"
         );
       }
+
       if (act3Florets.length) {
         masterTl.to(
           act3Florets,
           {
             opacity: 1,
             scale: 1,
-            duration: 0.35,
-            stagger: 0.03,
+            duration: 0.07,
+            stagger: 0.015,
             ease: "power2.out",
           },
-          "ACT3_ENTER+=0.04"
+          "ACT3_ENTER+=0.01"
         );
       }
+
       if (act3Scallops.length) {
         masterTl.to(
           act3Scallops,
           {
             opacity: 1,
-            duration: 0.35,
-            stagger: 0.02,
+            duration: 0.07,
+            stagger: 0.01,
             ease: "power1.out",
           },
-          "ACT3_ENTER+=0.03"
+          "ACT3_ENTER+=0.01"
         );
       }
+
       if (act3Axis) {
         masterTl.to(
           act3Axis,
           {
             scaleX: 1,
             opacity: 1,
-            duration: 0.4,
+            duration: 0.08,
             ease: "power2.out",
           },
-          "ACT3_ENTER+=0.05"
+          "ACT3_ENTER+=0.02"
         );
       }
+
       if (act3AxisFloret) {
         masterTl.to(
           act3AxisFloret,
           {
             scale: 1,
             opacity: 1,
-            duration: 0.3,
+            duration: 0.06,
             ease: "power2.out",
           },
-          "ACT3_ENTER+=0.07"
+          "ACT3_ENTER+=0.03"
         );
       }
+
       if (act3Index) {
         masterTl.to(
           act3Index,
           {
             opacity: 1,
             y: 0,
-            duration: 0.3,
+            duration: 0.06,
             ease: "power2.out",
           },
           "ACT3_ENTER"
         );
       }
+
       if (act3HeadlineLines.length) {
         masterTl.to(
           act3HeadlineLines,
           {
             yPercent: 0,
-            duration: 0.4,
-            stagger: 0.04,
+            duration: 0.08,
+            stagger: 0.02,
             ease: "power3.out",
           },
-          "ACT3_ENTER+=0.03"
+          "ACT3_ENTER+=0.01"
         );
       }
+
       if (act3MetaLabel) {
         masterTl.to(
           act3MetaLabel,
           {
             opacity: 1,
             y: 0,
-            duration: 0.3,
+            duration: 0.06,
             ease: "power2.out",
           },
-          "ACT3_ENTER+=0.04"
+          "ACT3_ENTER+=0.02"
         );
       }
+
       if (act3MetaStar) {
         masterTl.to(
           act3MetaStar,
           {
             scale: 1,
             opacity: 1,
-            duration: 0.3,
+            duration: 0.06,
             ease: "power2.out",
           },
-          "ACT3_ENTER+=0.05"
+          "ACT3_ENTER+=0.02"
         );
       }
+
       if (act3Note) {
         masterTl.to(
           act3Note,
           {
             opacity: 1,
             y: 0,
-            duration: 0.3,
+            duration: 0.06,
             ease: "power2.out",
           },
-          "ACT3_ENTER+=0.05"
+          "ACT3_ENTER+=0.02"
         );
       }
+
       if (act3Badges.length) {
         masterTl.to(
           act3Badges,
           {
             opacity: 1,
             y: 0,
-            duration: 0.35,
-            stagger: 0.03,
+            duration: 0.07,
+            stagger: 0.015,
             ease: "power2.out",
           },
-          "ACT3_ENTER+=0.06"
+          "ACT3_ENTER+=0.03"
         );
       }
+
       if (act3Titles.length) {
         masterTl.to(
           act3Titles,
           {
             opacity: 1,
             y: 0,
-            duration: 0.35,
-            stagger: 0.03,
+            duration: 0.07,
+            stagger: 0.015,
             ease: "power2.out",
           },
-          "ACT3_ENTER+=0.08"
+          "ACT3_ENTER+=0.03"
         );
       }
+
       if (act3Items.length) {
         masterTl.to(
           act3Items,
           {
             opacity: 1,
             y: 0,
-            duration: 0.35,
-            stagger: 0.03,
+            duration: 0.07,
+            stagger: 0.015,
             ease: "power2.out",
           },
-          "ACT3_ENTER+=0.06"
+          "ACT3_ENTER+=0.03"
         );
       }
 
-      // -----------------------------------------------------------------------
-      // BEAT 3.5: ACT 3 INTERACTIVE ENGAGEMENT & REPUTATION PULSE (1.4 -> 2.1)
-      // Keeps the user captivated as they scroll rather than hitting a dead pause
-      // -----------------------------------------------------------------------
-      masterTl.addLabel("ACT3_HOLD", 1.4);
-
-      // Subtle progressive spotlight & aura intensification across the 5 platforms
-      if (act3Badges.length) {
-        masterTl.to(
-          act3Badges,
-          {
-            scale: 1.08,
-            boxShadow: "0 8px 24px rgba(200, 149, 69, 0.22)",
-            duration: 0.35,
-            stagger: 0.08,
-            ease: "power1.inOut",
-          },
-          "ACT3_HOLD+=0.05"
-        );
-        masterTl.to(
-          act3Badges,
-          {
-            scale: 1,
-            boxShadow: "none",
-            duration: 0.3,
-            stagger: 0.08,
-            ease: "power1.out",
-          },
-          "ACT3_HOLD+=0.3"
-        );
-      }
-
-      // Center sparkle breathes and ignites as energy focuses toward the center
-      if (act3AxisFloret) {
-        masterTl.to(
-          act3AxisFloret,
-          {
-            scale: 1.45,
-            duration: 0.4,
-            ease: "power2.inOut",
-          },
-          "ACT3_HOLD+=0.2"
-        );
-      }
+      // ACT 3 HOLD
+      masterTl.addLabel("ACT3_HOLD", 0.84);
+      masterTl.to({}, { duration: 0.04 }, "ACT3_HOLD");
 
       // -----------------------------------------------------------------------
-      // BEAT 4: ACT 3 ➔ ACT 4 (THE MANIFESTO CONVERGENCE) (2.1 -> 3.0)
-      // The Act 3 certificate and cards dissolve inward while the golden axis
-      // stretches directly into Act 4's laser manifesto line
+      // BEAT 5: ACT 3 ➔ ACT 4 (MANIFESTO CONVERGENCE) (0.88 -> 0.94)
       // -----------------------------------------------------------------------
-      masterTl.addLabel("ACT3_TO_ACT4", 2.1);
+      masterTl.addLabel("ACT3_TO_ACT4", 0.88);
 
-      // Media cards and headlines part and dissolve elegantly
       if (act3Items.length) {
         masterTl.to(
           act3Items,
           {
             y: 20,
             opacity: 0,
-            duration: 0.3,
-            stagger: 0.03,
-            ease: "power2.in",
-          },
-          "ACT3_TO_ACT4"
-        );
-      }
-      if (act3HeadlineLines.length) {
-        masterTl.to(
-          act3HeadlineLines,
-          {
-            yPercent: -105,
-            opacity: 0,
-            duration: 0.32,
-            stagger: 0.02,
-            ease: "power2.inOut",
-          },
-          "ACT3_TO_ACT4"
-        );
-      }
-      if (act3Note) {
-        masterTl.to(
-          act3Note,
-          {
-            opacity: 0,
-            y: -10,
-            duration: 0.25,
-            ease: "power2.in",
-          },
-          "ACT3_TO_ACT4"
-        );
-      }
-      if (act3Index) {
-        masterTl.to(
-          act3Index,
-          {
-            opacity: 0,
-            y: -8,
-            duration: 0.22,
-            ease: "power2.in",
-          },
-          "ACT3_TO_ACT4"
-        );
-      }
-      if (act3MetaLabel) {
-        masterTl.to(
-          act3MetaLabel,
-          {
-            opacity: 0,
-            duration: 0.22,
+            duration: 0.05,
+            stagger: 0.01,
             ease: "power2.in",
           },
           "ACT3_TO_ACT4"
         );
       }
 
-      // Certificate frame fades out while central axis lines converge
+      if (act3HeadlineLines.length) {
+        masterTl.to(
+          act3HeadlineLines,
+          {
+            yPercent: -105,
+            opacity: 0,
+            duration: 0.06,
+            stagger: 0.01,
+            ease: "power2.inOut",
+          },
+          "ACT3_TO_ACT4"
+        );
+      }
+
       if (act3Ticket) {
         masterTl.to(
           act3Ticket,
           {
             opacity: 0,
             scale: 0.98,
-            duration: 0.35,
+            duration: 0.06,
             ease: "power2.inOut",
           },
-          "ACT3_TO_ACT4+=0.08"
+          "ACT3_TO_ACT4"
         );
       }
+
       if (act3Axis) {
         masterTl.to(
           act3Axis,
           {
             scaleX: 1.2,
             opacity: 0,
-            duration: 0.3,
+            duration: 0.05,
             ease: "power2.in",
           },
-          "ACT3_TO_ACT4+=0.06"
+          "ACT3_TO_ACT4"
         );
       }
 
@@ -957,11 +809,13 @@ export function useHomeIntroTimeline({
         {
           visibility: "hidden",
         },
-        "ACT3_TO_ACT4+=0.38"
+        "ACT3_TO_ACT4+=0.06"
       );
 
-      // ACT 4 ENTRANCE (Immediate, Grand, Laser-Focused Manifesto)
-      masterTl.addLabel("ACT4_ENTER", 2.45);
+      // -----------------------------------------------------------------------
+      // BEAT 6: ACT 4 ENTRANCE & FINAL HOLD (0.94 -> 1.00)
+      // -----------------------------------------------------------------------
+      masterTl.addLabel("ACT4_ENTER", 0.94);
       masterTl.set(
         act4Wrapper,
         {
@@ -978,76 +832,80 @@ export function useHomeIntroTimeline({
             opacity: 0.05,
             rotate: 0,
             scale: 1,
-            duration: 0.5,
+            duration: 0.06,
             ease: "power2.out",
           },
           "ACT4_ENTER"
         );
       }
+
       if (act4Index) {
         masterTl.to(
           act4Index,
           {
             opacity: 1,
             y: 0,
-            duration: 0.25,
+            duration: 0.04,
             ease: "power2.out",
           },
           "ACT4_ENTER"
         );
       }
+
       if (act4Kicker) {
         masterTl.to(
           act4Kicker,
           {
             opacity: 1,
             y: 0,
-            duration: 0.25,
+            duration: 0.04,
             ease: "power2.out",
           },
-          "ACT4_ENTER+=0.02"
+          "ACT4_ENTER+=0.01"
         );
       }
+
       if (act4Lines.length) {
         masterTl.to(
           act4Lines,
           {
             yPercent: 0,
-            duration: 0.45,
-            stagger: 0.05,
+            duration: 0.06,
+            stagger: 0.015,
             ease: "power3.out",
           },
-          "ACT4_ENTER+=0.04"
+          "ACT4_ENTER+=0.01"
         );
       }
+
       if (act4Rule) {
         masterTl.to(
           act4Rule,
           {
             scaleX: 1,
             opacity: 0.8,
-            duration: 0.35,
+            duration: 0.05,
             ease: "power2.out",
           },
-          "ACT4_ENTER+=0.08"
+          "ACT4_ENTER+=0.02"
         );
       }
+
       if (act4Tenets) {
         masterTl.to(
           act4Tenets,
           {
             opacity: 1,
             y: 0,
-            duration: 0.35,
+            duration: 0.05,
             ease: "power2.out",
           },
-          "ACT4_ENTER+=0.1"
+          "ACT4_ENTER+=0.02"
         );
       }
 
-      // ACT 4 READABLE HOLD (Holds cleanly until the pin ends)
-      masterTl.addLabel("ACT4_HOLD", 3.1);
-      masterTl.to({}, { duration: 0.6 }, "ACT4_HOLD");
+      masterTl.addLabel("ACT4_HOLD", 0.98);
+      masterTl.to({}, { duration: 0.02 }, "ACT4_HOLD");
 
       // -----------------------------------------------------------------------
       // PART 5: ACT 5 ARCHITECTURAL DOMAIN LEDGER REVEALS
@@ -1057,46 +915,24 @@ export function useHomeIntroTimeline({
         const act5Index = act5Section.querySelector("[data-story-act5-index]");
         const act5Headlines = act5Section.querySelector("h2");
         const act5Note = act5Section.querySelector("[data-story-act5-note]");
-        const act5Items = act5Section.querySelectorAll("[data-story-act5-item]");
 
-        const tl5 = gsap.timeline({
+        gsap.from([act5Index, act5Headlines, act5Note], {
           scrollTrigger: {
             trigger: act5Section,
-            start: "top 80%",
+            start: "top 85%",
             toggleActions: "play none none none",
           },
-        });
-
-        tl5.from([act5Index, act5Headlines], {
           opacity: 0,
           y: 18,
           duration: 0.45,
           stagger: 0.05,
           ease: "power2.out",
-        })
-          .from(
-            act5Note,
-            { opacity: 0, y: 12, duration: 0.4, ease: "power2.out" },
-            "-=0.2"
-          )
-          .from(
-            act5Items,
-            {
-              opacity: 0,
-              y: 28,
-              duration: 0.5,
-              stagger: 0.08,
-              ease: "power3.out",
-            },
-            "-=0.15"
-          );
+        });
       }
 
       // -----------------------------------------------------------------------
       // PART 6: ACTS 6 AND 7 (Below Stages)
       // -----------------------------------------------------------------------
-
-      // ACT 6: LATEST THINKING (Dedicated ScrollTrigger reveals)
       const act6 = document.querySelector('[data-story-act6="true"]');
       if (act6) {
         const act6Header = act6.querySelector("header");
@@ -1207,5 +1043,5 @@ export function useHomeIntroTimeline({
     });
 
     return () => mm.revert();
-  }, [shellRef, stageRef, bridgeRuleRef]);
+  }, [shellRef, stageRef, bridgeRuleRef, heroFrontRef, pageTurnCtrlRef]);
 }
