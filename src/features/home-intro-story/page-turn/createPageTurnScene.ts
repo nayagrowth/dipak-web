@@ -5,7 +5,7 @@ import type { PageTurnSceneRefs } from "./page-turn.types";
 
 /**
  * Instantiates the isolated Three.js scene, perspective camera, lights,
- * deformable page mesh, and shadow receiving layer.
+ * page group, deformable page mesh, and shadow receiving layer.
  */
 export async function createPageTurnScene(
   canvas: HTMLCanvasElement,
@@ -27,7 +27,7 @@ export async function createPageTurnScene(
   renderer.setSize(viewportWidth, viewportHeight, false);
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
 
   // Perspective camera with restrained editorial FOV (35 degrees)
   const fov = 35.0;
@@ -46,10 +46,10 @@ export async function createPageTurnScene(
   const scene = new THREE.Scene();
 
   // Lighting: Controlled warm key light + ambient fill
-  const ambientLight = new THREE.AmbientLight(0xfff8f0, 0.35);
+  const ambientLight = new THREE.AmbientLight(0xfff8f0, 0.45);
   scene.add(ambientLight);
 
-  const directionalLight = new THREE.DirectionalLight(0xfff5e4, 1.15);
+  const directionalLight = new THREE.DirectionalLight(0xfff5e4, 1.1);
   directionalLight.position.set(-visibleWidth * 0.4, visibleHeight * 0.6, cameraZ * 0.7);
   directionalLight.castShadow = true;
   directionalLight.shadow.mapSize.width = 1024;
@@ -59,6 +59,10 @@ export async function createPageTurnScene(
   directionalLight.shadow.bias = -0.0005;
   scene.add(directionalLight);
 
+  // Page Group for coordinated local curl + global exit rotation/translation
+  const pageGroup = new THREE.Group();
+  scene.add(pageGroup);
+
   // Deformable Page Mesh
   const pageGeometry = createPageGeometry(visibleWidth, visibleHeight, 64, 36);
   const frontMaterial = createPageTurnMaterial(heroTexture, visibleWidth, visibleHeight);
@@ -66,12 +70,12 @@ export async function createPageTurnScene(
   const mesh = new THREE.Mesh(pageGeometry, frontMaterial);
   mesh.castShadow = true;
   mesh.receiveShadow = false;
-  scene.add(mesh);
+  pageGroup.add(mesh);
 
   // Shadow receiving plane (representing Act 2 background surface underneath)
   const shadowGeo = new THREE.PlaneGeometry(visibleWidth * 1.5, visibleHeight * 1.5);
   const shadowMat = new THREE.ShadowMaterial({
-    opacity: 0.22,
+    opacity: 0.18,
     transparent: true,
   });
   const shadowMesh = new THREE.Mesh(shadowGeo, shadowMat);
@@ -86,6 +90,7 @@ export async function createPageTurnScene(
     renderer,
     scene,
     camera,
+    pageGroup,
     mesh,
     frontMaterial,
     shadowMesh,

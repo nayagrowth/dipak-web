@@ -27,18 +27,26 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
   const heroFrontRef = useRef<HTMLDivElement>(null);
   const pageTurnCtrlRef = useRef<PageTurnController | null>(null);
 
+  const [isPreloaderReady, setIsPreloaderReady] = React.useState(false);
+  const [pageTurnReady, setPageTurnReady] = React.useState(false);
+
   useHomeIntroTimeline({
     shellRef,
     stageRef,
     bridgeRuleRef,
     heroFrontRef,
     pageTurnCtrlRef,
+    pageTurnReady,
   });
 
   return (
     <div className={styles.masterStoryWrapper}>
       {/* Editorial Preloader: Holds until fonts & hero images are decoded */}
-      <EditorialPreloader />
+      <EditorialPreloader
+        onReady={() => {
+          setIsPreloaderReady(true);
+        }}
+      />
 
       {/* Pinned Cinematic Story Stage: Act 1 (Hero) -> Act 2 (Identity) -> Act 3 (Presence) -> Act 4 (Mission) */}
       <div ref={shellRef} className={styles.storyShell}>
@@ -64,8 +72,12 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
             {/* Three.js Deformable Page-Turn Canvas */}
             <HeroPageTurnCanvas
               heroElementRef={heroFrontRef}
+              isPreloaderReady={isPreloaderReady}
               onControllerReady={(ctrl) => {
                 pageTurnCtrlRef.current = ctrl;
+              }}
+              onPageTurnReady={(ready) => {
+                setPageTurnReady(ready);
               }}
             />
           </div>

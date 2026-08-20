@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("Three.js Deformable Page-Turn Transition & Handoff", () => {
+test.describe("Three.js Deformable Page-Turn Transition & Handoff V2", () => {
   test("initial load has sharp interactive hero DOM and persistent header above stage", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/?debugPageTurn=1");
@@ -8,7 +8,6 @@ test.describe("Three.js Deformable Page-Turn Transition & Handoff", () => {
     await page.evaluate(async () => {
       if (document.fonts) await document.fonts.ready;
     });
-    await page.waitForTimeout(500);
 
     // 1. Persistent Header is in DOM and positioned above stage
     const header = page.locator("[data-persistent-header='true']");
@@ -23,6 +22,64 @@ test.describe("Three.js Deformable Page-Turn Transition & Handoff", () => {
     await expect(act2).toBeAttached();
   });
 
+  test("readiness pipeline validates non-blank texture capture and marks canvas valid", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/?debugPageTurn=1");
+
+    await page.evaluate(async () => {
+      if (document.fonts) await document.fonts.ready;
+    });
+
+    const canvas = page.locator("[data-page-turn-canvas='true']");
+    await expect(canvas).toBeAttached();
+
+    // Canvas should receive data-page-turn-capture="valid" once readiness pipeline finishes
+    await expect(canvas).toHaveAttribute("data-page-turn-capture", "valid", { timeout: 10000 });
+    await expect(canvas).toHaveAttribute("data-page-turn-ready", "true", { timeout: 10000 });
+
+    // Texture resolution should be non-empty and non-zero
+    const textureRes = await canvas.getAttribute("data-texture-res");
+    expect(textureRes).toBeTruthy();
+    expect(textureRes).not.toBe("0x0");
+  });
+
+  test("freeze progress ?pageTurnProgress=0.35 activates cylindrical deformation and unmasks Act 2", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/?pageTurnProgress=0.35&debugPageTurn=1");
+
+    await page.evaluate(async () => {
+      if (document.fonts) await document.fonts.ready;
+    });
+
+    const canvas = page.locator("[data-page-turn-canvas='true']");
+    await expect(canvas).toBeVisible({ timeout: 10000 });
+
+    const overlay = page.locator("[data-testid='page-turn-debug-overlay']");
+    await expect(overlay).toBeVisible({ timeout: 10000 });
+    await expect(overlay).toContainText("35.0%");
+
+    // Act 2 wrapper is attached and ready
+    const act2 = page.locator("[data-story-act2-wrapper='true']");
+    await expect(act2).toBeAttached();
+  });
+
+  test("freeze progress ?pageTurnProgress=0.78 rotates page mesh out of viewport", async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await page.goto("/?pageTurnProgress=0.78&debugPageTurn=1");
+
+    await page.evaluate(async () => {
+      if (document.fonts) await document.fonts.ready;
+    });
+
+    const overlay = page.locator("[data-testid='page-turn-debug-overlay']");
+    await expect(overlay).toBeVisible({ timeout: 10000 });
+    await expect(overlay).toContainText("78.0%");
+
+    // Act 2 headline is attached
+    const act2Headline = page.locator("[data-story-act2-3dheadline='true']");
+    await expect(act2Headline).toBeAttached();
+  });
+
   test("scroll drives page curl and uncovers Act 2 Certainty Builder", async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.goto("/");
@@ -31,16 +88,16 @@ test.describe("Three.js Deformable Page-Turn Transition & Handoff", () => {
       await document.fonts.ready;
     });
 
-    // Wait for preloader to settle
-    await page.waitForTimeout(600);
+    const canvas = page.locator("[data-page-turn-canvas='true']");
+    await expect(canvas).toHaveAttribute("data-page-turn-capture", "valid", { timeout: 10000 });
 
     // Scroll into mid-turn (p ~ 0.35)
     await page.evaluate(() => {
       window.scrollTo({ top: window.innerHeight * 1.5, behavior: "instant" });
     });
-    await page.waitForTimeout(300);
+    await page.waitForTimeout(400);
 
-    // Assert Act 2 headline is becoming visible
+    // Assert Act 2 headline is attached
     const act2Headline = page.locator("[data-story-act2-3dheadline='true']");
     await expect(act2Headline).toBeAttached();
 
@@ -48,7 +105,7 @@ test.describe("Three.js Deformable Page-Turn Transition & Handoff", () => {
     await page.evaluate(() => {
       window.scrollTo({ top: window.innerHeight * 2.6, behavior: "instant" });
     });
-    await page.waitForTimeout(300);
+    await page.waitForTimeout(400);
 
     // Assert Act 2 index & stats are attached and displayed
     const act2Stats = page.locator("[data-story-act2-stats='true']");
@@ -58,7 +115,7 @@ test.describe("Three.js Deformable Page-Turn Transition & Handoff", () => {
     await page.evaluate(() => {
       window.scrollTo({ top: 0, behavior: "instant" });
     });
-    await page.waitForTimeout(300);
+    await page.waitForTimeout(400);
 
     const hero = page.locator("#hero");
     await expect(hero).toBeVisible();

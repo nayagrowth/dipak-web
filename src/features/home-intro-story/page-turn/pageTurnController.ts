@@ -4,6 +4,10 @@ import {
   calculateFoldRadius,
   calculateFoldX,
   calculateTwist,
+  calculateGroupPositionX,
+  calculateGroupPositionZ,
+  calculateGroupRotationY,
+  calculateGroupRotationZ,
   deformVertex,
   range,
 } from "./pageTurnMath";
@@ -20,21 +24,22 @@ export class PageTurnController {
   }
 
   /**
-   * Updates shader uniforms and renders the scene on-demand.
+   * Updates shader uniforms, group motion, and renders the scene on-demand.
    * Deterministic, zero-drift, and fully reversible.
    */
   public setProgress(p: number): void {
     const clampedP = Math.max(0, Math.min(1, p));
     this.currentProgress = clampedP;
 
-    const { mesh, frontMaterial, shadowMesh, pageWidth } = this.refs;
+    const { pageGroup, mesh, frontMaterial, shadowMesh, pageWidth } = this.refs;
     const uniforms = frontMaterial.uniforms;
 
+    // 1. Local vertex deformation parameters
     const foldX = calculateFoldX(clampedP, pageWidth);
     const foldRadius = calculateFoldRadius(clampedP, pageWidth);
     const foldAngle = calculateFoldAngle(clampedP);
     const twist = calculateTwist(clampedP);
-    const goldHandoff = range(clampedP, 0.48, 0.85);
+    const goldHandoff = range(clampedP, 0.45, 0.75);
 
     uniforms.uProgress.value = clampedP;
     uniforms.uFoldX.value = foldX;
@@ -43,16 +48,34 @@ export class PageTurnController {
     uniforms.uTwist.value = twist;
     uniforms.uGoldHandoff.value = goldHandoff;
 
-    // Synchronize shadow opacity with page height & uncovering
-    const shadowMat = shadowMesh.material as THREE.ShadowMaterial;
-    const enterShadow = range(clampedP, 0.02, 0.22);
-    const exitShadow = range(clampedP, 0.65, 0.88);
-    shadowMat.opacity = Math.max(0, enterShadow * 0.28 - exitShadow * 0.28);
+    // 2. Global group rotation and translation (exit trajectory)
+    pageGroup.rotation.y = calculateGroupRotationY(clampedP);
+    pageGroup.position.x = calculateGroupPositionX(clampedP, pageWidth);
+    pageGroup.position.z = calculateGroupPositionZ(clampedP, pageWidth);
+    pageGroup.rotation.z = calculateGroupRotationZ(clampedP);
 
-    // Hide mesh completely once transition is 100% complete
-    mesh.visible = clampedP < 0.98;
+    // 3. Synchronize shadow opacity with page height & uncovering
+    const shadowMat = shadowMesh.material as THREE.ShadowMaterial;
+    const enterShadow = range(clampedP, 0.02, 0.20);
+    const exitShadow = range(clampedP, 0.55, 0.75);
+    shadowMat.opacity = Math.max(0, enterShadow * 0.22 - exitShadow * 0.22);
+
+    // 4. Hide mesh completely once transition has cleared the viewport (p >= 0.78)
+    mesh.visible = clampedP < 0.78;
 
     this.render();
+  }
+
+  /**
+   * Toggles shader diagnostics mode.
+   * 0 = Final, 1 = Front Texture, 2 = Back Texture, 3 = Normals, 4 = Curvature
+   */
+  public setDebugMode(mode: number): void {
+    const uniforms = this.refs.frontMaterial.uniforms;
+    if (uniforms.uDebugMode) {
+      uniforms.uDebugMode.value = mode;
+      this.render();
+    }
   }
 
   /**
@@ -77,7 +100,7 @@ export class PageTurnController {
     const { camera, pageWidth, pageHeight } = this.refs;
     const p = this.currentProgress;
 
-    if (p < 0.02 || p > 0.95) return null;
+    if (p < 0.02 || p > 0.78) return null;
 
     const foldX = calculateFoldX(p, pageWidth);
     const foldRadius = calculateFoldRadius(p, pageWidth);
@@ -168,6 +191,7 @@ export class PageTurnController {
         : "None",
       frameMs: Number(this.frameDurationMs.toFixed(2)),
       fps: this.frameDurationMs > 0 ? Math.round(1000 / Math.max(this.frameDurationMs, 1)) : 60,
+      debugMode: u.uDebugMode?.value ?? 0,
     };
   }
 

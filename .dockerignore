@@ -4,3 +4,14 @@ node_modules
 *.log
 .env*
 !/.env.example
+*.tar.gz
+act2_finalization_pack
+act2_handoff
+acts_3_to_7_handoff
+brush_engine_pack
+handoff_temp
+pack-docs
+test-results
+public/test-snapshots
+reference-*.png
+reference-*.json

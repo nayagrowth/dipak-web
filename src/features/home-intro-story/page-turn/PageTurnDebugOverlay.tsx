@@ -10,121 +10,91 @@ interface PageTurnDebugOverlayProps {
 
 export function PageTurnDebugOverlay({ controller }: PageTurnDebugOverlayProps) {
   const [info, setInfo] = useState<PageTurnDebugInfo>(() => controller.getDebugInfo());
-  const [sliderValue, setSliderValue] = useState(0);
+  const [sliderProgress, setSliderProgress] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setInfo(controller.getDebugInfo());
     }, 100);
+
     return () => clearInterval(interval);
   }, [controller]);
 
-  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = parseFloat(e.target.value);
-    setSliderValue(val);
-    controller.setProgress(val);
-    setInfo(controller.getDebugInfo());
-  };
-
-  const setFixedProgress = (p: number) => {
-    setSliderValue(p);
-    controller.setProgress(p);
-    setInfo(controller.getDebugInfo());
-  };
-
   return (
     <div
+      data-testid="page-turn-debug-overlay"
       style={{
         position: "fixed",
-        bottom: "1.5rem",
-        right: "1.5rem",
+        bottom: "20px",
+        right: "20px",
         zIndex: 9999,
-        background: "rgba(17, 17, 15, 0.92)",
-        color: "#f4f1ea",
-        padding: "1rem 1.25rem",
-        borderRadius: "8px",
-        fontFamily: "monospace",
-        fontSize: "0.78rem",
-        lineHeight: "1.4",
-        boxShadow: "0 8px 32px rgba(0,0,0,0.45)",
+        background: "rgba(18, 18, 20, 0.88)",
+        backdropFilter: "blur(12px)",
         border: "1px solid rgba(200, 149, 69, 0.4)",
-        maxWidth: "340px",
-        backdropFilter: "blur(8px)",
+        borderRadius: "8px",
+        padding: "14px 18px",
+        color: "#f4f1ea",
+        fontFamily: "monospace",
+        fontSize: "11px",
+        lineHeight: "1.6",
+        boxShadow: "0 8px 32px rgba(0, 0, 0, 0.45)",
+        pointerEvents: "auto",
+        minWidth: "260px",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginBottom: "0.6rem",
-          borderBottom: "1px solid rgba(200, 149, 69, 0.3)",
-          paddingBottom: "0.4rem",
-        }}
-      >
-        <span style={{ color: "#c89545", fontWeight: 700, letterSpacing: "0.08em" }}>
-          THREE.JS PAGE-TURN QA
-        </span>
-        <span style={{ color: info.frameMs < 16.7 ? "#4ade80" : "#f87171" }}>
-          {info.frameMs}ms ({info.fps} fps)
-        </span>
+      <div style={{ fontWeight: 700, color: "#c89545", marginBottom: "8px", letterSpacing: "0.08em" }}>
+        PAGE-TURN V2 DIAGNOSTICS
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.3rem", marginBottom: "0.6rem" }}>
-        <div>Progress: <strong style={{ color: "#c89545" }}>{info.progress.toFixed(3)}</strong></div>
-        <div>FOV: {info.cameraFov}°</div>
-        <div>Fold X: {info.foldAxisX.toFixed(2)}</div>
-        <div>Radius: {info.foldRadius.toFixed(2)}</div>
-        <div>Twist: {info.twistAmount.toFixed(3)}</div>
-        <div>Triangles: {info.triangles}</div>
-        <div>Draw Calls: {info.drawCalls}</div>
-        <div>Texture: {info.textureRes}</div>
+      <div>Progress: {(info.progress * 100).toFixed(1)}%</div>
+      <div>Fold X: {info.foldAxisX.toFixed(2)}</div>
+      <div>Fold Radius: {info.foldRadius.toFixed(2)}</div>
+      <div>Twist: {info.twistAmount.toFixed(4)}</div>
+      <div>Draw Calls: {info.drawCalls}</div>
+      <div>Triangles: {info.triangles}</div>
+      <div>Texture: {info.textureRes}</div>
+      <div>
+        Frame: {info.frameMs} ms ({info.fps} fps)
       </div>
 
-      {/* Manual Progress Slider */}
-      <div style={{ marginTop: "0.6rem" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.2rem" }}>
-          <span>Manual Progress:</span>
-          <span>{sliderValue.toFixed(2)}</span>
-        </div>
+      <div style={{ marginTop: "10px", paddingTop: "8px", borderTop: "1px solid rgba(255,255,255,0.1)" }}>
+        <div style={{ marginBottom: "4px", color: "#c89545" }}>Debug Mode:</div>
+        <select
+          value={info.debugMode}
+          onChange={(e) => controller.setDebugMode(Number(e.target.value))}
+          style={{
+            width: "100%",
+            background: "#222",
+            color: "#fff",
+            border: "1px solid #444",
+            padding: "4px 6px",
+            borderRadius: "4px",
+            fontSize: "11px",
+          }}
+        >
+          <option value={0}>0: Final Composite</option>
+          <option value={1}>1: Front Texture Only</option>
+          <option value={2}>2: Back Paper Only</option>
+          <option value={3}>3: Surface Normals</option>
+          <option value={4}>4: Curvature Mask</option>
+        </select>
+      </div>
+
+      <div style={{ marginTop: "8px" }}>
+        <div style={{ marginBottom: "4px", color: "#c89545" }}>Scrub Progress:</div>
         <input
           type="range"
-          min="0"
-          max="1"
-          step="0.005"
-          value={sliderValue}
-          onChange={handleSliderChange}
-          style={{ width: "100%", accentColor: "#c89545", cursor: "pointer" }}
+          min={0}
+          max={1}
+          step={0.01}
+          value={sliderProgress}
+          onChange={(e) => {
+            const p = parseFloat(e.target.value);
+            setSliderProgress(p);
+            controller.setProgress(p);
+          }}
+          style={{ width: "100%" }}
         />
-      </div>
-
-      {/* Quick Checkpoint Buttons */}
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "0.25rem",
-          marginTop: "0.6rem",
-        }}
-      >
-        {[0, 0.08, 0.18, 0.3, 0.42, 0.5, 0.6, 0.72, 0.85, 1.0].map((p) => (
-          <button
-            key={p}
-            type="button"
-            onClick={() => setFixedProgress(p)}
-            style={{
-              background: sliderValue === p ? "#c89545" : "rgba(255,255,255,0.1)",
-              color: sliderValue === p ? "#11110f" : "#f4f1ea",
-              border: "1px solid rgba(200, 149, 69, 0.3)",
-              borderRadius: "3px",
-              padding: "0.15rem 0.35rem",
-              fontSize: "0.7rem",
-              cursor: "pointer",
-            }}
-          >
-            {p}
-          </button>
-        ))}
       </div>
     </div>
   );

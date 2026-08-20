@@ -4,6 +4,7 @@ export interface PageTurnSceneRefs {
   renderer: THREE.WebGLRenderer;
   scene: THREE.Scene;
   camera: THREE.PerspectiveCamera;
+  pageGroup: THREE.Group;
   mesh: THREE.Mesh;
   frontMaterial: THREE.ShaderMaterial;
   shadowMesh: THREE.Mesh;
@@ -25,6 +26,7 @@ export interface PageTurnUniforms {
   uHeroTexture: { value: THREE.Texture | null };
   uLightDir: { value: THREE.Vector3 };
   uGoldHandoff: { value: number };
+  uDebugMode: { value: number };
 }
 
 export interface PageTurnDebugInfo {
@@ -38,4 +40,5 @@ export interface PageTurnDebugInfo {
   textureRes: string;
   frameMs: number;
   fps: number;
+  debugMode: number;
 }

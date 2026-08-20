@@ -17,6 +17,7 @@ const PAGE_VERTEX_SHADER = /* glsl */ `
   varying float vCurvature;
 
   const float PI = 3.14159265358979323846;
+  const float THETA_MAX = 2.70526034059; // 155 degrees in radians
 
   void main() {
     vUv = uv;
@@ -28,7 +29,7 @@ const PAGE_VERTEX_SHADER = /* glsl */ `
     float cosA = cos(uFoldAngle);
     float sinA = sin(uFoldAngle);
 
-    // Apply organic vertical twist
+    // Apply restrained organic vertical twist
     float yTwist = pos.y * uTwist;
     float dist = (pos.x - uFoldX) * cosA - (pos.y + yTwist) * sinA;
 
@@ -37,8 +38,8 @@ const PAGE_VERTEX_SHADER = /* glsl */ `
     if (dist > 0.0) {
       float theta = dist / uFoldRadius;
 
-      if (theta < PI) {
-        // Active cylindrical deformation around the moving fold
+      if (theta <= THETA_MAX) {
+        // Active cylindrical deformation around moving fold
         float sinT = sin(theta);
         float cosT = cos(theta);
         float delta = uFoldRadius * sinT - dist;
@@ -55,17 +56,22 @@ const PAGE_VERTEX_SHADER = /* glsl */ `
         // Curvature factor: peaks at crest of fold (theta = PI/2)
         curvature = sinT;
       } else {
-        // Fully turned page section (flat reverse side)
-        float flatDist = dist - PI * uFoldRadius;
-        float delta = -(flatDist + dist);
+        // Tangent-continuation line: preserves flat sheet trajectory without folding back
+        float sinMax = sin(THETA_MAX);
+        float cosMax = cos(THETA_MAX);
+        float extra = dist - uFoldRadius * THETA_MAX;
+
+        float uPrime = uFoldRadius * sinMax + extra * cosMax;
+        float zPrime = uFoldRadius * (1.0 - cosMax) + extra * sinMax;
+        float delta = uPrime - dist;
 
         pos.x += delta * cosA;
         pos.y -= delta * sinA;
-        pos.z += 2.0 * uFoldRadius;
+        pos.z += zPrime;
 
-        norm.x = 0.0;
-        norm.y = 0.0;
-        norm.z = -1.0;
+        norm.x = -sinMax * cosA;
+        norm.y = sinMax * sinA;
+        norm.z = cosMax;
 
         curvature = 0.0;
       }
@@ -89,6 +95,7 @@ const PAGE_FRAGMENT_SHADER = /* glsl */ `
   uniform vec3 uLightDir;
   uniform float uGoldHandoff;
   uniform float uProgress;
+  uniform float uDebugMode;
 
   varying vec2 vUv;
   varying vec3 vNormal;
@@ -97,28 +104,28 @@ const PAGE_FRAGMENT_SHADER = /* glsl */ `
   varying float vCurvature;
 
   const vec3 GOLD_COLOR = vec3(0.784, 0.584, 0.271); // #c89545
-  const vec3 WARM_IVORY = vec3(0.945, 0.925, 0.882); // #f1ece1
-  const vec3 BACK_SEAL_COLOR = vec3(0.627, 0.471, 0.208); // #a07835
+  const vec3 WARM_IVORY = vec3(0.965, 0.949, 0.918); // #f6f2ea luxury paper
+  const vec3 BACK_SEAL_COLOR = vec3(0.686, 0.541, 0.282); // #af8a48
 
-  // Procedural DV Monogram Seal for the reverse matte paper side
+  // Procedural DV Monogram Seal for reverse paper side
   float drawSeal(vec2 uv) {
     vec2 c = uv - vec2(0.5, 0.5);
     float r = length(c);
     
     // Outer dashed ring
-    float ring1 = smoothstep(0.003, 0.0, abs(r - 0.18));
+    float ring1 = smoothstep(0.003, 0.0, abs(r - 0.16));
     // Inner solid ring
-    float ring2 = smoothstep(0.002, 0.0, abs(r - 0.15));
+    float ring2 = smoothstep(0.002, 0.0, abs(r - 0.135));
     
     // Center DV monogram approximation
-    float dBox = max(abs(c.x + 0.04), abs(c.y)) - 0.045;
-    float dStroke = abs(dBox) - 0.006;
+    float dBox = max(abs(c.x + 0.035), abs(c.y)) - 0.04;
+    float dStroke = abs(dBox) - 0.005;
     float dLetter = smoothstep(0.003, 0.0, dStroke);
     
-    float vBox = abs(c.x - 0.04 + c.y * 0.3) - 0.006;
-    float vLetter = smoothstep(0.003, 0.0, vBox) * step(abs(c.y), 0.045);
+    float vBox = abs(c.x - 0.035 + c.y * 0.28) - 0.005;
+    float vLetter = smoothstep(0.003, 0.0, vBox) * step(abs(c.y), 0.04);
 
-    return clamp(ring1 * 0.7 + ring2 * 0.9 + (dLetter + vLetter) * 0.85, 0.0, 1.0);
+    return clamp(ring1 * 0.5 + ring2 * 0.7 + (dLetter + vLetter) * 0.65, 0.0, 1.0);
   }
 
   void main() {
@@ -126,26 +133,44 @@ const PAGE_FRAGMENT_SHADER = /* glsl */ `
     vec3 V = normalize(vViewPosition);
     vec3 L = normalize(uLightDir);
 
+    // Diagnostics / Debug Modes
+    if (uDebugMode > 0.5 && uDebugMode < 1.5) {
+      gl_FragColor = texture2D(uHeroTexture, vUv);
+      return;
+    }
+    if (uDebugMode > 1.5 && uDebugMode < 2.5) {
+      gl_FragColor = vec4(WARM_IVORY, 1.0);
+      return;
+    }
+    if (uDebugMode > 2.5 && uDebugMode < 3.5) {
+      gl_FragColor = vec4(N * 0.5 + 0.5, 1.0);
+      return;
+    }
+    if (uDebugMode > 3.5 && uDebugMode < 4.5) {
+      gl_FragColor = vec4(vec3(vCurvature), 1.0);
+      return;
+    }
+
     bool isFront = gl_FrontFacing;
 
     if (!isFront) {
       N = -N;
     }
 
-    // Directional Diffuse (Lambert)
+    // Directional Diffuse (High ambient baseline keeps paper bright & readable)
     float NdotL = max(0.0, dot(N, L));
-    float ambient = 0.42;
-    float diffuse = NdotL * 0.58;
+    float ambient = 0.68;
+    float diffuse = NdotL * 0.32;
     float lighting = ambient + diffuse;
 
-    // Moving Specular Highlight tracking the fold curvature crest
+    // Moving Specular Highlight tracking fold curvature crest
     vec3 H = normalize(L + V);
     float NdotH = max(0.0, dot(N, H));
-    float specular = pow(NdotH, 24.0) * vCurvature * 0.45;
+    float specular = pow(NdotH, 20.0) * vCurvature * 0.35;
 
-    // Fresnel Rim Highlight along the glancing edges
-    float fresnel = pow(1.0 - max(0.0, dot(N, V)), 2.8) * (0.2 + 0.8 * vCurvature);
-    vec3 rimColor = mix(vec3(1.0, 0.98, 0.94), GOLD_COLOR, uGoldHandoff);
+    // Fresnel Rim Highlight along glancing edges
+    float fresnel = pow(1.0 - max(0.0, dot(N, V)), 2.5) * (0.15 + 0.85 * vCurvature);
+    vec3 rimColor = mix(vec3(1.0, 0.98, 0.95), GOLD_COLOR, uGoldHandoff);
 
     if (isFront) {
       // Front side: Captured Hero Texture
@@ -153,35 +178,32 @@ const PAGE_FRAGMENT_SHADER = /* glsl */ `
       vec3 finalColor = texColor.rgb * lighting;
 
       // Add fold specular highlight and warm gold rim
-      finalColor += vec3(1.0, 0.97, 0.92) * specular;
-      finalColor += rimColor * fresnel * 0.35;
+      finalColor += vec3(1.0, 0.97, 0.93) * specular;
+      finalColor += rimColor * fresnel * 0.25;
 
       gl_FragColor = vec4(finalColor, texColor.a);
     } else {
-      // Reverse side: Warm matte paper with editorial DV seal
+      // Reverse side: Warm luminous ivory paper with restrained DV seal
       vec3 basePaper = WARM_IVORY;
       
-      // Subtle paper grain & gradient wash
-      float paperGrad = 1.0 - 0.06 * length(vUv - vec2(0.5, 0.5));
+      // Subtle paper gradient
+      float paperGrad = 1.0 - 0.04 * length(vUv - vec2(0.5, 0.5));
       basePaper *= paperGrad;
 
-      // Draw Monogram Seal
+      // Draw Monogram Seal (subtle watermark effect)
       float sealMask = drawSeal(vUv);
-      vec3 paperWithSeal = mix(basePaper, BACK_SEAL_COLOR, sealMask * 0.32);
+      vec3 paperWithSeal = mix(basePaper, BACK_SEAL_COLOR, sealMask * 0.18);
 
-      // Apply physical lighting
-      vec3 finalColor = paperWithSeal * lighting;
-      finalColor += vec3(1.0, 0.96, 0.90) * specular * 0.6;
-      finalColor += rimColor * fresnel * 0.4;
+      // Apply physical lighting with guaranteed minimum luminance
+      vec3 finalColor = paperWithSeal * max(0.55, lighting);
+      finalColor += vec3(1.0, 0.97, 0.92) * specular * 0.4;
+      finalColor += rimColor * fresnel * 0.3;
 
       gl_FragColor = vec4(finalColor, 1.0);
     }
   }
 `;
 
-/**
- * Factory for creating the custom PageTurn ShaderMaterial.
- */
 export function createPageTurnMaterial(
   heroTexture: THREE.Texture | null,
   pageWidth: number,
@@ -189,15 +211,16 @@ export function createPageTurnMaterial(
 ): THREE.ShaderMaterial {
   const uniforms: PageTurnUniforms = {
     uProgress: { value: 0.0 },
-    uFoldX: { value: pageWidth * 0.62 },
-    uFoldRadius: { value: pageWidth * 0.38 },
-    uFoldAngle: { value: (9.0 * Math.PI) / 180.0 },
+    uFoldX: { value: pageWidth * 0.58 },
+    uFoldRadius: { value: pageWidth * 0.36 },
+    uFoldAngle: { value: (8.5 * Math.PI) / 180.0 },
     uTwist: { value: 0.0 },
     uPageWidth: { value: pageWidth },
     uPageHeight: { value: pageHeight },
     uHeroTexture: { value: heroTexture },
-    uLightDir: { value: new THREE.Vector3(-0.6, 0.7, 0.9).normalize() },
+    uLightDir: { value: new THREE.Vector3(-0.5, 0.6, 0.9).normalize() },
     uGoldHandoff: { value: 0.0 },
+    uDebugMode: { value: 0.0 },
   };
 
   return new THREE.ShaderMaterial({

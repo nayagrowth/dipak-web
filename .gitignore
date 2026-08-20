@@ -5,6 +5,8 @@ build/
 .env*
 !.env.example
 *.log
+*.tar.gz
+test-results/
 .DS_Store
 coverage/
 deploy.tar.gz

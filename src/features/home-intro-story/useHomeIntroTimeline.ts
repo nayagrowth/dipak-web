@@ -16,6 +16,7 @@ interface UseHomeIntroTimelineProps {
   bridgeRuleRef: RefObject<HTMLElement | null>;
   heroFrontRef?: RefObject<HTMLElement | null>;
   pageTurnCtrlRef?: RefObject<PageTurnController | null>;
+  pageTurnReady?: boolean;
 }
 
 export function useHomeIntroTimeline({
@@ -24,6 +25,7 @@ export function useHomeIntroTimeline({
   bridgeRuleRef,
   heroFrontRef,
   pageTurnCtrlRef,
+  pageTurnReady = false,
 }: UseHomeIntroTimelineProps) {
   useLayoutEffect(() => {
     const shell = shellRef.current;
@@ -203,69 +205,123 @@ export function useHomeIntroTimeline({
         },
       });
 
+      const pageTurnCanvas = stage.querySelector<HTMLCanvasElement>("[data-page-turn-canvas=\"true\"]");
+
       // -----------------------------------------------------------------------
-      // BEAT 1: THREE.JS DEFORMABLE PAGE TURN (0.00 -> 0.27)
-      // Cylindrical curl lifts and turns the magazine cover, physically uncovering Act 2
+      // BEAT 1: DEFORMABLE PAGE TURN / TRANSITION (0.00 -> 0.27)
+      // If WebGL is ready, executes real-time cylindrical page-curl transition.
+      // If WebGL is unavailable or failed validation, performs smooth standard DOM fade.
       // -----------------------------------------------------------------------
       masterTl.addLabel("PAGE_FLIP", 0.0);
 
-      // 1. Seamless DOM Hero -> WebGL Canvas Handoff (0.00 -> 0.035)
-      if (heroFront) {
+      if (pageTurnReady) {
+        // 1. Crisp DOM Hero -> WebGL Canvas Handoff (0.00 -> 0.015)
+        if (heroFront) {
+          masterTl.to(
+            heroFront,
+            {
+              opacity: 0,
+              duration: 0.015,
+              ease: "none",
+            },
+            "PAGE_FLIP"
+          );
+        }
+
+        if (pageTurnCanvas) {
+          masterTl.to(
+            pageTurnCanvas,
+            {
+              autoAlpha: 1,
+              duration: 0.015,
+              ease: "none",
+            },
+            "PAGE_FLIP"
+          );
+        }
+
+        // 2. Drive Three.js PageTurnController progress (0.00 -> 0.27)
+        const pageTurnProxy = { p: 0 };
         masterTl.to(
-          heroFront,
+          pageTurnProxy,
           {
-            opacity: 0,
-            duration: 0.035,
-            ease: "power1.inOut",
+            p: 1.0,
+            duration: 0.27,
+            ease: "none",
+            onUpdate: () => {
+              if (pageTurnCtrlRef?.current) {
+                pageTurnCtrlRef.current.setProgress(pageTurnProxy.p);
+
+                // 3. Fold Edge -> DOM Gold Rule Bridge screen projection handoff (p = 0.45 to 0.75)
+                if (bridgeRule && pageTurnProxy.p >= 0.45 && pageTurnProxy.p <= 0.78) {
+                  const coords = pageTurnCtrlRef.current.getFoldScreenCoordinates(
+                    window.innerWidth,
+                    window.innerHeight
+                  );
+                  if (coords) {
+                    const goldAlpha = range(pageTurnProxy.p, 0.45, 0.65);
+                    gsap.set(bridgeRule, {
+                      opacity: goldAlpha,
+                      x: coords.x - coords.length / 2,
+                      y: coords.y,
+                      rotation: (coords.angleRad * 180) / Math.PI,
+                      width: coords.length,
+                      scaleX: 1,
+                    });
+                  }
+                } else if (bridgeRule && pageTurnProxy.p > 0.78) {
+                  gsap.set(bridgeRule, { opacity: 0 });
+                }
+              }
+            },
           },
           "PAGE_FLIP"
         );
-      }
 
-      // 2. Drive Three.js PageTurnController progress (0.00 -> 0.27)
-      const pageTurnProxy = { p: 0 };
-      masterTl.to(
-        pageTurnProxy,
-        {
-          p: 1.0,
-          duration: 0.27,
-          ease: "none",
-          onUpdate: () => {
-            if (pageTurnCtrlRef?.current) {
-              pageTurnCtrlRef.current.setProgress(pageTurnProxy.p);
+        if (pageTurnCanvas) {
+          masterTl.to(
+            pageTurnCanvas,
+            {
+              autoAlpha: 0,
+              duration: 0.02,
+            },
+            "PAGE_FLIP+=0.25"
+          );
+        }
 
-              // 3. Fold Edge -> DOM Gold Rule Bridge screen projection handoff (p = 0.52 to 0.66)
-              if (bridgeRule && pageTurnProxy.p >= 0.48 && pageTurnProxy.p <= 0.85) {
-                const coords = pageTurnCtrlRef.current.getFoldScreenCoordinates(
-                  window.innerWidth,
-                  window.innerHeight
-                );
-                if (coords) {
-                  const goldAlpha = range(pageTurnProxy.p, 0.48, 0.68);
-                  gsap.set(bridgeRule, {
-                    opacity: goldAlpha,
-                    x: coords.x - coords.length / 2,
-                    y: coords.y,
-                    rotation: (coords.angleRad * 180) / Math.PI,
-                    width: coords.length,
-                    scaleX: 1,
-                  });
-                }
-              }
-            }
-          },
-        },
-        "PAGE_FLIP"
-      );
+        if (act1Wrapper) {
+          masterTl.set(
+            act1Wrapper,
+            {
+              visibility: "hidden",
+            },
+            "PAGE_FLIP+=0.27"
+          );
+        }
+      } else {
+        // Fallback: standard smooth DOM fade when WebGL is unready / reduced motion
+        if (heroFront) {
+          masterTl.to(
+            heroFront,
+            {
+              opacity: 0,
+              y: -25,
+              duration: 0.25,
+              ease: "power2.inOut",
+            },
+            "PAGE_FLIP"
+          );
+        }
 
-      if (act1Wrapper) {
-        masterTl.set(
-          act1Wrapper,
-          {
-            visibility: "hidden",
-          },
-          "PAGE_FLIP+=0.27"
-        );
+        if (act1Wrapper) {
+          masterTl.set(
+            act1Wrapper,
+            {
+              visibility: "hidden",
+            },
+            "PAGE_FLIP+=0.27"
+          );
+        }
       }
 
       // -----------------------------------------------------------------------
@@ -1043,5 +1099,5 @@ export function useHomeIntroTimeline({
     });
 
     return () => mm.revert();
-  }, [shellRef, stageRef, bridgeRuleRef, heroFrontRef, pageTurnCtrlRef]);
+  }, [shellRef, stageRef, bridgeRuleRef, heroFrontRef, pageTurnCtrlRef, pageTurnReady]);
 }
