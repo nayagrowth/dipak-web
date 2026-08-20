@@ -9,3 +9,4 @@ build/
 coverage/
 deploy.tar.gz
 *.tsbuildinfo
+build.tar.gz
