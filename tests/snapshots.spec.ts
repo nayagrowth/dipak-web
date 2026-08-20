@@ -32,15 +32,10 @@ test.describe("Hero Surface Visual Snapshot Capture", () => {
       await page.setViewportSize({ width: vp.width, height: vp.height });
       await page.goto("/");
       await page.evaluate(async () => {
-        await document.fonts.ready;
-        await Promise.all(
-          [...document.images].map((img) =>
-            img.complete ? Promise.resolve() : img.decode().catch(() => {})
-          )
-        );
+        if (document.fonts) await document.fonts.ready;
       });
       // Wait for intro motion to settle
-      await page.waitForTimeout(800);
+      await page.waitForTimeout(600);
 
       const filePath = path.join(outDir, `${vp.name}.png`);
       await page.screenshot({ path: filePath, fullPage: false });

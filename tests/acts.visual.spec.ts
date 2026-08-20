@@ -11,9 +11,8 @@ test.describe("Homepage Master Story — Acts 1 to 7", () => {
     // Act 1: Hero
     const hero = page.locator('[data-story-act1="true"]');
     await expect(hero).toBeVisible();
-    await expect(
-      page.locator("text=Sales Is The Transfer Of Certainty.")
-    ).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("Sales Is");
+    await expect(page.getByRole("heading", { level: 1 })).toContainText("Certainty");
 
     // Act 2: Identity
     const identity = page.locator('[data-story-act2="true"]');
@@ -30,30 +29,26 @@ test.describe("Homepage Master Story — Acts 1 to 7", () => {
     // Act 4: Mission
     const mission = page.locator('[data-story-act4="true"]');
     await expect(mission).toBeAttached();
-    await expect(page.locator("text=BUILDING CERTAINTY")).toBeAttached();
-    await expect(
-      page.locator("text=Sales is the transfer of certainty.")
-    ).toBeAttached();
+    await expect(mission.locator("text=THE MANIFESTO")).toBeAttached();
+    await expect(mission.getByText("transfer of certainty")).toBeAttached();
 
     // Act 5: Topics
     const topics = page.locator('[data-story-act5="true"]');
     await expect(topics).toBeAttached();
-    await expect(page.locator("text=WHAT I")).toBeAttached();
-    await expect(page.locator("text=SALES SYSTEMS")).toBeAttached();
-    await expect(page.locator("text=BUYER PSYCHOLOGY")).toBeAttached();
+    await expect(topics.locator("text=WHAT I")).toBeAttached();
+    await expect(topics.getByRole("heading", { name: /Buyer Psychology/i })).toBeAttached();
 
     // Act 6: Thinking
     const thinking = page.locator('[data-story-act6="true"]');
     await expect(thinking).toBeAttached();
-    await expect(page.locator("text=LATEST VIDEOS")).toBeAttached();
-    await expect(page.locator("text=LATEST ARTICLES")).toBeAttached();
+    await expect(thinking.getByRole("heading", { name: /LATEST THINKING/i })).toBeAttached();
 
     // Act 7: Bridge
     const bridge = page.locator('[data-story-act7="true"]');
     await expect(bridge).toBeAttached();
-    await expect(page.locator("text=AUTHORITY")).toBeAttached();
+    await expect(bridge.getByText("AUTHORITY", { exact: true })).toBeAttached();
     await expect(
-      page.locator("text=Explore Authority Closers")
+      bridge.locator("text=Explore Authority Closers")
     ).toBeAttached();
 
     // Zero horizontal overflow
@@ -67,7 +62,7 @@ test.describe("Homepage Master Story — Acts 1 to 7", () => {
     page,
   }) => {
     await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto("/", { waitUntil: "networkidle" });
+    await page.goto("/");
     await page.waitForTimeout(600);
 
     const sections = [

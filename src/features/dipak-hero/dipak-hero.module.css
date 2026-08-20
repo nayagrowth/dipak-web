@@ -585,6 +585,10 @@
 
 /* Mobile Viewports (<= 767px) */
 @media (max-width: 767px) {
+  .headerSpacer {
+    height: 1.5rem;
+  }
+
   .surface {
     position: relative;
     height: 100svh;

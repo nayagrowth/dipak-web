@@ -383,8 +383,8 @@
 }
 
 .platformColumn:hover .iconBadge {
-  transform: translateY(-3px) scale(1.04);
-  background: rgba(255, 255, 255, 0.58);
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.45);
   border-color: rgba(200, 149, 69, 0.72);
 }
 
@@ -445,7 +445,9 @@
 }
 
 .platformLink {
-  display: contents;
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .platformColumn:has(.platformLink) {

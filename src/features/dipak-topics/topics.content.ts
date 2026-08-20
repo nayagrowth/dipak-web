@@ -17,7 +17,7 @@ export const topicsContent: TopicsContent = {
     {
       id: "buyer-psychology",
       number: "01",
-      tag: "Cognitive Dynamics",
+      tag: "BEHAVIOR",
       title: "Buyer Psychology",
       description:
         "Why people hesitate, what creates trust, and how decisions are actually made.",
@@ -27,7 +27,7 @@ export const topicsContent: TopicsContent = {
     {
       id: "high-ticket-sales",
       number: "02",
-      tag: "Systems Architecture",
+      tag: "SALES",
       title: "High-Ticket Sales",
       description:
         "How to lead complex conversations without pressure, scripts or manipulation.",
@@ -37,7 +37,7 @@ export const topicsContent: TopicsContent = {
     {
       id: "communication",
       number: "03",
-      tag: "Language & Framing",
+      tag: "LANGUAGE",
       title: "Communication",
       description:
         "Questions, listening, framing and the language that changes how people understand value.",
@@ -47,7 +47,7 @@ export const topicsContent: TopicsContent = {
     {
       id: "personal-branding",
       number: "04",
-      tag: "Intellectual Equity",
+      tag: "AUTHORITY",
       title: "Personal Branding",
       description:
         "How expertise becomes authority — and how authority compounds over time.",
@@ -57,7 +57,7 @@ export const topicsContent: TopicsContent = {
     {
       id: "ai",
       number: "05",
-      tag: "Applied Intelligence",
+      tag: "TECHNOLOGY",
       title: "AI & Sales Engineering",
       description:
         "How AI can improve learning, practice, feedback and decision-making without replacing human judgment.",
@@ -67,7 +67,7 @@ export const topicsContent: TopicsContent = {
     {
       id: "entrepreneurship",
       number: "06",
-      tag: "Operating Reality",
+      tag: "BUILDING",
       title: "Entrepreneurship & Scale",
       description:
         "Building systems, teams and products around a clear market problem.",
@@ -77,7 +77,7 @@ export const topicsContent: TopicsContent = {
     {
       id: "startups",
       number: "07",
-      tag: "Founder-Led Growth",
+      tag: "GROWTH",
       title: "Startups & Deal Velocity",
       description:
         "Sales systems, founder-led growth and the transition from instinct to repeatability.",
@@ -87,7 +87,7 @@ export const topicsContent: TopicsContent = {
     {
       id: "public-speaking",
       number: "08",
-      tag: "Stage Craft",
+      tag: "SPEAKING",
       title: "Public Speaking & Leverage",
       description:
         "Communicating ideas with clarity, structure and conviction to influence multiple decision-makers.",

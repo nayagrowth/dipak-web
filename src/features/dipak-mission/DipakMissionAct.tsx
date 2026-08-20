@@ -32,12 +32,6 @@ export function DipakMissionAct({
         <div className={styles.videoGradientWash} />
       </div>
 
-      <div
-        className={styles.ensoAura}
-        data-story-act4-enso="true"
-        aria-hidden="true"
-      />
-
       <div className={styles.manifestoContainer}>
         {/* Kicker Block */}
         <div className={styles.kickerBlock}>

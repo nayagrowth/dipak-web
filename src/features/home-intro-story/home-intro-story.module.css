@@ -209,6 +209,10 @@
 }
 
 @media (max-width: 768px) {
+  .masterStoryWrapper {
+    overflow-x: clip;
+  }
+
   .storyShell {
     height: auto;
     min-height: auto;
@@ -220,7 +224,8 @@
     height: auto;
     min-height: auto;
     max-height: none;
-    overflow: visible;
+    overflow-x: clip;
+    overflow-y: visible;
     display: flex;
     flex-direction: column;
   }
@@ -234,6 +239,7 @@
     width: 100%;
     height: auto;
     min-height: 100dvh;
+    overflow-x: clip;
     opacity: 1 !important;
     visibility: visible !important;
   }

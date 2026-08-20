@@ -1,48 +1,11 @@
 .thinkingSection {
-  --dv-ink: #11110f;
-  --dv-body: #4a473e;
-  --dv-canvas: #f4f1ea;
-  --dv-gold-art: #c89545;
-  --dv-gold-text: #8f621f;
-  --dv-gold-line: #d8aa5a;
-  --dv-line: rgba(17, 17, 15, 0.12);
-  --dv-serif: var(--font-serif), "Playfair Display", "Iowan Old Style", Georgia, serif;
-  --dv-sans: var(--font-sans), "Plus Jakarta Sans", Inter, -apple-system, sans-serif;
-  --dv-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", monospace;
-
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background-color: var(--dv-canvas);
-  color: var(--dv-ink);
+  background-color: var(--paper, #f4f1ea);
+  color: var(--ink-obsidian, #11110f);
   padding: clamp(5rem, 10vh, 9rem) clamp(1.5rem, 5vw, 6rem);
   box-sizing: border-box;
-}
-
-.atmosphereLayer {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.85;
-  background: 
-    radial-gradient(circle at 80% 15%, rgba(200, 149, 69, 0.08), transparent 50%),
-    radial-gradient(circle at 20% 60%, rgba(200, 149, 69, 0.06), transparent 45%),
-    radial-gradient(circle at 75% 90%, rgba(200, 149, 69, 0.05), transparent 40%);
-}
-
-.ensoEcho {
-  position: absolute;
-  top: 35%;
-  right: -100px;
-  width: 650px;
-  height: 650px;
-  background-image: url("/hero/enso-brush-master.webp");
-  background-size: contain;
-  background-repeat: no-repeat;
-  opacity: 0.035;
-  pointer-events: none;
-  z-index: 0;
 }
 
 .thinkingContainer {
@@ -62,7 +25,7 @@
   grid-template-columns: 1.2fr 1fr;
   align-items: flex-end;
   gap: 2rem;
-  border-bottom: 1.5px solid var(--dv-gold-line);
+  border-bottom: 1.5px solid var(--gold, #c89545);
   padding-bottom: clamp(1rem, 2vh, 1.8rem);
 }
 
@@ -73,31 +36,26 @@
 }
 
 .sectionIndex {
-  font-family: var(--dv-sans);
-  font-size: clamp(0.82rem, 0.9vw, 1rem);
+  font-family: var(--font-family-mono, monospace);
+  font-size: var(--step-mono, 0.6875rem);
   font-weight: 700;
-  letter-spacing: 0.28em;
-  color: var(--dv-gold-text);
+  letter-spacing: var(--tracking-mono, 0.18em);
+  color: var(--gold-deep, #8f621f);
   text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin: 0;
 }
 
 .headline {
-  font-family: var(--dv-serif);
-  font-size: clamp(2.8rem, 6vw, 6rem);
-  font-weight: 700;
-  line-height: 0.94;
-  letter-spacing: -0.03em;
-  color: var(--dv-ink);
+  font-family: var(--font-family-serif, serif);
+  font-size: var(--step-h2, 3.2rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: var(--tracking-tight, -0.022em);
+  color: var(--ink-obsidian, #11110f);
   margin: 0;
 }
 
 .goldPeriod {
-  color: var(--dv-gold-art);
-  font-family: var(--dv-serif);
+  color: var(--gold, #c89545);
 }
 
 .headerMeta {

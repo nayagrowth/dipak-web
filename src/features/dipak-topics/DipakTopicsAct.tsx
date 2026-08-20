@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import type { TopicsContent } from "./topics.types";
@@ -14,6 +16,8 @@ export function DipakTopicsAct({
   content = topicsContent,
   className,
 }: DipakTopicsActProps) {
+  const [activeTopicIndex, setActiveTopicIndex] = useState<number>(0);
+
   return (
     <section
       id="topics"
@@ -21,9 +25,6 @@ export function DipakTopicsAct({
       aria-labelledby="topics-heading"
       data-story-act5="true"
     >
-      <div className={styles.atmosphereLayer} aria-hidden="true" />
-      <div className={styles.ensoEcho} aria-hidden="true" />
-
       <div className={styles.topicsContainer}>
         {/* Header Row */}
         <header className={styles.headerRow}>
@@ -51,46 +52,67 @@ export function DipakTopicsAct({
           </div>
         </header>
 
-        {/* Expansive Editorial Topic Masterclass Grid */}
-        <div
-          className={styles.galleryGrid}
-          aria-label="Core topic domains"
-          data-story-act5-ledger="true"
-        >
-          {content.topics.map((item) => (
-            <Link
-              key={item.id}
-              href={item.href || "/blog"}
-              className={styles.topicCard}
-              data-story-act5-item="true"
-            >
-              <div className={styles.cardVisualFrame}>
-                {item.image ? (
-                  <Image
-                    src={item.image}
-                    alt={item.title}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className={styles.cardImage}
-                    loading="lazy"
-                  />
-                ) : null}
-                <div className={styles.imageOverlay} />
-                <span className={styles.cardIndex}>[{item.number}]</span>
-                <span className={styles.cardTag}>{item.tag}</span>
-              </div>
+        {/* Editorial Ledger + Dominant Single Media Viewport */}
+        <div className={styles.editorialSpread} data-story-act5-ledger="true">
+          {/* Left Column: Semantic Ledger List */}
+          <div className={styles.ledgerColumn}>
+            {content.topics.map((item, idx) => {
+              const isActive = idx === activeTopicIndex;
+              return (
+                <Link
+                  key={item.id}
+                  href={item.href || "/blog"}
+                  className={`${styles.ledgerRow} ${isActive ? styles.activeLedgerRow : ""}`}
+                  onMouseEnter={() => setActiveTopicIndex(idx)}
+                  onFocus={() => setActiveTopicIndex(idx)}
+                  data-story-act5-item="true"
+                >
+                  <div className={styles.ledgerRowMeta}>
+                    <span className={styles.itemNumber}>{item.number}</span>
+                    <span className={styles.itemTag}>{item.tag}</span>
+                  </div>
 
-              <div className={styles.cardBody}>
-                <div className={styles.cardTitleRow}>
-                  <h3 className={styles.cardTitle}>{item.title}</h3>
-                  <span className={styles.cardArrow} aria-hidden="true">
-                    ↗
-                  </span>
+                  <div className={styles.ledgerRowBody}>
+                    <div className={styles.itemTitleRow}>
+                      <h3 className={styles.itemTitle}>{item.title}</h3>
+                      <span className={styles.itemArrow} aria-hidden="true">
+                        →
+                      </span>
+                    </div>
+                    <p className={styles.itemDescription}>{item.description}</p>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Right Column: Dominant Editorial Photograph Viewport */}
+          <div className={styles.viewportColumn} aria-hidden="true">
+            <div className={styles.stickyMediaFrame}>
+              {content.topics.map((item, idx) => (
+                <div
+                  key={item.id}
+                  className={`${styles.mediaPlate} ${idx === activeTopicIndex ? styles.mediaPlateVisible : ""}`}
+                >
+                  {item.image ? (
+                    <Image
+                      src={item.image}
+                      alt={item.title}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 45vw"
+                      className={styles.mediaImage}
+                      quality={85}
+                    />
+                  ) : null}
+                  <div className={styles.mediaVignette} />
+                  <div className={styles.plateCaptionBlock}>
+                    <span className={styles.plateNumber}>[{item.number}]</span>
+                    <span className={styles.plateTitle}>{item.title}</span>
+                  </div>
                 </div>
-                <p className={styles.cardDescription}>{item.description}</p>
-              </div>
-            </Link>
-          ))}
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

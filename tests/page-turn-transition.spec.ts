@@ -6,13 +6,9 @@ test.describe("Three.js Deformable Page-Turn Transition & Handoff", () => {
     await page.goto("/?debugPageTurn=1");
 
     await page.evaluate(async () => {
-      await document.fonts.ready;
-      await Promise.all(
-        [...document.images].map((img) =>
-          img.complete ? Promise.resolve() : img.decode().catch(() => {})
-        )
-      );
+      if (document.fonts) await document.fonts.ready;
     });
+    await page.waitForTimeout(500);
 
     // 1. Persistent Header is in DOM and positioned above stage
     const header = page.locator("[data-persistent-header='true']");
