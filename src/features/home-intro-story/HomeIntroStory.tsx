@@ -10,6 +10,7 @@ import { DipakThinkingAct, thinkingContent } from "@/features/dipak-thinking";
 import { DipakBridgeAct, bridgeContent } from "@/features/dipak-bridge";
 import { EditorialPreloader } from "@/features/site-chrome";
 import type { FeaturedArticle } from "@/features/dipak-thinking/thinking.types";
+import { PersistentSiteHeader } from "./PersistentSiteHeader";
 import { useHomeIntroTimeline } from "./useHomeIntroTimeline";
 import styles from "./home-intro-story.module.css";
 
@@ -37,6 +38,9 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
       {/* Pinned Cinematic Story Stage: Act 1 (Hero) -> Act 2 (Identity) -> Act 3 (Presence) -> Act 4 (Mission) */}
       <div ref={shellRef} className={styles.storyShell}>
         <div ref={stageRef} className={styles.storyStage}>
+          {/* Persistent Site Header: Stable above the physical sheet */}
+          <PersistentSiteHeader content={dipakHeroContent} />
+
           {/* Shared Bridge Motif: The Gold Rule */}
           <div
             ref={bridgeRuleRef}

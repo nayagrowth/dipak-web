@@ -47,35 +47,8 @@ export function DipakHero({ content }: { content: HeroContent }) {
         aria-hidden="true"
       />
 
-      {/* Top Header & Navigation */}
-      <header className={styles.header} data-story-header="true">
-        <a className={styles.wordmark} href="#hero" aria-label="Dipak Vishwakarma homepage">
-          <span className={styles.wordmarkFirst}>{content.brandFirstLine}</span>
-          <span className={styles.wordmarkSecond}>{content.brandSecondLine}</span>
-        </a>
-
-        <nav className={styles.desktopNav} aria-label="Primary navigation">
-          {content.navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              className={`${styles.navLink} ${link.active ? styles.navLinkActive : ""}`}
-            >
-              <span>{link.label}</span>
-              {link.active ? <span className={styles.activeIndicator} aria-hidden="true" /> : null}
-            </a>
-          ))}
-        </nav>
-
-        <div className={styles.headerActions}>
-          <MobileNav
-            navLinks={content.navLinks}
-            ctas={content.ctas}
-            brandFirstLine={content.brandFirstLine}
-            brandSecondLine={content.brandSecondLine}
-          />
-        </div>
-      </header>
+      {/* Top Header Spacer (actual interactive header is in PersistentSiteHeader) */}
+      <div className={styles.headerSpacer} aria-hidden="true" />
 
       {/* Viewport Grid */}
       <div className={styles.heroGrid}>

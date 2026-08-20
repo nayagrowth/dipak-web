@@ -50,6 +50,17 @@
   }
 }
 
+/* Header Spacer */
+.headerSpacer {
+  height: clamp(3.2rem, 5.5vh, 4.2rem);
+  width: 100%;
+  max-width: 110rem;
+  margin: 0 auto;
+  flex: 0 0 auto;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 /* Header & Navigation */
 .header {
   position: relative;

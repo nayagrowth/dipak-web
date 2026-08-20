@@ -23,35 +23,60 @@ export function EditorialPreloader({ onReady }: EditorialPreloaderProps) {
         }
       }
 
-      // 2. Preload & decode critical LCP image cutouts
-      const criticalImages = ["/hero/dipak-seated.webp", "/hero/enso-brush-master.webp"];
-      await Promise.allSettled(
-        criticalImages.map((src) => {
-          return new Promise<void>((resolve) => {
-            const img = new Image();
-            img.src = src;
+      // 2. Preload & decode critical rendered images from hero and DOM
+      if (typeof document !== "undefined") {
+        const heroImgs = Array.from(
+          document.querySelectorAll<HTMLImageElement>(
+            '[data-story-act1="true"] img, [data-hero-portrait="true"], [data-hero-portrait-mobile="true"]'
+          )
+        );
+
+        // Also add explicit cutouts if not yet in DOM
+        const explicitSrcs = [
+          "/hero/enso-brush-master.webp",
+          "/hero/dipak-seated-mobile.png",
+          "/hero/left-brush-accent.webp",
+        ];
+
+        const explicitImgs = explicitSrcs.map((src) => {
+          const img = new Image();
+          img.src = src;
+          return img;
+        });
+
+        const allImages = [...heroImgs, ...explicitImgs];
+
+        await Promise.allSettled(
+          allImages.map((img) => {
             if (img.complete) {
-              if ("decode" in img) {
-                img.decode().then(() => resolve()).catch(() => resolve());
-              } else {
-                resolve();
-              }
-            } else {
-              img.onload = () => {
+              return "decode" in img ? img.decode().catch(() => {}) : Promise.resolve();
+            }
+            return new Promise<void>((resolve) => {
+              const done = () => {
                 if ("decode" in img) {
                   img.decode().then(() => resolve()).catch(() => resolve());
                 } else {
                   resolve();
                 }
               };
+              img.onload = done;
               img.onerror = () => resolve();
-            }
-          });
-        })
-      );
+            });
+          })
+        );
+      }
 
-      // 3. Minimum editorial pacing buffer (350ms) to ensure butter-smooth dissolve
-      await new Promise((resolve) => setTimeout(resolve, 350));
+      // 3. Two requestAnimationFrames to let final layout, font kerning & paint settle
+      await new Promise<void>((resolve) => {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            resolve();
+          });
+        });
+      });
+
+      // 4. Subtle pacing buffer (150ms) for visual polish
+      await new Promise((resolve) => setTimeout(resolve, 150));
 
       if (active) {
         setDismissed(true);
