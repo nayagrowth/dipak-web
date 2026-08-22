@@ -107,27 +107,28 @@ export function SiteHeader() {
         </button>
       </header>
 
-      <div
-        id="site-mobile-drawer"
-        className={`${styles.drawer} ${menuOpen ? styles.drawerOpen : ""}`}
-        hidden={!menuOpen}
-      >
-        <nav className={styles.drawerNav} aria-label="Mobile">
-          {primaryNav.map((link, index) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={styles.drawerLink}
-              style={{ "--i": index } as React.CSSProperties}
-            >
-              <span className={styles.drawerIndex}>
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-      </div>
+      {menuOpen ? (
+        <div
+          id="site-mobile-drawer"
+          className={`${styles.drawer} ${styles.drawerOpen}`}
+        >
+          <nav className={styles.drawerNav} aria-label="Mobile">
+            {primaryNav.map((link, index) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={styles.drawerLink}
+                style={{ "--i": index } as React.CSSProperties}
+              >
+                <span className={styles.drawerIndex}>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+      ) : null}
     </>
   );
 }

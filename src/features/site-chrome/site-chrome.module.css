@@ -141,11 +141,16 @@
   padding: 6rem var(--gutter) 3rem;
   background: var(--paper);
   opacity: 0;
-  transition: opacity var(--dur-base) var(--ease-out-editorial);
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease-out-editorial),
+    visibility var(--dur-base) var(--ease-out-editorial);
 }
 
 .drawerOpen {
   opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 
 .drawerNav {
