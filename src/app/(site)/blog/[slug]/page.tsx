@@ -24,14 +24,35 @@ export async function generateMetadata({
 
   if (!post) return { title: "Post not found" };
 
+  const canonicalUrl = `https://dipakvishwakarma.com/blog/${post.slug}`;
+
   return {
     title: `${post.title} — Dipak Vishwakarma Blog`,
     description: post.excerpt,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,
+      url: canonicalUrl,
       type: "article",
       publishedTime: post.publishedAt,
+      authors: ["https://dipakvishwakarma.com"],
+      images: [
+        {
+          url: post.coverImage || "/social/dipak-og-default-1200x630.jpg",
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: [post.coverImage || "/social/dipak-og-default-1200x630.jpg"],
     },
   };
 }
@@ -47,8 +68,34 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     .filter((p) => p.slug !== post.slug)
     .slice(0, 2);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt,
+    datePublished: post.publishedAt,
+    author: {
+      "@type": "Person",
+      name: "Dipak Vishwakarma",
+      url: "https://dipakvishwakarma.com",
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Dipak Vishwakarma",
+      url: "https://dipakvishwakarma.com",
+    },
+    mainEntityOfPage: `https://dipakvishwakarma.com/blog/${post.slug}`,
+    image: post.coverImage
+      ? `https://dipakvishwakarma.com${post.coverImage}`
+      : "https://dipakvishwakarma.com/social/dipak-og-default-1200x630.jpg",
+  };
+
   return (
     <article className={styles.post}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <header className={styles.postHeader}>
         <div className={editorial.containerNarrow}>
           <Link href="/blog" className={styles.backLink}>

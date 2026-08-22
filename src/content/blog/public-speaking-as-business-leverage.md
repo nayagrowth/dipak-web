@@ -1,5 +1,5 @@
 ---
-title: "Public Speaking as Ultimate Business Leverage"
+title: "Dipak Vishwakarma on Public Speaking"
 excerpt: "Public speaking stops being a soft skill and becomes ultimate leverage when one clear message can influence dozens of decision-makers at once."
 category: "Public Speaking"
 tag: "KEYNOTE & INFLUENCE"

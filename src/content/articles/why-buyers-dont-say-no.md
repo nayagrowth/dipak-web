@@ -1,5 +1,5 @@
 ---
-title: "Why Buyers Don't Say No — They Stay Uncertain"
+title: "Dipak Vishwakarma on Why Buyers Don't Say No"
 excerpt: "A lost deal rarely announces itself. It stalls, goes quiet, and gets rescheduled. What you are watching is not rejection — it is unresolved uncertainty."
 category: "Buyer Psychology"
 series: "Buyer Psychology Files™"
@@ -12,7 +12,7 @@ A lost deal rarely announces itself.
 
 Nobody calls you and says:
 
-“Dipak, congratulations. You have officially lost this deal.” 😂
+“Dipak, congratulations. You have officially lost this deal.” 😅
 
 It usually happens much more quietly.
 
@@ -81,7 +81,7 @@ Convince them.
 
 Looking back...
 
-I was basically treating every conversation like an exam where I had to prove I knew the answer to everything. 😂
+I was basically treating every conversation like an exam where I had to prove I knew the answer to everything. 😅
 
 And honestly, it was exhausting.
 
@@ -193,7 +193,7 @@ You might even go back home and say:
 
 > “I'll decide tomorrow.”
 
-😂
+😅
 
 The problem isn't that you don't want to go anywhere.
 
@@ -234,7 +234,7 @@ I had prepared properly.
 
 Actually...
 
-I had over-prepared. 😂
+I had over-prepared. 😅
 
 I had my presentation ready.
 
@@ -270,7 +270,7 @@ So what did I do?
 
 I started explaining even more.
 
-😂
+😅
 
 I talked about another benefit.
 
@@ -546,7 +546,7 @@ Rooftop.
 
 And then says:
 
-“You decide.” 😂
+“You decide.” 😅
 
 You didn't need more options.
 
@@ -602,7 +602,7 @@ Buyers often become quieter when they're uncertain.
 
 And salespeople often become louder.
 
-That's a terrible combination. 😂
+That's a terrible combination. 😅
 
 Buyer:
 
@@ -649,7 +649,7 @@ Imagine a doctor asking:
 
 And before you answer, the doctor gives you three medicines.
 
-😂
+😅
 
 Would you feel confident?
 
@@ -788,7 +788,7 @@ Investing money has uncertainty.
 
 Even choosing a restaurant has uncertainty.
 
-😂
+😅
 
 You don't need to create a world where the buyer feels:
 

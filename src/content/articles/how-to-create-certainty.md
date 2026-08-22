@@ -1,5 +1,5 @@
 ---
-title: "How To Create Certainty In A Buyer's Mind"
+title: "Dipak Vishwakarma on How To Create Certainty In A Buyer's Mind"
 excerpt: "Certainty is not a feeling you generate with conviction. It is a structure you build with sequence — and the order of the conversation matters more than the content."
 category: "Sales"
 series: "Decision Momentum™"

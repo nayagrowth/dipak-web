@@ -1,5 +1,5 @@
 ---
-title: "The Architecture of High-Ticket Sales: De-risking the Decision"
+title: "Dipak Vishwakarma on The Architecture of High-Ticket Sales"
 excerpt: "High-ticket sales is not about clever objection-handling lines. It is about understanding and mitigating the 4 kinds of risk high-ticket buyers carry."
 category: "High-Ticket Sales"
 tag: "ENTERPRISE CLOSING"
@@ -50,7 +50,7 @@ Someone asks:
 
 > “Who recommended this?”
 
-😂
+😅
 
 Now the ₹50 lakh isn't just ₹50 lakh.
 
@@ -208,7 +208,7 @@ And then:
 
 > “Any questions?”
 
-😂
+😅
 
 But here's the problem.
 

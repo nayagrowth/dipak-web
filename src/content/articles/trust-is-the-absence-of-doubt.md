@@ -1,5 +1,5 @@
 ---
-title: "Trust Is The Absence Of Doubt"
+title: "Dipak Vishwakarma on Trust as the Absence of Doubt"
 excerpt: "Trust is not built by being likeable. It is what remains once the buyer's important doubts have been addressed — which makes it something you can engineer."
 category: "Communication"
 series: "Trust Engineering™"

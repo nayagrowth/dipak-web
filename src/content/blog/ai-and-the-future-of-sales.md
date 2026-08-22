@@ -1,5 +1,5 @@
 ---
-title: "AI & The Future of Sales: Augmenting Judgment, Not Human Trust"
+title: "Dipak Vishwakarma on AI & The Future of Sales"
 excerpt: "AI can give you information and simulate objection practice, but high-ticket enterprise transactions will always rest on human trust and judgment."
 category: "AI"
 tag: "SALES SIMULATION & AI"
@@ -72,7 +72,7 @@ That's how technology works.
 
 It doesn't politely enter an industry.
 
-It rearranges the furniture. 😂
+It rearranges the furniture. 😅
 
 
 ### Here's the opportunity I see.
@@ -228,7 +228,7 @@ It can even analyze a video of your batting.
 
 And yet...
 
-you can walk onto the pitch and get bowled first ball. 🏏😂
+you can walk onto the pitch and get bowled first ball. 🏏😅
 
 Why?
 
@@ -291,7 +291,7 @@ Data analysis.
 
 And follow-up...
 
-My God. 😂
+My God. 😅
 
 Salespeople have spent years saying:
 
@@ -560,7 +560,7 @@ The trainer gives you judgment.
 
 AI gives you repetition.
 
-The real customer gives you consequences. 😂
+The real customer gives you consequences. 😅
 
 And you need all three.
 

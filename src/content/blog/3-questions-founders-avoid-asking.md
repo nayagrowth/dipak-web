@@ -1,5 +1,5 @@
 ---
-title: "3 Questions Founders Avoid Asking On Discovery Calls"
+title: "Dipak Vishwakarma on 3 Questions Founders Avoid Asking"
 excerpt: "Discovery is not an interrogation; it is a clinical diagnosis. Here are three questions that reveal real urgency."
 tags: ["Discovery", "Buyer Psychology", "Founder Sales"]
 topic: "Buyer Psychology"

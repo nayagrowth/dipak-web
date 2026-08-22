@@ -1,5 +1,5 @@
 ---
-title: "Personal Branding in the Age of AI Abundance"
+title: "Dipak Vishwakarma on Personal Branding"
 excerpt: "AI will make content abundant. In a world of infinite generated content, authentic human perspective, trust, and judgment become the rarest commodities."
 category: "Personal Branding"
 tag: "AUTHORITY & REACH"
@@ -13,7 +13,7 @@ Not because I think everyone needs 100,000 followers.
 
 Not because everyone needs to become an influencer.
 
-And definitely not because everyone needs to make a reel while pointing at text appearing on the screen. 😂
+And definitely not because everyone needs to make a reel while pointing at text appearing on the screen. 😅
 
 I like personal branding for a much simpler reason:
 
@@ -113,7 +113,7 @@ Simple seating.
 
 Peace.
 
-Sometimes they'll sit on the floor and happily pay ₹1,000 for food they could probably make at home for ₹150. 😂
+Sometimes they'll sit on the floor and happily pay ₹1,000 for food they could probably make at home for ₹150. 😅
 
 Why?
 

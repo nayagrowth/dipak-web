@@ -11,9 +11,9 @@ import editorial from "@/features/editorial/editorial.module.css";
 import styles from "./videos.module.css";
 
 export const metadata: Metadata = {
-  title: "Videos by Dipak Vishwakarma — Sales, Communication & Buyer Psychology",
+  title: "Videos by Dipak Vishwakarma — Founder of Authority Closers | Keynotes & Sales Breakdowns",
   description:
-    "Conversations, breakdowns and practical lessons on how buyers think and how better sales conversations are built.",
+    "Keynotes, sales breakdowns, and practical lessons on buyer psychology from Dipak Vishwakarma, Founder of Authority Closers & High-Ticket Sales Expert.",
 };
 
 export default function VideosPage() {

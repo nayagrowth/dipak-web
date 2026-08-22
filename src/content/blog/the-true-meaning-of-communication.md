@@ -1,5 +1,5 @@
 ---
-title: "The True Meaning of Communication in High-Stakes Sales"
+title: "Dipak Vishwakarma on Communication"
 excerpt: "Communication is not what you say — communication is what the other person understands. When you make that tiny shift, your conversations change forever."
 category: "Communication"
 tag: "CONVERSATION DYNAMICS"
@@ -380,7 +380,7 @@ Five minutes later...
 
 the customer is still thinking:
 
-“I just said it was expensive.” 😂
+“I just said it was expensive.” 😅
 
 What if you asked:
 
@@ -425,7 +425,7 @@ A customer can say something you've never heard before.
 
 What will you do then?
 
-You can't open page 47 of your objection-handling manual. 😂
+You can't open page 47 of your objection-handling manual. 😅
 
 You need to understand the person well enough to think:
 

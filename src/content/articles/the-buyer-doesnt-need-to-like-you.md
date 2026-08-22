@@ -1,5 +1,5 @@
 ---
-title: "The Buyer Doesn't Need To Like You. They Need To Trust Your Judgment."
+title: "Dipak Vishwakarma on Why The Buyer Doesn't Need To Like You"
 excerpt: "Some salespeople are incredibly likable and still struggle to close. In high-ticket decisions, likability is secondary to confidence in your judgment."
 category: "Communication"
 series: "Trust Engineering™"
@@ -112,7 +112,7 @@ Every question you ask gets:
 
 > “Absolutely, sir!”
 
-😂
+😅
 
 You feel good talking to him.
 
@@ -210,7 +210,7 @@ You keep going.
 
 You sound confident.
 
-But you're hoping the buyer doesn't notice that you never actually answered the question. 😂
+But you're hoping the buyer doesn't notice that you never actually answered the question. 😅
 
 
 #### Option 2:
@@ -414,7 +414,7 @@ It's something they conclude.
 
 > “Trust me.”
 
-😂
+😅
 
 Whenever someone says:
 
@@ -434,7 +434,7 @@ It's like meeting someone at a networking event and within five minutes they say
 
 Buddy...
 
-I don't even know your surname yet. 😂
+I don't even know your surname yet. 😅
 
 Trust needs evidence.
 
@@ -467,7 +467,7 @@ Customer:
 
 At some point the buyer is thinking:
 
-“Does this person actually have a brain of their own?” 😂
+“Does this person actually have a brain of their own?” 😅
 
 Sometimes disagreement is valuable.
 
@@ -778,7 +778,7 @@ great.
 
 If they don't think you're particularly funny...
 
-you'll survive. 😂
+you'll survive. 😅
 
 If they don't find you charming...
 

@@ -7,9 +7,9 @@ import editorial from "@/features/editorial/editorial.module.css";
 import styles from "./articles.module.css";
 
 export const metadata: Metadata = {
-  title: "Articles by Dipak Vishwakarma — Sales & Buyer Psychology",
+  title: "Articles by Dipak Vishwakarma — Founder of Authority Closers | High-Ticket Sales Expert",
   description:
-    "Ideas on sales, buyer psychology, communication, personal branding, AI, entrepreneurship, startups and public speaking.",
+    "Explore strategic articles by Dipak Vishwakarma, Founder of Authority Closers, covering sales psychology, communication, high-ticket deal structure, and AI in sales.",
 };
 
 export default function ArticlesPage() {

@@ -47,6 +47,7 @@ export interface ArticleMeta {
   featured?: boolean;
   /** Hides the post from all listings and from the sitemap. */
   draft?: boolean;
+  coverImage?: string;
 }
 
 export interface Article extends ArticleMeta {
@@ -73,6 +74,7 @@ function readArticleFile(fileName: string): Article | null {
     series: data.series ? String(data.series) : undefined,
     featured: Boolean(data.featured),
     draft: Boolean(data.draft),
+    coverImage: data.coverImage ? String(data.coverImage) : undefined,
     html: marked.parse(content, { async: false }),
   };
 }

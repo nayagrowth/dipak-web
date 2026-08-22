@@ -1,5 +1,5 @@
 ---
-title: "The Silent Sales Pipeline Killer: Unaddressed Ambiguity"
+title: "Dipak Vishwakarma on The Silent Sales Pipeline Killer"
 excerpt: "Deals rarely die because the prospect chose a competitor. They die in the silent gray zone between polite interest and unanswered doubt."
 tags: ["Pipeline", "Objection Handling", "Closing"]
 topic: "High-Ticket Sales"

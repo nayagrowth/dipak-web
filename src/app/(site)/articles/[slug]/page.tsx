@@ -28,14 +28,35 @@ export async function generateMetadata({
 
   if (!article) return { title: "Article not found" };
 
+  const canonicalUrl = `https://dipakvishwakarma.com/articles/${article.slug}`;
+
   return {
     title: `${article.title} — Dipak Vishwakarma`,
     description: article.excerpt,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: {
       title: article.title,
       description: article.excerpt,
+      url: canonicalUrl,
       type: "article",
       publishedTime: article.date,
+      authors: ["https://dipakvishwakarma.com"],
+      images: [
+        {
+          url: article.coverImage || "/social/dipak-og-default-1200x630.jpg",
+          width: 1200,
+          height: 630,
+          alt: article.title,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.excerpt,
+      images: [article.coverImage || "/social/dipak-og-default-1200x630.jpg"],
     },
   };
 }
@@ -51,8 +72,34 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     .filter((candidate) => candidate.slug !== article.slug)
     .slice(0, 3);
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.excerpt,
+    datePublished: article.date,
+    author: {
+      "@type": "Person",
+      name: "Dipak Vishwakarma",
+      url: "https://dipakvishwakarma.com",
+    },
+    publisher: {
+      "@type": "Person",
+      name: "Dipak Vishwakarma",
+      url: "https://dipakvishwakarma.com",
+    },
+    mainEntityOfPage: `https://dipakvishwakarma.com/articles/${article.slug}`,
+    image: article.coverImage
+      ? `https://dipakvishwakarma.com${article.coverImage}`
+      : "https://dipakvishwakarma.com/social/dipak-og-default-1200x630.jpg",
+  };
+
   return (
     <article className={styles.post}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <header className={styles.postHeader}>
         <div className={editorial.containerNarrow}>
           <Link href="/articles" className={styles.backLink}>

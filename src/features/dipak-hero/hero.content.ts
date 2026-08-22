@@ -13,7 +13,7 @@ export const dipakHeroContent: HeroContent = {
     { label: "Resources", href: "/resources" },
     { label: "Contact", href: "/contact" },
   ],
-  kicker: "Founder. Strategist. Communicator.",
+  kicker: "Founder of Authority Closers | High-Ticket Sales Expert",
   headlinePart1: "Sales Is",
   headlinePart2: "The Transfer Of",
   headlinePart3: "Certainty",
@@ -21,7 +21,7 @@ export const dipakHeroContent: HeroContent = {
     "Thoughts on sales, communication, trust, and personal branding for people building meaningful authority.",
   quote: "Curiosity Builds Trust.",
   portrait: portraitArmchair,
-  portraitAlt: "Dipak Vishwakarma seated in armchair",
+  portraitAlt: "Dipak Vishwakarma — Founder of Authority Closers | High-Ticket Sales Expert",
   ctas: [
     {
       label: "Read My Story",

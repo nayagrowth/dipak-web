@@ -1,5 +1,5 @@
 ---
-title: "Why The Best Salespeople Sometimes Talk Less"
+title: "Dipak Vishwakarma on Why The Best Salespeople Talk Less"
 excerpt: "Sales training started turning useful techniques into universal laws. The best salespeople know that mastery is not a script, but context and judgment."
 category: "Sales"
 series: "Conversation Dynamics™"
@@ -8,7 +8,7 @@ readTime: "7 MIN READ"
 featured: true
 ---
 
-I've probably heard more sales advice than most salespeople should ever hear. 😂
+I've probably heard more sales advice than most salespeople should ever hear. 😅
 
 And the strange thing is...
 
@@ -50,7 +50,7 @@ Simple.
 
 Except...
 
-real buyers didn't get the memo. 😂
+real buyers didn't get the memo. 😅
 
 
 ## I learned this while working in sales.
@@ -246,7 +246,7 @@ There's a huge construction barrier.
 
 Do you say:
 
-“But the framework says left.” 😂
+“But the framework says left.” 😅
 
 No.
 
@@ -388,7 +388,7 @@ Then another.
 
 The buyer is trying to process the decision.
 
-The salesperson is trying to stop the buyer from processing the decision. 😂
+The salesperson is trying to stop the buyer from processing the decision. 😅
 
 Sometimes the best response is simply:
 
@@ -497,7 +497,7 @@ Because somebody told them:
 
 > “Rapport must come before business.”
 
-😂
+😅
 
 But what if the buyer has already blocked 30 minutes and wants to get straight to the problem?
 
@@ -614,7 +614,7 @@ Because sales doesn't happen inside a training manual.
 
 It happens in reality.
 
-And reality is wonderfully bad at following scripts. 😂
+And reality is wonderfully bad at following scripts. 😅
 
 
 ## Now, before someone misunderstands me...
@@ -754,7 +754,7 @@ Three seconds.
 
 That's all.
 
-😂
+😅
 
 They couldn't tolerate the silence.
 
@@ -800,7 +800,7 @@ Don't interrupt the decision.
 
 And sometimes...
 
-they're waiting for you to stop talking. 😂
+they're waiting for you to stop talking. 😅
 
 Knowing which one it is...
 

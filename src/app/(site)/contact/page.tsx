@@ -8,9 +8,9 @@ import { ContactForm } from "./ContactForm";
 import styles from "./contact.module.css";
 
 export const metadata: Metadata = {
-  title: "Contact Dipak Vishwakarma",
+  title: "Contact Dipak Vishwakarma — Founder of Authority Closers",
   description:
-    "For speaking, collaborations, interviews, partnerships or questions related to Dipak's work.",
+    "Get in touch with Dipak Vishwakarma, Founder of Authority Closers and High-Ticket Sales Expert, for keynotes, advisory, partnerships, and sales training.",
 };
 
 export default function ContactPage() {

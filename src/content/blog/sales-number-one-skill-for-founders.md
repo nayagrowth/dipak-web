@@ -1,5 +1,5 @@
 ---
-title: "Why Sales is the #1 Skill Every Startup Founder Must Master"
+title: "Dipak Vishwakarma on Why Sales is the #1 Skill for Founders"
 excerpt: "Research and customer truth come before scaling. A startup does not fail because of code — it fails when the founder cannot communicate value and sell."
 category: "Startups"
 tag: "FOUNDER ADVISORY"
@@ -22,7 +22,7 @@ Pitch decks.
 
 A cool office.
 
-A founder with a MacBook sitting in a coffee shop. ☕😂
+A founder with a MacBook sitting in a coffee shop. ☕😅
 
 But a startup is actually much simpler than that.
 
@@ -120,7 +120,7 @@ And suddenly...
 
 you have to confront reality.
 
-😂
+😅
 
 That's one reason I think some founders accidentally hide behind their product.
 
@@ -243,7 +243,7 @@ Early hires.
 
 Sometimes even the family members asking:
 
-“Beta, exactly what are you doing?” 😂
+“Beta, exactly what are you doing?” 😅
 
 Everyone has to believe in something.
 
@@ -296,7 +296,7 @@ Sales.
 
 Your inbox has 47 things screaming:
 
-“DO ME FIRST.” 😂
+“DO ME FIRST.” 😅
 
 But the founder's job isn't to personally do all 47.
 
@@ -347,7 +347,7 @@ Otherwise, what are you going to tell your first salesperson?
 
 > “Here's the product. Here's your target. Go sell.”
 
-😂
+😅
 
 That's not delegation.
 
@@ -467,7 +467,7 @@ You don't need to become loud.
 
 You don't need to become aggressive.
 
-You don't need to turn into the person who talks for 20 minutes without taking a breath. 😂
+You don't need to turn into the person who talks for 20 minutes without taking a breath. 😅
 
 You need to learn how to:
 

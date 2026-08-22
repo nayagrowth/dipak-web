@@ -6,9 +6,9 @@ import editorial from "@/features/editorial/editorial.module.css";
 import styles from "./blog.module.css";
 
 export const metadata: Metadata = {
-  title: "Blog & Field Notes — Dipak Vishwakarma",
+  title: "Blog & Field Notes by Dipak Vishwakarma — Founder of Authority Closers",
   description:
-    "Continuous tactical observations, deal breakdowns, buyer psychology patterns, and sales leadership field notes.",
+    "Tactical field notes, buyer psychology observations, and sales leadership insights from Dipak Vishwakarma, Founder of Authority Closers & High-Ticket Sales Expert.",
 };
 
 export default async function BlogPage() {

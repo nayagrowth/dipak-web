@@ -8,9 +8,9 @@ import editorial from "@/features/editorial/editorial.module.css";
 import styles from "./about.module.css";
 
 export const metadata: Metadata = {
-  title: "About Dipak Vishwakarma — Sales, Buyer Psychology & Authority Closers",
+  title: "About Dipak Vishwakarma — Founder of Authority Closers | High-Ticket Sales Expert",
   description:
-    "Entrepreneur, sales educator and Founder of Authority Closers. The work behind The Certainty Builder™.",
+    "Dipak Vishwakarma is an entrepreneur, sales educator, and Founder of Authority Closers. The work and philosophy behind The Certainty Builder™.",
 };
 
 const { hero, story, journey, philosophy, principles, missionVision, faq, cta } =

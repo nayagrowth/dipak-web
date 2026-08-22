@@ -1,5 +1,5 @@
 ---
-title: "Buyer Psychology: What Happens Inside the Mind of an Undecided Buyer"
+title: "Dipak Vishwakarma on Buyer Psychology"
 excerpt: "Buyers rarely buy simply because you created desire. They buy because you resolved doubt, created certainty, and protected their reputation."
 category: "Buyer Psychology"
 tag: "DECISION ANATOMY"
@@ -122,7 +122,7 @@ The buyer says:
 
 Now the salesperson is on slide 37.
 
-😂
+😅
 
 At some point, the salesperson has explained so much that the customer has more things to think about than when the conversation started.
 
@@ -268,7 +268,7 @@ And if you answer the wrong problem...
 
 you can become incredibly good at solving a problem the buyer never had.
 
-😂
+😅
 
 
 ### That's why I don't like objection-handling as a collection of clever replies.
@@ -501,7 +501,7 @@ And the salesperson immediately jumps in:
 
 Stop.
 
-😂
+😅
 
 Let the sentence breathe.
 
