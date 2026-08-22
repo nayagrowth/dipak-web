@@ -1,8 +1,6 @@
 services:
   dipak-web:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: dipak-web-image:latest
     container_name: dipak-web
     restart: unless-stopped
     cpus: "0.50"

@@ -37,13 +37,26 @@ jobs:
       - name: Run Next.js Build
         run: npm run build
 
-      - name: Assemble Standalone Deployment Package
+      - name: Assemble Standalone Bundle
         run: |
           mkdir -p .next/standalone/.next
           cp -r .next/static .next/standalone/.next/static
           cp -r public .next/standalone/public
-          cp Dockerfile .next/standalone/Dockerfile
-          cp docker-compose.prod.yml .next/standalone/docker-compose.prod.yml
+
+      - name: Build Production Docker Image
+        run: |
+          cat << 'EOF' > .next/standalone/Dockerfile
+          FROM node:22-alpine
+          WORKDIR /app
+          ENV NODE_ENV=production NEXT_TELEMETRY_DISABLED=1 HOSTNAME=0.0.0.0 PORT=3000
+          RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
+          COPY --chown=nextjs:nodejs . ./
+          USER nextjs
+          EXPOSE 3000
+          CMD ["node", "server.js"]
+          EOF
+          
+          docker build -t dipak-web-image:latest .next/standalone
 
       - name: Setup SSH Key and Config
         env:
@@ -65,30 +78,28 @@ jobs:
           EOF
           chmod 600 ~/.ssh/config
 
-      - name: Sync Standalone Build to Remote Host
+      - name: Sync Configuration & Stream Docker Image to Production
         run: |
           ssh production "mkdir -p /home/nivi/apps/dipak-web"
-          rsync -avz --delete \
-            .next/standalone/ production:/home/nivi/apps/dipak-web/
-
-      - name: Recreate Production Container (Instant)
-        run: |
-          ssh production << 'EOF'
+          scp docker-compose.prod.yml production:/home/nivi/apps/dipak-web/docker-compose.prod.yml
+          echo "Streaming compressed Docker image to nivi..."
+          docker save dipak-web-image:latest | gzip -1 | ssh production "
             set -e
+            echo '1. Loading Docker image into daemon...'
+            docker load
             cd /home/nivi/apps/dipak-web
-            echo "1. Instant Docker image build from standalone bundle..."
-            docker compose -f docker-compose.prod.yml build dipak-web
-            
-            echo "2. Recreating container instantaneously..."
-            docker compose -f docker-compose.prod.yml up -d --no-deps --build dipak-web
-            
-            echo "3. Cleaning up dangling images..."
+            echo '2. Stopping old container...'
+            docker stop dipak-web || true
+            docker rm dipak-web || true
+            echo '3. Starting new container...'
+            docker compose -f docker-compose.prod.yml up -d dipak-web
+            echo '4. Cleaning dangling images...'
             docker image prune -f || true
-          EOF
+          "
 
       - name: Verify Live Production Health
         run: |
-          echo "Waiting 3s for container readiness and Traefik verification..."
+          echo "Waiting 3s for container readiness..."
           sleep 3
           for i in {1..15}; do
             echo "Attempt $i: Checking https://dipakvishwakarma.com/api/health..."
@@ -101,3 +112,4 @@ jobs:
           done
           echo "❌ Health check did not return HTTP 200 in expected time window."
           exit 1
+
