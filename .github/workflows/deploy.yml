@@ -83,19 +83,17 @@ jobs:
           ssh production "mkdir -p /home/nivi/apps/dipak-web"
           scp docker-compose.prod.yml production:/home/nivi/apps/dipak-web/docker-compose.prod.yml
           echo "Streaming compressed Docker image to nivi..."
-          docker save dipak-web-image:latest | gzip -1 | ssh production "
+          docker save dipak-web-image:latest | gzip -1 | ssh production "gzip -d | docker load"
+          
+          echo "Reloading production container with new image..."
+          ssh production << 'EOF'
             set -e
-            echo '1. Loading Docker image into daemon...'
-            docker load
             cd /home/nivi/apps/dipak-web
-            echo '2. Stopping old container...'
             docker stop dipak-web || true
             docker rm dipak-web || true
-            echo '3. Starting new container...'
             docker compose -f docker-compose.prod.yml up -d dipak-web
-            echo '4. Cleaning dangling images...'
             docker image prune -f || true
-          "
+          EOF
 
       - name: Verify Live Production Health
         run: |
