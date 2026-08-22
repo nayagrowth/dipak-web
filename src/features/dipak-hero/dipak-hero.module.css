@@ -438,7 +438,9 @@
 }
 
 .primaryIcon {
+  color: var(--dv-signal-red, #e83a12);
   font-size: 1.15rem;
+  font-weight: 700;
   line-height: 1;
   transition: transform 160ms ease;
 }
@@ -448,15 +450,16 @@
 }
 
 .secondaryCta {
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.45);
   color: var(--dv-ink);
-  border: 1px solid var(--dv-ink);
+  border: 1px solid rgba(10, 10, 10, 0.25);
   backdrop-filter: blur(4px);
 }
 
 .secondaryCta:hover {
   transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.85);
+  border-color: var(--dv-ink);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
 }
 
@@ -464,17 +467,30 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.35rem;
-  height: 1.35rem;
-  border: 1.4px solid var(--dv-ink);
+  width: 1.4rem;
+  height: 1.4rem;
+  border: 1.5px solid var(--dv-signal-red, #e83a12);
+  background: rgba(232, 58, 18, 0.08);
   border-radius: 50%;
   flex-shrink: 0;
+  transition: background-color 160ms ease, transform 160ms ease;
+}
+
+.secondaryCta:hover .secondaryIconCircle {
+  background: var(--dv-signal-red, #e83a12);
+  transform: scale(1.08);
 }
 
 .playTriangle {
-  font-size: 0.58rem;
+  font-size: 0.55rem;
   margin-left: 1.5px;
   line-height: 1;
+  color: var(--dv-signal-red, #e83a12);
+  transition: color 160ms ease;
+}
+
+.secondaryCta:hover .playTriangle {
+  color: #ffffff;
 }
 
 /* Quote Section */
