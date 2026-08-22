@@ -59,6 +59,17 @@ export default function AboutPage() {
                 </p>
               </Reveal>
             ))}
+            <Reveal index={story.paragraphs.length}>
+              <div className={styles.storySignatureWrap}>
+                <Image
+                  src="/branding/dipak-signature-full-black.webp"
+                  alt="Dipak Vishwakarma Signature"
+                  width={220}
+                  height={92}
+                  className={styles.storySignatureImg}
+                />
+              </div>
+            </Reveal>
           </div>
         </div>
       </section>

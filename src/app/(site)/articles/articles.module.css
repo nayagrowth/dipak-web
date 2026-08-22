@@ -315,6 +315,18 @@
   color: var(--ink-body);
 }
 
+.authorSignatureWrap {
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.authorSignatureImg {
+  width: clamp(140px, 16vw, 190px);
+  height: auto;
+  object-fit: contain;
+}
+
 /* --- Prose ---------------------------------------------------------------- */
 
 .prose {

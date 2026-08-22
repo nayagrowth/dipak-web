@@ -51,6 +51,18 @@
   color: var(--ink-obsidian) !important;
 }
 
+.storySignatureWrap {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.storySignatureImg {
+  width: clamp(160px, 20vw, 220px);
+  height: auto;
+  object-fit: contain;
+}
+
 /* --- Timeline ------------------------------------------------------------- */
 
 .timeline {

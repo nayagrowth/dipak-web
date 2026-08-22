@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
+import Image from "next/image";
 import { DipakHero, dipakHeroContent } from "@/features/dipak-hero";
 import { DipakIdentityAct, identityContent } from "@/features/dipak-identity";
 import { DipakPresenceAct, presenceContent } from "@/features/dipak-presence";
@@ -67,7 +68,13 @@ export function HomeIntroStory({ latestArticles }: HomeIntroStoryProps) {
                     <circle cx="60" cy="60" r="54" stroke="currentColor" strokeWidth="1" strokeDasharray="3 3" />
                     <circle cx="60" cy="60" r="46" stroke="currentColor" strokeWidth="0.5" />
                   </svg>
-                  <span className={styles.sealText}>DV</span>
+                  <Image
+                    src="/branding/dipak-monogram-gold.webp"
+                    alt="Dipak Vishwakarma Monogram Signature"
+                    width={64}
+                    height={42}
+                    className={styles.sealMonogramImg}
+                  />
                 </div>
                 <span className={styles.sealKicker}>AUTHORITY CLOSERS · ACT 01 / FOLIO</span>
               </div>

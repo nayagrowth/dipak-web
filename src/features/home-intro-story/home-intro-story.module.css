@@ -106,6 +106,13 @@
   letter-spacing: 0.05em;
 }
 
+.sealMonogramImg {
+  width: clamp(52px, 5vw, 68px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+}
+
 .sealKicker {
   font-family: var(--font-mono, monospace);
   font-size: 0.72rem;

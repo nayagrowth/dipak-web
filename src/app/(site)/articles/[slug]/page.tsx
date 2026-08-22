@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
@@ -165,6 +166,15 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           <p className={styles.authorBoxBio}>
             Dipak Vishwakarma works across sales education, buyer psychology, communication, and high-ticket deal architecture, developing practical frameworks that help founders and sales professionals replace pressure with certainty.
           </p>
+          <div className={styles.authorSignatureWrap}>
+            <Image
+              src="/branding/dipak-signature-full-black.webp"
+              alt="Dipak Vishwakarma Signature"
+              width={200}
+              height={84}
+              className={styles.authorSignatureImg}
+            />
+          </div>
         </section>
 
         <aside className={styles.postCta}>
