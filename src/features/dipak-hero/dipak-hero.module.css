@@ -612,7 +612,7 @@
     min-height: 100dvh;
     max-height: 100dvh;
     overflow: clip;
-    padding: max(0.6rem, env(safe-area-inset-top)) 1.25rem max(0.6rem, env(safe-area-inset-bottom));
+    padding: max(1.1rem, env(safe-area-inset-top)) 1.35rem max(1.1rem, env(safe-area-inset-bottom));
     background:
       radial-gradient(ellipse 23rem 19rem at 76% 78%, rgba(255, 255, 255, 0.42), transparent 72%),
       var(--dv-canvas, #f7f7f5);
@@ -630,7 +630,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex: 1 1 auto;
     min-height: 0;
     height: 100%;
@@ -642,16 +642,16 @@
     z-index: 5;
     width: 100%;
     max-width: 24rem;
-    padding: 0.2rem 0 0;
+    padding: 1.1rem 0 0;
   }
 
   .kickerRow {
     gap: 0.65rem;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.5rem;
   }
 
   .kickerText {
-    font-size: 0.72rem;
+    font-size: 0.74rem;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
@@ -665,47 +665,47 @@
   }
 
   .headline {
-    font-size: clamp(1.85rem, 7.8vw, 2.35rem);
+    font-size: clamp(1.95rem, 8vw, 2.45rem);
     font-weight: 800;
-    line-height: 1.02;
+    line-height: 1.04;
     letter-spacing: -0.025em;
   }
 
   .supportingCopy {
     max-width: 22rem;
-    margin-top: 0.5rem;
-    font-size: 0.85rem;
-    line-height: 1.45;
+    margin-top: 0.65rem;
+    font-size: 0.88rem;
+    line-height: 1.48;
     color: var(--dv-body);
   }
 
   .ctaRow {
-    margin-top: 0.75rem;
-    gap: 0.5rem;
+    margin-top: 1.1rem;
+    gap: 0.55rem;
     flex-direction: column;
     align-items: stretch;
     width: 100%;
-    max-width: 19rem;
+    max-width: 19.5rem;
   }
 
   .primaryCta,
   .secondaryCta {
     width: 100%;
-    min-height: 2.7rem;
-    padding: 0.6rem 1rem;
-    font-size: 0.82rem;
+    min-height: 2.75rem;
+    padding: 0.65rem 1rem;
+    font-size: 0.84rem;
     font-weight: 700;
   }
 
   .secondaryCta {
-    background: rgba(247, 247, 245, 0.85);
+    background: rgba(247, 247, 245, 0.88);
     backdrop-filter: none;
     border: 1px solid var(--dv-line);
   }
 
   .quoteBlock {
-    margin-top: 0.6rem;
-    gap: 0.6rem;
+    margin-top: 0.85rem;
+    gap: 0.65rem;
   }
 
   .quoteMark {
@@ -718,7 +718,7 @@
   }
 
   .quoteText {
-    font-size: 0.85rem;
+    font-size: 0.88rem;
   }
 
   /* Single Composition Root Anchored at Lower Right */
@@ -726,8 +726,8 @@
     position: absolute;
     right: 0;
     bottom: 0;
-    width: min(85vw, clamp(18rem, 42dvh, 25rem));
-    height: clamp(16rem, 42dvh, 25rem);
+    width: min(94vw, clamp(22rem, 50dvh, 32rem));
+    height: clamp(22rem, 50dvh, 32rem);
     min-height: 0;
     pointer-events: none;
     z-index: 1;
@@ -742,8 +742,8 @@
     bottom: 0;
     aspect-ratio: var(--mobile-aspect);
     opacity: 0.94;
-    mask-image: linear-gradient(to top, black 70%, transparent 100%), linear-gradient(to left, black 75%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to top, black 70%, transparent 100%), linear-gradient(to left, black 75%, transparent 100%);
+    mask-image: linear-gradient(to top, black 72%, transparent 100%), linear-gradient(to left, black 75%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to top, black 72%, transparent 100%), linear-gradient(to left, black 75%, transparent 100%);
     mask-composite: intersect;
     -webkit-mask-composite: source-in;
   }
