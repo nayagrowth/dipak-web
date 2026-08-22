@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { primaryNav, siteBrand } from "./site.content";
@@ -65,9 +66,15 @@ export function SiteHeader() {
         className={`${styles.header} ${scrolled ? styles.headerScrolled : ""}`}
         data-site-header="true"
       >
-        <Link className={styles.wordmark} href="/" aria-label="Dipak Vishwakarma — home">
-          <span className={styles.wordmarkFirst}>{siteBrand.firstLine}</span>
-          <span className={styles.wordmarkSecond}>{siteBrand.secondLine}</span>
+        <Link className={styles.brandLink} href="/" aria-label="Dipak Vishwakarma — home">
+          <Image
+            src="/branding/dipak-signature-full-black.webp"
+            alt="Dipak Vishwakarma"
+            width={180}
+            height={76}
+            className={styles.headerSignatureImg}
+            priority
+          />
         </Link>
 
         <nav className={styles.desktopNav} aria-label="Primary">

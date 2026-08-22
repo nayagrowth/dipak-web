@@ -49,9 +49,15 @@ export function DipakHero({ content }: { content: HeroContent }) {
 
       {/* Top Header & Navigation */}
       <header className={styles.header} data-story-header="true">
-        <a className={styles.wordmark} href="#hero" aria-label="Dipak Vishwakarma homepage">
-          <span className={styles.wordmarkFirst}>{content.brandFirstLine}</span>
-          <span className={styles.wordmarkSecond}>{content.brandSecondLine}</span>
+        <a className={styles.brandLink} href="#hero" aria-label="Dipak Vishwakarma homepage">
+          <Image
+            src="/branding/dipak-signature-full-black.webp"
+            alt="Dipak Vishwakarma"
+            width={185}
+            height={78}
+            className={styles.headerSignatureImg}
+            priority
+          />
         </a>
 
         <nav className={styles.desktopNav} aria-label="Primary navigation">

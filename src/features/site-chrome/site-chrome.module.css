@@ -46,6 +46,43 @@
   padding-block: 0.95rem;
 }
 
+.brandLink {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity var(--dur-fast) var(--ease-out-editorial), transform var(--dur-fast) var(--ease-out-editorial);
+}
+
+.brandLink:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+.headerSignatureImg {
+  width: clamp(145px, 15vw, 190px);
+  height: auto;
+  object-fit: contain;
+}
+
+.footerBrandLink {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  margin-bottom: 0.2rem;
+  transition: opacity var(--dur-fast) var(--ease-out-editorial), transform var(--dur-fast) var(--ease-out-editorial);
+}
+
+.footerBrandLink:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.footerSignatureImg {
+  width: clamp(170px, 18vw, 230px);
+  height: auto;
+  object-fit: contain;
+}
+
 .wordmark,
 .footerWordmark {
   display: grid;

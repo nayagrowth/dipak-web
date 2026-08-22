@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import type { HeroCta, NavLink } from "./hero.types";
 import styles from "./dipak-hero.module.css";
 
@@ -18,58 +19,67 @@ export function MobileNav({
   brandSecondLine,
 }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const triggerRef = useRef<HTMLButtonElement>(null);
+  const openBtnRef = useRef<HTMLButtonElement>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
 
-  const toggleMenu = () => setIsOpen((prev) => !prev);
-  const closeMenu = () => setIsOpen(false);
-
-  // Body scroll locking and Escape key handling
+  // Auto-close on Esc key & trap focus
   useEffect(() => {
     if (!isOpen) return;
 
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    // Auto-focus close button when menu opens
-    closeBtnRef.current?.focus();
-
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        closeMenu();
-        triggerRef.current?.focus();
+        setIsOpen(false);
+        openBtnRef.current?.focus();
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
+  // Lock body scroll when drawer is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
     return () => {
-      document.body.style.overflow = originalOverflow;
-      window.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
     };
   }, [isOpen]);
 
+  const handleOpen = () => {
+    setIsOpen(true);
+    setTimeout(() => {
+      closeBtnRef.current?.focus();
+    }, 50);
+  };
+
   const handleCloseAndReturnFocus = () => {
-    closeMenu();
-    triggerRef.current?.focus();
+    setIsOpen(false);
+    openBtnRef.current?.focus();
   };
 
   const secondaryCta = ctas.find((c) => c.kind === "secondary" && Boolean(c.href)) || ctas[0];
 
   return (
-    <>
-      {/* Hamburger Trigger Button */}
+    <div className={styles.mobileNavContainer}>
+      {/* Editorial Menu Toggle Button */}
       <button
-        ref={triggerRef}
-        className={styles.hamburgerBtn}
-        aria-label={isOpen ? "Close menu" : "Open menu"}
+        ref={openBtnRef}
+        className={styles.mobileMenuBtn}
+        aria-label="Open navigation menu"
         aria-expanded={isOpen}
         aria-controls="mobile-primary-navigation"
         type="button"
-        onClick={toggleMenu}
+        onClick={handleOpen}
       >
-        <span className={styles.hamburgerLine} />
-        <span className={styles.hamburgerLine} />
-        <span className={styles.hamburgerLine} />
+        <span className={styles.hamburgerLabel}>MENU</span>
+        <span className={styles.hamburgerBox} aria-hidden="true">
+          <span className={styles.hamburgerLine} />
+          <span className={styles.hamburgerLine} />
+        </span>
       </button>
 
       {/* Full-Screen Editorial Mobile Drawer */}
@@ -81,13 +91,18 @@ export function MobileNav({
         {/* Drawer Header */}
         <div className={styles.drawerHeader}>
           <a
-            className={styles.wordmark}
+            className={styles.brandLink}
             href="#hero"
             onClick={handleCloseAndReturnFocus}
             tabIndex={isOpen ? 0 : -1}
           >
-            <span className={styles.wordmarkFirst}>{brandFirstLine}</span>
-            <span className={styles.wordmarkSecond}>{brandSecondLine}</span>
+            <Image
+              src="/branding/dipak-signature-full-black.webp"
+              alt="Dipak Vishwakarma"
+              width={160}
+              height={68}
+              className={styles.headerSignatureImg}
+            />
           </a>
 
           <button
@@ -146,6 +161,6 @@ export function MobileNav({
           </div>
         ) : null}
       </div>
-    </>
+    </div>
   );
 }

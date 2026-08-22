@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   authorityClosersCta,
@@ -17,9 +18,14 @@ export function SiteFooter() {
     <footer className={styles.footer}>
       <div className={styles.footerInner}>
         <div className={styles.footerBrandBlock}>
-          <Link className={styles.footerWordmark} href="/">
-            <span className={styles.wordmarkFirst}>{siteBrand.firstLine}</span>
-            <span className={styles.wordmarkSecond}>{siteBrand.secondLine}</span>
+          <Link className={styles.footerBrandLink} href="/" aria-label="Dipak Vishwakarma — home">
+            <Image
+              src="/branding/dipak-signature-full-gold.webp"
+              alt="Dipak Vishwakarma"
+              width={220}
+              height={92}
+              className={styles.footerSignatureImg}
+            />
           </Link>
           <span className={styles.footerPositioning}>{siteBrand.positioning}</span>
           <p className={styles.footerPhilosophy}>{footerContent.philosophyLine}</p>
