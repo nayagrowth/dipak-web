@@ -1,19 +1,19 @@
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
-import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
+import { Montserrat, Poppins } from "next/font/google";
 import "@/styles/globals.css";
 
-const serifFont = Playfair_Display({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  variable: "--font-serif",
+  variable: "--font-montserrat",
   weight: ["400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
-const sansFont = Plus_Jakarta_Sans({
+const poppins = Poppins({
   subsets: ["latin"],
-  variable: "--font-sans",
-  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -72,7 +72,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en" className={`${serifFont.variable} ${sansFont.variable}`}>
+    <html lang="en" className={`${montserrat.variable} ${poppins.variable}`}>
       <head>
         {/* Preload High Priority LCP Assets */}
         <link rel="preload" href="/hero/dipak-seated.webp" as="image" type="image/webp" />

@@ -1,16 +1,17 @@
 .identitySection {
-  --dv-ink: #11110f;
+  --dv-ink: #0a0a0a;
   --dv-ink-pure: #000000;
   --dv-body: #3c3933;
-  --dv-canvas: #f6f2ea;
-  --dv-canvas-soft: #fbf9f5;
+  --dv-canvas: #f7f7f5;
+  --dv-canvas-soft: #ffffff;
   --dv-gold-art: #c89545;
   --dv-gold-vibrant: #b8860b;
   --dv-gold-text: #8f621f;
+  --dv-signal-red: #e83a12;
   --dv-gold-line: rgba(200, 149, 69, 0.42);
-  --dv-line: rgba(17, 17, 15, 0.12);
-  --dv-serif: var(--font-serif), "Playfair Display", "Iowan Old Style", Georgia, serif;
-  --dv-sans: var(--font-sans), "Plus Jakarta Sans", Inter, -apple-system, sans-serif;
+  --dv-line: rgba(10, 10, 10, 0.12);
+  --dv-serif: var(--font-montserrat), "Montserrat", -apple-system, sans-serif;
+  --dv-sans: var(--font-poppins), "Poppins", -apple-system, sans-serif;
   --dv-mono: var(--font-mono, monospace);
 
   position: relative;
@@ -262,7 +263,7 @@
   will-change: transform, opacity;
 }
 
-/* Minimal organic yellow smudge highlight behind CERTAINTY BUILDER */
+/* Minimal organic Signal Red & warm marker highlight behind CERTAINTY BUILDER */
 .highlightSmudge {
   position: relative;
   display: inline;
@@ -273,14 +274,13 @@
   border-radius: 2px 4px 3px 5px;
   
   /* 
-    Minimal crisp bottom-half yellow marker stripe 
-    matching documentary editorial highlight (lowered to bottom ~45-50% baseline)
+    Brand Kit Signal Red & warm amber highlight stripe
   */
   background-image: linear-gradient(
     to bottom,
-    transparent 52%,
-    rgba(255, 234, 120, 0.92) 52%,
-    rgba(255, 220, 72, 0.96) 94%,
+    transparent 50%,
+    rgba(232, 58, 18, 0.16) 50%,
+    rgba(232, 58, 18, 0.24) 94%,
     transparent 94%
   );
   background-repeat: no-repeat;
@@ -296,11 +296,11 @@
   font-weight: 700;
   letter-spacing: 0.05em;
   margin-left: 0.12em;
-  color: var(--dv-gold-art);
+  color: var(--dv-signal-red, #e83a12);
 }
 
 .goldPeriod {
-  color: var(--dv-gold-art);
+  color: var(--dv-signal-red, #e83a12);
   font-family: var(--dv-serif);
   margin-left: 0.04em;
   font-size: 0.9em;

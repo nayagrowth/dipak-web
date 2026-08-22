@@ -1,14 +1,16 @@
 .surface {
-  --dv-ink: #11110f;
-  --dv-body: #48453f;
-  --dv-canvas: #f4f1ea;
-  --dv-canvas-soft: #f8f6f0;
+  --dv-ink: #0a0a0a;
+  --dv-body: #3c3a36;
+  --dv-canvas: #f7f7f5;
+  --dv-canvas-soft: #ffffff;
   --dv-gold-art: #c89545;
   --dv-gold-text: #8f621f;
   --dv-gold-line: #d8aa5a;
-  --dv-line: rgba(17, 17, 15, 0.14);
-  --dv-serif: var(--font-serif), "Playfair Display", "Iowan Old Style", Georgia, serif;
-  --dv-sans: var(--font-sans), "Plus Jakarta Sans", Inter, -apple-system, sans-serif;
+  --dv-signal-red: #e83a12;
+  --dv-soft-sand: #e7d4c2;
+  --dv-line: rgba(10, 10, 10, 0.12);
+  --dv-serif: var(--font-montserrat), "Montserrat", -apple-system, sans-serif;
+  --dv-sans: var(--font-poppins), "Poppins", -apple-system, sans-serif;
 
   position: relative;
   isolation: isolate;
@@ -340,9 +342,9 @@
   margin: 0;
   font-family: var(--dv-serif);
   font-size: clamp(2.8rem, 5.1vw, 5.4rem);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  line-height: 1.02;
+  font-weight: 800;
+  letter-spacing: -0.028em;
+  line-height: 0.98;
   color: var(--dv-ink);
 }
 
@@ -360,7 +362,7 @@
 }
 
 .goldDot {
-  color: var(--dv-gold-art);
+  color: var(--dv-signal-red, #e83a12);
   font-size: 1.08em;
   margin-left: 0.03em;
 }
@@ -465,9 +467,9 @@
 
 .quoteMark {
   font-family: var(--dv-serif);
-  font-size: 3.2rem;
+  font-size: 3.4rem;
   line-height: 0.5;
-  color: rgba(17, 17, 15, 0.22);
+  color: #e7d4c2;
   margin-top: 0.4rem;
 }
 

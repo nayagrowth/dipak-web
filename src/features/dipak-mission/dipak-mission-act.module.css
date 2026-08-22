@@ -1,13 +1,14 @@
 .missionSection {
-  --dv-ink: #11110f;
-  --dv-body: #4a473e;
-  --dv-canvas: #f4f1ea;
+  --dv-ink: #0a0a0a;
+  --dv-body: #3c3933;
+  --dv-canvas: #f7f7f5;
   --dv-gold-art: #c89545;
   --dv-gold-text: #8f621f;
   --dv-gold-line: #d8aa5a;
-  --dv-line: rgba(17, 17, 15, 0.12);
-  --dv-serif: var(--font-serif), "Playfair Display", "Iowan Old Style", Georgia, serif;
-  --dv-sans: var(--font-sans), "Plus Jakarta Sans", Inter, -apple-system, sans-serif;
+  --dv-signal-red: #e83a12;
+  --dv-line: rgba(10, 10, 10, 0.12);
+  --dv-serif: var(--font-montserrat), "Montserrat", -apple-system, sans-serif;
+  --dv-sans: var(--font-poppins), "Poppins", -apple-system, sans-serif;
   --dv-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", monospace;
 
   position: relative;
