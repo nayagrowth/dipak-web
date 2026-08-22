@@ -8,15 +8,11 @@ import styles from "./dipak-hero.module.css";
 interface MobileNavProps {
   navLinks: NavLink[];
   ctas: HeroCta[];
-  brandFirstLine: string;
-  brandSecondLine: string;
 }
 
 export function MobileNav({
   navLinks,
   ctas,
-  brandFirstLine,
-  brandSecondLine,
 }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const openBtnRef = useRef<HTMLButtonElement>(null);

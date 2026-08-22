@@ -77,8 +77,6 @@ export function DipakHero({ content }: { content: HeroContent }) {
           <MobileNav
             navLinks={content.navLinks}
             ctas={content.ctas}
-            brandFirstLine={content.brandFirstLine}
-            brandSecondLine={content.brandSecondLine}
           />
         </div>
       </header>
