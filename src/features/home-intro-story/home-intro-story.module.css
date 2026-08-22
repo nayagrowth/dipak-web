@@ -249,7 +249,7 @@
     inset: auto;
     width: 100%;
     height: auto;
-    min-height: 100dvh;
+    min-height: auto;
     opacity: 1 !important;
     visibility: visible !important;
   }
