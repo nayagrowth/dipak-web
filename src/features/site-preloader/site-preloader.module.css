@@ -5,6 +5,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  background-color: #0a0a0a;
+  color: #ffffff;
   pointer-events: auto;
   user-select: none;
   font-family: var(--font-sans), "Plus Jakarta Sans", sans-serif;
@@ -16,16 +19,15 @@
   left: 0;
   right: 0;
   height: 50.5%;
-  background-color: #f4f1ea;
+  background-color: #0a0a0a;
   z-index: 1;
-  transition: transform 650ms cubic-bezier(0.76, 0, 0.24, 1);
+  transition: transform 600ms cubic-bezier(0.85, 0, 0.15, 1);
   will-change: transform;
 }
 
 .curtainTop {
   top: 0;
   transform-origin: top center;
-  border-bottom: 1px solid rgba(200, 149, 69, 0.2);
 }
 
 .curtainBottom {
@@ -47,21 +49,20 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 1.2rem;
-  transition: opacity 300ms ease, transform 400ms cubic-bezier(0.16, 1, 0.3, 1);
+  gap: 1.25rem;
+  transition: opacity 350ms cubic-bezier(0.16, 1, 0.3, 1), transform 350ms ease;
 }
 
 .preloaderExiting .preloaderContent {
   opacity: 0;
-  transform: scale(0.96) translateY(-10px);
+  transform: scale(0.96);
 }
 
 /* Ensō Ring with Monogram */
 .ensoWrapper {
   position: relative;
-  width: 110px;
-  height: 110px;
+  width: 90px;
+  height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -77,13 +78,13 @@
 
 .ensoTrack {
   fill: none;
-  stroke: rgba(200, 149, 69, 0.15);
+  stroke: rgba(255, 255, 255, 0.12);
   stroke-width: 3;
 }
 
 .ensoBar {
   fill: none;
-  stroke: #c89545;
+  stroke: #e83a12;
   stroke-width: 4;
   stroke-linecap: round;
   stroke-dasharray: 880;
@@ -91,11 +92,11 @@
 }
 
 .monogram {
-  font-family: var(--font-serif), "Playfair Display", serif;
-  font-size: 1.8rem;
-  font-weight: 700;
+  font-family: var(--font-family-serif);
+  font-size: 1.6rem;
+  font-weight: 800;
   letter-spacing: 0.08em;
-  color: #11110f;
+  color: #ffffff;
 }
 
 /* Brand Lockup */
@@ -103,24 +104,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.3rem;
   text-align: center;
 }
 
 .brandName {
-  font-family: var(--font-serif), "Playfair Display", serif;
+  font-family: var(--font-family-serif);
   font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.24em;
-  color: #11110f;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  color: #ffffff;
 }
 
 .brandRole {
-  font-family: var(--font-sans), "Plus Jakarta Sans", sans-serif;
+  font-family: var(--font-family-sans);
   font-size: 0.68rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.2em;
-  color: #8f621f;
+  color: #e83a12;
 }
 
 /* Metric Counter */
@@ -128,38 +129,36 @@
   display: flex;
   align-items: baseline;
   gap: 0.15rem;
-  margin-top: 0.4rem;
 }
 
 .counterNumber {
-  font-family: var(--font-serif), "Playfair Display", serif;
-  font-size: 2.8rem;
-  font-weight: 700;
-  line-height: 1;
-  color: #11110f;
-  letter-spacing: -0.02em;
+  font-family: var(--font-family-mono);
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #ffffff;
 }
 
 .counterPercent {
-  font-family: var(--font-serif), "Playfair Display", serif;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #c89545;
+  font-family: var(--font-family-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: #e83a12;
 }
 
-/* Hairline Gold Loading Rule */
+/* Hairline Signal Red Loading Rule */
 .goldLineTrack {
-  width: 180px;
+  width: 130px;
   height: 2px;
-  background-color: rgba(17, 17, 15, 0.08);
-  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 2px;
   overflow: hidden;
   position: relative;
 }
 
 .goldLineFill {
   height: 100%;
-  background: linear-gradient(90deg, #c89545, #d8aa5a);
-  border-radius: 1px;
-  transition: width 80ms linear;
+  background: #e83a12;
+  border-radius: 2px;
+  transition: width 60ms linear;
 }

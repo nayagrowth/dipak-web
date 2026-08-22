@@ -1,15 +1,15 @@
 .preloaderSurface {
   position: fixed;
   inset: 0;
-  z-index: 9999;
-  background-color: #f4f1ea;
+  z-index: 99999;
+  background-color: #0a0a0a;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   opacity: 1;
   visibility: visible;
-  transition: opacity 650ms cubic-bezier(0.16, 1, 0.3, 1), visibility 650ms ease;
+  transition: opacity 450ms cubic-bezier(0.16, 1, 0.3, 1), visibility 450ms ease;
   pointer-events: all;
 }
 
@@ -23,53 +23,34 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1.25rem;
+  gap: 1.4rem;
+  text-align: center;
 }
 
-.monogramRing {
-  position: relative;
-  width: 72px;
-  height: 72px;
+.monogramWrap {
+  width: 56px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: monogramReveal 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.ringSvg {
-  position: absolute;
-  inset: 0;
+.monogramImg {
   width: 100%;
-  height: 100%;
-  color: #c89545;
-  animation: rotateRing 8s linear infinite;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 16px rgba(255, 255, 255, 0.12));
 }
 
-@keyframes rotateRing {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.monogramText {
-  font-family: var(--font-serif, "Playfair Display", serif);
-  font-size: 1.55rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: #11110f;
-  animation: pulseMonogram 2s ease-in-out infinite alternate;
-}
-
-@keyframes pulseMonogram {
+@keyframes monogramReveal {
   0% {
-    opacity: 0.65;
-    transform: scale(0.97);
+    opacity: 0;
+    transform: scale(0.92);
   }
   100% {
     opacity: 1;
-    transform: scale(1.02);
+    transform: scale(1);
   }
 }
 
@@ -77,33 +58,38 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.2rem;
-  text-align: center;
+  gap: 0.35rem;
 }
 
 .brandName {
-  font-family: var(--font-serif, "Playfair Display", serif);
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-family: var(--font-family-serif);
+  font-size: 0.98rem;
+  font-weight: 800;
   letter-spacing: 0.22em;
-  color: #11110f;
+  color: #ffffff;
   text-transform: uppercase;
 }
 
 .brandKicker {
-  font-family: var(--font-sans, "Plus Jakarta Sans", sans-serif);
+  font-family: var(--font-family-sans);
   font-size: 0.72rem;
   font-weight: 600;
-  letter-spacing: 0.18em;
-  color: #8f621f;
+  letter-spacing: 0.2em;
+  color: rgba(247, 247, 245, 0.7);
   text-transform: uppercase;
 }
 
+.redTm {
+  color: #e83a12;
+  font-weight: 700;
+  margin-left: 0.15em;
+}
+
 .progressBarContainer {
-  margin-top: 1.8rem;
-  width: 140px;
+  margin-top: 1.2rem;
+  width: 120px;
   height: 2px;
-  background-color: rgba(200, 149, 69, 0.2);
+  background-color: rgba(255, 255, 255, 0.12);
   border-radius: 2px;
   overflow: hidden;
   position: relative;
@@ -115,17 +101,17 @@
   left: 0;
   height: 100%;
   width: 100%;
-  background: linear-gradient(90deg, #c89545, #dfb772);
+  background: linear-gradient(90deg, #e83a12, #ff5e3a);
   transform-origin: left center;
-  animation: fillProgress 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fillProgress 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes fillProgress {
   0% {
-    transform: scaleX(0.05);
+    transform: scaleX(0.08);
   }
   60% {
-    transform: scaleX(0.75);
+    transform: scaleX(0.85);
   }
   100% {
     transform: scaleX(1);

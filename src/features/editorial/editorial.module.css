@@ -54,7 +54,8 @@
 }
 
 .eyebrowIndex {
-  color: var(--gold-deep);
+  color: var(--signal-red, #e83a12);
+  font-weight: 700;
 }
 
 .eyebrowSlash {
@@ -63,13 +64,14 @@
 
 .eyebrow {
   color: var(--ink-muted);
+  font-weight: 600;
 }
 
 .eyebrowRule {
   flex: 1;
   max-width: 8rem;
   height: 1px;
-  background: linear-gradient(90deg, var(--gold), transparent);
+  background: linear-gradient(90deg, var(--signal-red, #e83a12), transparent);
 }
 
 .sectionHeader {
@@ -77,22 +79,26 @@
   grid-template-columns: 1.6fr 1fr;
   gap: clamp(1.5rem, 4vw, 4rem);
   align-items: end;
-  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  margin-bottom: clamp(2.2rem, 4vw, 3.8rem);
 }
 
 .sectionHeadline,
 .pageHeadline {
   margin: 0;
   font-family: var(--font-family-serif);
-  font-weight: 600;
-  letter-spacing: var(--tracking-tight);
-  line-height: 0.98;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.04;
   text-wrap: balance;
 }
 
 .sectionHeadline {
-  font-size: var(--step-h2);
+  font-size: clamp(1.6rem, 2.8vw, 2.6rem);
   text-transform: uppercase;
+}
+
+.pageHeadline {
+  font-size: clamp(2.0rem, 3.6vw, 3.4rem);
 }
 
 .sectionNote {
@@ -103,7 +109,7 @@
 }
 
 .goldPeriod {
-  color: var(--gold);
+  color: var(--signal-red, #e83a12);
 }
 
 .inverted .eyebrow {

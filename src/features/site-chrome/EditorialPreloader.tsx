@@ -85,17 +85,22 @@ export function EditorialPreloader({ onReady }: EditorialPreloaderProps) {
       aria-label="Loading Dipak Vishwakarma official folio"
     >
       <div className={styles.brandCenter}>
-        <div className={styles.monogramRing}>
-          <svg viewBox="0 0 100 100" fill="none" className={styles.ringSvg}>
-            <circle cx="50" cy="50" r="44" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" />
-            <circle cx="50" cy="50" r="38" stroke="currentColor" strokeWidth="0.5" />
-          </svg>
-          <span className={styles.monogramText}>DV</span>
+        <div className={styles.monogramWrap}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/branding/dipak-monogram-white.webp"
+            alt="Dipak Vishwakarma Monogram"
+            width={64}
+            height={64}
+            className={styles.monogramImg}
+          />
         </div>
 
         <div className={styles.brandWordmark}>
-          <span className={styles.brandName}>Dipak Vishwakarma</span>
-          <span className={styles.brandKicker}>The Certainty Builder™</span>
+          <span className={styles.brandName}>DIPAK VISHWAKARMA</span>
+          <span className={styles.brandKicker}>
+            THE CERTAINTY BUILDER<span className={styles.redTm}>™</span>
+          </span>
         </div>
 
         <div className={styles.progressBarContainer}>

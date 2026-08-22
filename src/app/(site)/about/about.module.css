@@ -16,7 +16,7 @@
   aspect-ratio: 4/3;
   object-fit: cover;
   filter: contrast(1.04) brightness(0.98);
-  border-bottom: 2px solid var(--gold);
+  border-bottom: 2px solid var(--signal-red, #e83a12);
 }
 
 .portraitRule {
@@ -25,7 +25,7 @@
   bottom: 0;
   width: 1px;
   height: 45%;
-  background: linear-gradient(180deg, transparent, var(--gold));
+  background: linear-gradient(180deg, transparent, var(--signal-red, #e83a12));
 }
 
 /* --- Story ---------------------------------------------------------------- */
@@ -44,10 +44,10 @@
 }
 
 .storyLead {
-  font-family: var(--font-family-serif);
-  font-size: var(--step-h3) !important;
-  font-style: italic;
-  line-height: 1.42 !important;
+  font-family: var(--font-family-sans);
+  font-size: clamp(1.1rem, 1.4vw, 1.35rem) !important;
+  font-weight: 500;
+  line-height: 1.55 !important;
   color: var(--ink-obsidian) !important;
 }
 
@@ -105,7 +105,8 @@
   font-family: var(--font-family-mono);
   font-size: var(--step-mono);
   letter-spacing: var(--tracking-mono);
-  color: var(--gold-deep);
+  color: var(--signal-red, #e83a12);
+  font-weight: 700;
   padding-top: 0.45rem;
 }
 
@@ -115,7 +116,7 @@
   width: 11px;
   height: 11px;
   margin-top: 0.5rem;
-  border: 1px solid var(--gold);
+  border: 1.5px solid var(--signal-red, #e83a12);
   background: var(--paper-sunken);
   transform: rotate(45deg);
 }

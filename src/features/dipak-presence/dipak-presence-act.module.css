@@ -1,12 +1,13 @@
 .presenceSection {
-  --dv-ink: #11110f;
+  --dv-ink: #0a0a0a;
   --dv-body: #3c3933;
-  --dv-canvas: #f4f0e9;
+  --dv-canvas: #f7f7f5;
   --dv-gold-art: #c89532;
   --dv-gold-text: #9a7432;
+  --dv-signal-red: #e83a12;
   --dv-gold-line: rgba(200, 149, 69, 0.44);
-  --dv-serif: var(--font-serif), "Playfair Display", "Iowan Old Style", Georgia, serif;
-  --dv-sans: var(--font-sans), "Plus Jakarta Sans", Inter, -apple-system, sans-serif;
+  --dv-serif: var(--font-montserrat), "Montserrat", -apple-system, sans-serif;
+  --dv-sans: var(--font-poppins), "Poppins", -apple-system, sans-serif;
 
   position: relative;
   width: 100%;

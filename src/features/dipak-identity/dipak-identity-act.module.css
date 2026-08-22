@@ -232,7 +232,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: var(--dv-gold-art);
+  background-color: var(--dv-signal-red, #e83a12);
   margin-left: 2px;
   flex-shrink: 0;
 }
@@ -240,9 +240,9 @@
 /* Monumental Headline: THE CERTAINTY BUILDER™. */
 .headline {
   font-family: var(--dv-serif);
-  font-size: clamp(2.8rem, 5.2vw, 5.8rem);
+  font-size: clamp(2.2rem, 4.2vw, 4.6rem);
   font-weight: 800;
-  line-height: 0.92;
+  line-height: 0.96;
   letter-spacing: -0.025em;
   color: var(--dv-ink);
   margin: 0;

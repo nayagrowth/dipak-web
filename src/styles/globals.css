@@ -50,17 +50,17 @@
   --font-family-body: var(--font-poppins), "Poppins", -apple-system, sans-serif;
   --font-family-mono: "SF Mono", "Cascadia Code", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* Fluid display scale — clamp keeps large type from overflowing mobile. */
+  /* Fluid display scale — tuned for Montserrat display & Poppins body */
   --step-mono: 0.6875rem;
-  --step-meta: clamp(0.6875rem, 0.66rem + 0.14vw, 0.78rem);
-  --step-body: clamp(0.95rem, 0.9rem + 0.24vw, 1.0625rem);
-  --step-body-lg: clamp(1.05rem, 0.98rem + 0.36vw, 1.25rem);
-  --step-h3: clamp(1.35rem, 1.1rem + 1.1vw, 2rem);
-  --step-h2: clamp(2rem, 1.4rem + 2.8vw, 3.9rem);
-  --step-h1: clamp(2.6rem, 1.5rem + 5vw, 6.4rem);
-  --step-monument: clamp(3rem, 1.4rem + 7vw, 8.5rem);
+  --step-meta: clamp(0.6875rem, 0.66rem + 0.12vw, 0.78rem);
+  --step-body: clamp(0.92rem, 0.88rem + 0.16vw, 1.0rem);
+  --step-body-lg: clamp(1.0rem, 0.95rem + 0.22vw, 1.15rem);
+  --step-h3: clamp(1.2rem, 1.05rem + 0.75vw, 1.55rem);
+  --step-h2: clamp(1.5rem, 1.2rem + 1.5vw, 2.4rem);
+  --step-h1: clamp(1.85rem, 1.4rem + 2.2vw, 3.2rem);
+  --step-monument: clamp(2.2rem, 1.6rem + 3.2vw, 4.2rem);
 
-  --tracking-mono: 0.18em;
+  --tracking-mono: 0.16em;
   --tracking-tight: -0.022em;
 
   /* --- Rhythm ----------------------------------------------------------- */
