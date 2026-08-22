@@ -19,11 +19,11 @@ export default function ArticlesPage() {
   return (
     <>
       <PageHero
-        eyebrow="Articles"
+        eyebrow="Articles by Dipak Vishwakarma"
         index="01"
-        headline="Ideas worth thinking about"
+        headline="Principles & Frameworks by Dipak Vishwakarma"
         body={[
-          "Ideas on sales, buyer psychology, communication, personal branding, AI, entrepreneurship, startups and public speaking.",
+          "Tactical frameworks on sales psychology, objection elimination, communication, personal branding, AI, and entrepreneurship by Dipak Vishwakarma, Founder of Authority Closers.",
         ]}
         aside={
           <div className={styles.heroMediaFrame}>

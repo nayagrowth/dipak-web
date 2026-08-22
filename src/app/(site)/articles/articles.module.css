@@ -224,7 +224,7 @@
 }
 
 .postStandfirst {
-  margin: 0;
+  margin: 0 0 1.5rem;
   font-family: var(--font-family-serif);
   font-size: var(--step-body-lg);
   font-style: italic;
@@ -232,10 +232,87 @@
   color: var(--ink-body);
 }
 
+.bylineRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.8rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.bylineName {
+  font-family: var(--font-family-sans);
+  font-weight: 700;
+  color: var(--ink-obsidian);
+}
+
+.bylineSep {
+  color: var(--gold-deep);
+}
+
+.bylineRole {
+  font-family: var(--font-family-mono);
+  font-size: var(--step-mono);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
 .postRule {
   height: 1px;
-  margin: clamp(2.5rem, 5vw, 4rem) 0 0;
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
   background: linear-gradient(90deg, var(--gold), var(--rule-hairline) 45%, transparent);
+}
+
+/* --- Author Box ----------------------------------------------------------- */
+
+.authorBox {
+  margin: clamp(2.5rem, 5vw, 4rem) 0;
+  padding: clamp(1.75rem, 3.5vw, 2.5rem);
+  background: var(--paper-sunken);
+  border-left: 3px solid var(--gold);
+  border-top: 1px solid var(--rule-hairline);
+  border-right: 1px solid var(--rule-hairline);
+  border-bottom: 1px solid var(--rule-hairline);
+}
+
+.authorBoxMeta {
+  margin-bottom: 1rem;
+}
+
+.authorBoxLabel {
+  display: block;
+  font-family: var(--font-family-mono);
+  font-size: 0.75rem;
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 0.35rem;
+}
+
+.authorBoxName {
+  margin: 0 0 0.25rem;
+  font-family: var(--font-family-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink-obsidian);
+}
+
+.authorBoxRole {
+  margin: 0;
+  font-family: var(--font-family-mono);
+  font-size: var(--step-mono);
+  letter-spacing: var(--tracking-mono);
+  text-transform: uppercase;
+  color: var(--gold-deep);
+}
+
+.authorBoxBio {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: var(--ink-body);
 }
 
 /* --- Prose ---------------------------------------------------------------- */

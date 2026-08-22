@@ -29,33 +29,36 @@ export async function generateMetadata({
   if (!article) return { title: "Article not found" };
 
   const canonicalUrl = `https://dipakvishwakarma.com/articles/${article.slug}`;
+  const seoTitle = `${article.title} — Dipak Vishwakarma | Founder of Authority Closers`;
+  const seoDescription = `${article.excerpt} Read this framework by Dipak Vishwakarma, Founder of Authority Closers and High-Ticket Sales Expert.`;
 
   return {
-    title: `${article.title} — Dipak Vishwakarma`,
-    description: article.excerpt,
+    title: seoTitle,
+    description: seoDescription,
     alternates: {
       canonical: canonicalUrl,
     },
     openGraph: {
-      title: article.title,
-      description: article.excerpt,
+      title: seoTitle,
+      description: seoDescription,
       url: canonicalUrl,
       type: "article",
       publishedTime: article.date,
       authors: ["https://dipakvishwakarma.com"],
+      siteName: "Dipak Vishwakarma — Founder of Authority Closers | High-Ticket Sales Expert",
       images: [
         {
           url: article.coverImage || "/social/dipak-og-default-1200x630.jpg",
           width: 1200,
           height: 630,
-          alt: article.title,
+          alt: `${article.title} — Dipak Vishwakarma`,
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: article.title,
-      description: article.excerpt,
+      title: seoTitle,
+      description: seoDescription,
       images: [article.coverImage || "/social/dipak-og-default-1200x630.jpg"],
     },
   };
@@ -81,11 +84,23 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     author: {
       "@type": "Person",
       name: "Dipak Vishwakarma",
+      jobTitle: "Founder of Authority Closers | High-Ticket Sales Expert",
+      worksFor: {
+        "@type": "Organization",
+        name: "Authority Closers",
+        url: "https://authorityclosers.com",
+      },
       url: "https://dipakvishwakarma.com",
+      sameAs: [
+        "https://www.linkedin.com/in/dipakvishwakarma/",
+        "https://twitter.com/dipakvishwa",
+        "https://www.youtube.com/@dipakvishwakarma",
+      ],
     },
     publisher: {
       "@type": "Person",
       name: "Dipak Vishwakarma",
+      jobTitle: "Founder of Authority Closers | High-Ticket Sales Expert",
       url: "https://dipakvishwakarma.com",
     },
     mainEntityOfPage: `https://dipakvishwakarma.com/articles/${article.slug}`,
@@ -120,6 +135,12 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
           <h1 className={styles.postTitle}>{article.title}</h1>
 
+          <div className={styles.bylineRow}>
+            <span className={styles.bylineName}>By Dipak Vishwakarma</span>
+            <span className={styles.bylineSep}>·</span>
+            <span className={styles.bylineRole}>Founder of Authority Closers | High-Ticket Sales Expert</span>
+          </div>
+
           {article.excerpt ? (
             <p className={styles.postStandfirst}>{article.excerpt}</p>
           ) : null}
@@ -133,6 +154,18 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           className={styles.prose}
           html={article.html}
         />
+
+        {/* Author Bio Box */}
+        <section className={styles.authorBox} aria-label="About the Author">
+          <div className={styles.authorBoxMeta}>
+            <span className={styles.authorBoxLabel}>ABOUT THE AUTHOR</span>
+            <h3 className={styles.authorBoxName}>Dipak Vishwakarma</h3>
+            <p className={styles.authorBoxRole}>Founder of Authority Closers | High-Ticket Sales Expert</p>
+          </div>
+          <p className={styles.authorBoxBio}>
+            Dipak Vishwakarma works across sales education, buyer psychology, communication, and high-ticket deal architecture, developing practical frameworks that help founders and sales professionals replace pressure with certainty.
+          </p>
+        </section>
 
         <aside className={styles.postCta}>
           <p className={styles.postCtaText}>
@@ -155,7 +188,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       {related.length > 0 ? (
         <section className={`${editorial.section} ${editorial.sectionSunken}`}>
           <div className={editorial.container}>
-            <h2 className={styles.relatedHeading}>More thinking</h2>
+            <h2 className={styles.relatedHeading}>More thinking by Dipak Vishwakarma</h2>
             <ul className={styles.relatedGrid}>
               {related.map((item) => (
                 <li key={item.slug}>
