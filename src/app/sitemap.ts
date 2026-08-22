@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
-import { contentProvider } from "@/lib/content";
+import { getAllArticles } from "@/lib/articles";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://dipakvishwakarma.com";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const articles = await contentProvider.getArticles();
-  const blogPosts = await contentProvider.getBlogPosts();
+export default function sitemap(): MetadataRoute.Sitemap {
+  // Single unified source — blog is merged into articles
+  const articles = getAllArticles();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
@@ -22,12 +22,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${BASE_URL}/articles`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/blog`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
@@ -54,17 +48,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const articleRoutes: MetadataRoute.Sitemap = articles.map((article) => ({
     url: `${BASE_URL}/articles/${article.slug}`,
-    lastModified: article.publishedAt ? new Date(article.publishedAt) : new Date(),
+    lastModified: article.date ? new Date(article.date) : new Date(),
     changeFrequency: "monthly",
-    priority: 0.8,
+    priority: 0.85,
   }));
 
-  const blogRoutes: MetadataRoute.Sitemap = blogPosts.map((post) => ({
-    url: `${BASE_URL}/blog/${post.slug}`,
-    lastModified: post.publishedAt ? new Date(post.publishedAt) : new Date(),
-    changeFrequency: "monthly",
-    priority: 0.7,
-  }));
-
-  return [...staticRoutes, ...articleRoutes, ...blogRoutes];
+  return [...staticRoutes, ...articleRoutes];
 }

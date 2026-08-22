@@ -4,6 +4,8 @@ import type { TopicsContent } from "./topics.types";
  * "What I Think About" — the eight subjects from the client copy master
  * (01_COPY section 06). Titles and descriptions are transcribed verbatim;
  * only the mono `tag` kickers are presentational additions.
+ *
+ * All hrefs now point to /articles/* (blog merged into articles).
  */
 export const topicsContent: TopicsContent = {
   sectionNumber: "05",
@@ -22,7 +24,7 @@ export const topicsContent: TopicsContent = {
       description:
         "Why people hesitate, what creates trust, and how decisions are actually made.",
       image: "/media/05_dsc06990.webp",
-      href: "/blog/buyer-psychology-undecided-mind",
+      href: "/articles/buyer-psychology-undecided-mind",
     },
     {
       id: "high-ticket-sales",
@@ -32,7 +34,7 @@ export const topicsContent: TopicsContent = {
       description:
         "How to lead complex conversations without pressure, scripts or manipulation.",
       image: "/media/04_dsc07013.webp",
-      href: "/blog/the-architecture-of-high-ticket-sales",
+      href: "/articles/the-architecture-of-high-ticket-sales",
     },
     {
       id: "communication",
@@ -42,7 +44,7 @@ export const topicsContent: TopicsContent = {
       description:
         "Questions, listening, framing and the language that changes how people understand value.",
       image: "/media/05_dsc06990.webp",
-      href: "/blog/the-true-meaning-of-communication",
+      href: "/articles/the-true-meaning-of-communication",
     },
     {
       id: "personal-branding",
@@ -52,7 +54,7 @@ export const topicsContent: TopicsContent = {
       description:
         "How expertise becomes authority — and how authority compounds over time.",
       image: "/media/01_dsc06974.webp",
-      href: "/blog/personal-branding-in-the-age-of-ai",
+      href: "/articles/personal-branding-in-the-age-of-ai",
     },
     {
       id: "ai",
@@ -62,7 +64,7 @@ export const topicsContent: TopicsContent = {
       description:
         "How AI can improve learning, practice, feedback and decision-making without replacing human judgment.",
       image: "/media/03_dsc06998.webp",
-      href: "/blog/ai-and-the-future-of-sales",
+      href: "/articles/ai-and-the-future-of-sales",
     },
     {
       id: "entrepreneurship",
@@ -72,7 +74,7 @@ export const topicsContent: TopicsContent = {
       description:
         "Building systems, teams and products around a clear market problem.",
       image: "/media/10_screenshot_2026-08-08_at_10.40.56_pm.png",
-      href: "/blog/sales-number-one-skill-for-founders",
+      href: "/articles/sales-number-one-skill-for-founders",
     },
     {
       id: "startups",
@@ -82,7 +84,7 @@ export const topicsContent: TopicsContent = {
       description:
         "Sales systems, founder-led growth and the transition from instinct to repeatability.",
       image: "/media/03_dsc06998.webp",
-      href: "/blog/sales-number-one-skill-for-founders",
+      href: "/articles/sales-number-one-skill-for-founders",
     },
     {
       id: "public-speaking",
@@ -92,7 +94,7 @@ export const topicsContent: TopicsContent = {
       description:
         "Communicating ideas with clarity, structure and conviction to influence multiple decision-makers.",
       image: "/media/06_dsc04024.webp",
-      href: "/blog/public-speaking-as-business-leverage",
+      href: "/articles/public-speaking-as-business-leverage",
     },
   ],
 };

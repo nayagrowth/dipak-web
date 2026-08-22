@@ -133,3 +133,19 @@ jobs:
           done
           echo "❌ Health check failed"
           exit 1
+
+      - name: Ping Search Engines (Sitemap + IndexNow)
+        run: |
+          echo "--- Submitting sitemap to Google ---"
+          curl -s "https://www.google.com/ping?sitemap=https://dipakvishwakarma.com/sitemap.xml" -o /dev/null -w "Google ping: %{http_code}\n" || true
+
+          echo "--- Submitting sitemap to Bing ---"
+          curl -s "https://www.bing.com/ping?sitemap=https://dipakvishwakarma.com/sitemap.xml" -o /dev/null -w "Bing ping: %{http_code}\n" || true
+
+          echo "--- Triggering IndexNow (all article URLs) ---"
+          curl -s -X POST https://dipakvishwakarma.com/api/indexnow \
+            -H "Content-Type: application/json" \
+            -w "\nIndexNow POST status: %{http_code}\n" || true
+
+          echo "✅ Search engine notifications sent"
+

@@ -1,14 +1,14 @@
 /**
  * Unified, CMS-Agnostic Content Types
  *
- * Defines the strict contracts for both signature "Articles" (long-form IP/essays)
- * and continuous "Blogs" (timely commentary, breakdowns, field notes).
+ * All content — what was previously "Articles" and "Blogs" — is now a single
+ * unified "Article" type. The /blog route permanently redirects to /articles.
  *
- * These interfaces decouple the Next.js UI layer from the storage engine
- * (whether file-system markdown today, or Strapi / Sanity / Ghost / FastAPI later).
+ * When a headless CMS is introduced, write a CmsContentProvider that
+ * implements ContentProvider. No UI components will need to change.
  */
 
-export type ContentKind = "article" | "blog";
+export type ContentKind = "article";
 
 export interface BaseContentItem {
   id: string;
@@ -17,57 +17,35 @@ export interface BaseContentItem {
   excerpt: string;
   /** ISO date string: "2026-08-20" */
   publishedAt: string;
-  /** Estimated or calculated read time, e.g. "5 MIN READ" */
   readTime: string;
-  /** Rendered HTML body or rich text string */
   html: string;
-  /** Optional cover image path or remote URL */
   coverImage?: string;
-  /** Optional author attribution */
   author?: {
     name: string;
     avatar?: string;
     role?: string;
   };
-  /** Publication state flag */
   draft?: boolean;
 }
 
 /**
- * Flagship Intellectual Property / Long-form Masterclass Essay
+ * Unified article — covers all long-form and shorter-form writing.
  */
 export interface ArticleItem extends BaseContentItem {
   kind: "article";
   category: string;
-  /** Signature series title, e.g. "Certainty Frameworks™" */
   series?: string;
-  /** Featured on home / header slot */
   featured?: boolean;
-}
-
-/**
- * Continuous Post / Tactical Field Note
- */
-export interface BlogPostItem extends BaseContentItem {
-  kind: "blog";
-  tags: string[];
-  /** Optional topic / track */
-  topic?: string;
+  tags?: string[];
 }
 
 /**
  * Canonical Content Adapter Interface
- * Any CMS provider (Local Filesystem, Strapi, Sanity, Headless Ghost, Authority Closers API)
- * must implement this contract.
+ * Any CMS (Local Filesystem, Strapi, Sanity, Authority Closers API) must
+ * implement this contract.
  */
 export interface ContentProvider {
-  // Articles
   getArticles(): Promise<ArticleItem[]> | ArticleItem[];
   getArticleBySlug(slug: string): Promise<ArticleItem | null> | (ArticleItem | null);
   getArticleSlugs(): Promise<string[]> | string[];
-
-  // Blogs
-  getBlogPosts(): Promise<BlogPostItem[]> | BlogPostItem[];
-  getBlogPostBySlug(slug: string): Promise<BlogPostItem | null> | (BlogPostItem | null);
-  getBlogPostSlugs(): Promise<string[]> | string[];
 }

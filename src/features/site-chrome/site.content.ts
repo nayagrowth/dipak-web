@@ -29,7 +29,6 @@ export const primaryNav: NavLink[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Articles", href: "/articles" },
-  { label: "Blog", href: "/blog" },
   { label: "Videos", href: "/videos" },
   { label: "Resources", href: "/resources" },
   { label: "Contact", href: "/contact" },

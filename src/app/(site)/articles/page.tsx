@@ -29,7 +29,7 @@ export default function ArticlesPage() {
           <div className={styles.heroMediaFrame}>
             <Image
               src="/media/03_dsc06998.webp"
-              alt="Deep work and article drafting"
+              alt="Dipak Vishwakarma deep-work and writing"
               width={1000}
               height={750}
               sizes="(max-width: 900px) 70vw, 24rem"
@@ -44,14 +44,16 @@ export default function ArticlesPage() {
         <div className={editorial.container}>
           {articles.length === 0 ? (
             <p className={styles.emptyState}>
-              I am building a growing library of practical ideas, frameworks and
+              Building a growing library of practical ideas, frameworks and
               field notes. Start with the latest thinking below.
             </p>
           ) : (
             <>
-              {/* Lead article — the most recent post gets the large slot. */}
+              {/* Lead article — large feature slot. Card is NOT a link; only
+                  the title and read-cue are interactive so clicking text/excerpt
+                  doesn't accidentally navigate. */}
               <Reveal>
-                <Link href={`/articles/${lead.slug}`} className={styles.leadCard}>
+                <div className={styles.leadCard}>
                   <div className={styles.leadMeta}>
                     {lead.series ? (
                       <span className={styles.series}>{lead.series}</span>
@@ -61,22 +63,24 @@ export default function ArticlesPage() {
                     </span>
                   </div>
 
-                  <h2 className={styles.leadTitle}>{lead.title}</h2>
+                  <h2 className={styles.leadTitle}>
+                    <Link href={`/articles/${lead.slug}`} className={styles.titleLink}>
+                      {lead.title}
+                    </Link>
+                  </h2>
                   <p className={styles.leadExcerpt}>{lead.excerpt}</p>
 
-                  <span className={styles.readCue}>
+                  <Link href={`/articles/${lead.slug}`} className={styles.readCue}>
                     Read Article <span aria-hidden="true">→</span>
-                  </span>
-                </Link>
+                  </Link>
+                </div>
               </Reveal>
 
               <ul className={styles.articleLedger}>
                 {rest.map((article, index) => (
                   <Reveal as="li" key={article.slug} index={index}>
-                    <Link
-                      href={`/articles/${article.slug}`}
-                      className={styles.ledgerCard}
-                    >
+                    {/* Card is a div — only title and date/arrow area link */}
+                    <div className={styles.ledgerCard}>
                       <span className={styles.ledgerIndex}>
                         {String(index + 2).padStart(2, "0")}
                       </span>
@@ -86,7 +90,11 @@ export default function ArticlesPage() {
                           {article.category}
                           {article.series ? ` // ${article.series}` : ""}
                         </span>
-                        <h3 className={styles.ledgerTitle}>{article.title}</h3>
+                        <h3 className={styles.ledgerTitle}>
+                          <Link href={`/articles/${article.slug}`} className={styles.titleLink}>
+                            {article.title}
+                          </Link>
+                        </h3>
                         <p className={styles.ledgerExcerpt}>{article.excerpt}</p>
                       </div>
 
@@ -95,11 +103,15 @@ export default function ArticlesPage() {
                           {formatArticleDate(article.date)}
                         </span>
                         <span className={styles.metaLine}>{article.readTime}</span>
-                        <span className={styles.ledgerArrow} aria-hidden="true">
-                          →
-                        </span>
+                        <Link
+                          href={`/articles/${article.slug}`}
+                          className={styles.ledgerArrowLink}
+                          aria-label={`Read ${article.title}`}
+                        >
+                          <span className={styles.ledgerArrow} aria-hidden="true">→</span>
+                        </Link>
                       </div>
-                    </Link>
+                    </div>
                   </Reveal>
                 ))}
               </ul>
