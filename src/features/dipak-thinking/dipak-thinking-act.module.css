@@ -448,13 +448,43 @@
   }
 
   .essayLedgerRow {
-    grid-template-columns: 50px 1fr 40px;
-    grid-template-rows: auto auto;
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.85rem;
+    padding: 1.8rem 0;
+  }
+
+  .essayIndex {
+    font-size: 0.85rem;
+    color: var(--signal-red, #e83a12);
+    font-weight: 700;
+  }
+
+  .essayTitleCol {
+    width: 100%;
+    gap: 0.35rem;
+  }
+
+  .essayTitle {
+    font-size: clamp(1.25rem, 5.5vw, 1.55rem);
+    line-height: 1.22;
+    font-weight: 800;
+    letter-spacing: -0.02em;
   }
 
   .essaySummaryCol {
-    grid-column: 2 / -1;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .essayAbstract {
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .essayArrow {
+    display: none;
   }
 }
 
@@ -464,7 +494,7 @@
   }
 
   .headline {
-    font-size: clamp(2.2rem, 8.5vw, 3.6rem);
+    font-size: clamp(2.0rem, 8vw, 3.2rem);
   }
 
   .masterclassCard {
@@ -476,19 +506,6 @@
     height: 48px;
     font-size: 1.1rem;
   }
-
-  .essayLedgerRow {
-    grid-template-columns: 1fr 30px;
-    padding: 1.6rem 0;
-  }
-
-  .essayIndex {
-    font-size: 0.9rem;
-  }
-
-  .essaySummaryCol {
-    grid-column: 1 / -1;
-  }
 }
 
 /* "Explore All Articles" — routes to the real articles index. */
@@ -498,17 +515,18 @@
   gap: 0.6rem;
   margin-top: clamp(2rem, 4vw, 3rem);
   padding-bottom: 0.45rem;
-  border-bottom: 1px solid var(--gold-hairline, rgba(200, 149, 69, 0.32));
+  border-bottom: 2px solid var(--signal-red, #e83a12);
   font-family: var(--font-family-mono, monospace);
-  font-size: 0.6875rem;
+  font-size: 0.72rem;
+  font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold-deep, #8f621f);
-  transition: border-color 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  color: var(--signal-red, #e83a12);
+  transition: opacity 220ms ease;
 }
 
 .allArticlesCta:hover {
-  border-bottom-color: var(--gold, #c89545);
+  opacity: 0.8;
 }
 
 .allArticlesCta span {
