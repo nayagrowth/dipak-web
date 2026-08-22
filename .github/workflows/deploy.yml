@@ -11,9 +11,11 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  validate:
-    name: Lint, Typecheck & Build
+  build-and-deploy:
+    name: Build & Deploy to Production
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -27,22 +29,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run ESLint
-        run: npm run lint
-
-      - name: Run TypeScript check
-        run: npm run typecheck
+      - name: Run Lint & Typecheck
+        run: |
+          npm run lint
+          npm run typecheck
 
       - name: Run Next.js Build
         run: npm run build
 
-  deploy:
-    name: Deploy to Production (nivi)
-    needs: validate
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Assemble Standalone Deployment Package
+        run: |
+          mkdir -p .next/standalone/.next
+          cp -r .next/static .next/standalone/.next/static
+          cp -r public .next/standalone/public
+          cp Dockerfile .next/standalone/Dockerfile
+          cp docker-compose.prod.yml .next/standalone/docker-compose.prod.yml
 
       - name: Setup SSH Key and Config
         env:
@@ -63,28 +64,22 @@ jobs:
             IdentitiesOnly yes
           EOF
           chmod 600 ~/.ssh/config
-          
-          ssh production "echo 'SSH Connection to nivi Successful'"
 
-      - name: Sync Code to Remote Host
+      - name: Sync Standalone Build to Remote Host
         run: |
           ssh production "mkdir -p /home/nivi/apps/dipak-web"
           rsync -avz --delete \
-            --exclude '.git' \
-            --exclude 'node_modules' \
-            --exclude '.next' \
-            --exclude 'deploy.tar.gz' \
-            ./ production:/home/nivi/apps/dipak-web/
+            .next/standalone/ production:/home/nivi/apps/dipak-web/
 
-      - name: Deploy Docker Container (Zero Downtime)
+      - name: Recreate Production Container (Instant)
         run: |
           ssh production << 'EOF'
             set -e
             cd /home/nivi/apps/dipak-web
-            echo "1. Building new container image in background while old container stays live..."
+            echo "1. Instant Docker image build from standalone bundle..."
             docker compose -f docker-compose.prod.yml build dipak-web
             
-            echo "2. Recreating container instantaneously with new image..."
+            echo "2. Recreating container instantaneously..."
             docker compose -f docker-compose.prod.yml up -d --no-deps --build dipak-web
             
             echo "3. Cleaning up dangling images..."

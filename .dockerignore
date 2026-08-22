@@ -2,5 +2,10 @@ node_modules
 .next
 .git
 *.log
+*.tar.gz
 .env*
 !/.env.example
+.claude
+test-results
+tests
+*.txt
