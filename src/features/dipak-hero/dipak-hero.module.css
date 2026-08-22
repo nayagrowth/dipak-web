@@ -57,10 +57,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: clamp(3.2rem, 5.5vh, 4.2rem);
+  height: clamp(3.8rem, 6.5vh, 4.8rem);
   width: 100%;
   max-width: 110rem;
   margin: 0 auto;
+  padding-top: 0.65rem;
   flex: 0 0 auto;
   animation: wordmarkFadeIn 450ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -69,6 +70,8 @@
   display: inline-flex;
   align-items: center;
   text-decoration: none;
+  padding-top: 0.5rem;
+  padding-bottom: 0.2rem;
   transition: opacity 200ms ease, transform 200ms ease;
 }
 
@@ -78,8 +81,9 @@
 }
 
 .headerSignatureImg {
-  width: clamp(150px, 16vw, 195px);
+  width: clamp(140px, 14vw, 175px);
   height: auto;
+  max-height: 48px;
   object-fit: contain;
 }
 
@@ -144,6 +148,10 @@
   align-items: center;
 }
 
+.mobileNavContainer {
+  display: none;
+}
+
 /* Hamburger button: hidden on desktop when desktopNav is present */
 .hamburgerBtn {
   display: none;
@@ -174,17 +182,18 @@
 .mobileDrawer {
   position: fixed;
   inset: 0;
-  z-index: 100;
-  background: #f4f1ea;
+  z-index: 99999;
+  background: #f4f1ea !important;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: max(1.2rem, env(safe-area-inset-top)) 1.5rem max(1.5rem, env(safe-area-inset-bottom));
+  padding: max(1.5rem, env(safe-area-inset-top)) 1.5rem max(1.5rem, env(safe-area-inset-bottom));
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-12px);
+  transform: translateY(-8px);
   transition: opacity 200ms ease, transform 200ms ease, visibility 200ms ease;
   pointer-events: none;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 }
 
 .mobileDrawerOpen {

@@ -68,18 +68,16 @@ export function MobileNav({
       {/* Editorial Menu Toggle Button */}
       <button
         ref={openBtnRef}
-        className={styles.mobileMenuBtn}
-        aria-label="Open navigation menu"
+        className={styles.hamburgerBtn}
+        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
         aria-expanded={isOpen}
         aria-controls="mobile-primary-navigation"
         type="button"
         onClick={handleOpen}
       >
-        <span className={styles.hamburgerLabel}>MENU</span>
-        <span className={styles.hamburgerBox} aria-hidden="true">
-          <span className={styles.hamburgerLine} />
-          <span className={styles.hamburgerLine} />
-        </span>
+        <span className={styles.hamburgerLine} />
+        <span className={styles.hamburgerLine} />
+        <span className={styles.hamburgerLine} />
       </button>
 
       {/* Full-Screen Editorial Mobile Drawer */}

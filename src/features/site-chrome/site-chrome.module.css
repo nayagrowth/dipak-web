@@ -50,6 +50,8 @@
   display: inline-flex;
   align-items: center;
   text-decoration: none;
+  padding-top: 0.5rem;
+  padding-bottom: 0.2rem;
   transition: opacity var(--dur-fast) var(--ease-out-editorial), transform var(--dur-fast) var(--ease-out-editorial);
 }
 
@@ -59,8 +61,9 @@
 }
 
 .headerSignatureImg {
-  width: clamp(145px, 15vw, 190px);
+  width: clamp(140px, 14vw, 175px);
   height: auto;
+  max-height: 48px;
   object-fit: contain;
 }
 
@@ -68,7 +71,7 @@
   display: inline-flex;
   align-items: center;
   text-decoration: none;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.4rem;
   transition: opacity var(--dur-fast) var(--ease-out-editorial), transform var(--dur-fast) var(--ease-out-editorial);
 }
 
@@ -78,9 +81,10 @@
 }
 
 .footerSignatureImg {
-  width: clamp(170px, 18vw, 230px);
+  width: clamp(190px, 20vw, 250px);
   height: auto;
   object-fit: contain;
+  display: block;
 }
 
 .wordmark,
