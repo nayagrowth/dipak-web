@@ -2,9 +2,9 @@
   --dv-ink: #0a0a0a;
   --dv-body: #3c3933;
   --dv-canvas: #f7f7f5;
-  --dv-gold-art: #c89545;
-  --dv-gold-text: #8f621f;
-  --dv-gold-line: #d8aa5a;
+  --dv-gold-art: #e83a12;
+  --dv-gold-text: #0a0a0a;
+  --dv-gold-line: rgba(10, 10, 10, 0.12);
   --dv-signal-red: #e83a12;
   --dv-line: rgba(10, 10, 10, 0.12);
   --dv-serif: var(--font-montserrat), "Montserrat", -apple-system, sans-serif;
@@ -31,8 +31,8 @@
   z-index: 0;
   opacity: 0.85;
   background: 
-    radial-gradient(circle at 10% 20%, rgba(200, 149, 69, 0.08), transparent 55%),
-    radial-gradient(circle at 90% 80%, rgba(200, 149, 69, 0.06), transparent 50%);
+    radial-gradient(circle at 10% 20%, rgba(231, 212, 194, 0.2), transparent 55%),
+    radial-gradient(circle at 90% 80%, rgba(231, 212, 194, 0.15), transparent 50%);
 }
 
 .ensoEcho {
@@ -67,7 +67,7 @@
   grid-template-columns: 1.2fr 1fr;
   align-items: flex-end;
   gap: 2rem;
-  border-bottom: 1.5px solid var(--dv-gold-line);
+  border-bottom: 1.5px solid var(--dv-line);
   padding-bottom: clamp(1rem, 2vh, 1.8rem);
 }
 
@@ -82,7 +82,7 @@
   font-size: clamp(0.82rem, 0.9vw, 1rem);
   font-weight: 700;
   letter-spacing: 0.28em;
-  color: var(--dv-gold-text);
+  color: var(--dv-ink);
   text-transform: uppercase;
   display: flex;
   align-items: center;
@@ -101,7 +101,7 @@
 }
 
 .goldPeriod {
-  color: var(--dv-gold-art);
+  color: var(--dv-signal-red, #e83a12);
   font-family: var(--dv-serif);
 }
 
@@ -118,7 +118,7 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.2em;
-  color: var(--dv-gold-text);
+  color: var(--dv-signal-red, #e83a12);
   text-transform: uppercase;
 }
 
@@ -143,8 +143,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  background: #fbf9f4;
-  border: 1px solid var(--dv-line);
+  background: #ffffff;
+  border: 1px solid rgba(10, 10, 10, 0.1);
   border-radius: 4px;
   overflow: hidden;
   transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 300ms cubic-bezier(0.16, 1, 0.3, 1), border-color 300ms ease;
@@ -152,8 +152,8 @@
 
 .topicCard:hover {
   transform: translateY(-6px);
-  box-shadow: 0 16px 36px rgba(17, 17, 15, 0.08), 0 2px 8px rgba(200, 149, 69, 0.12);
-  border-color: var(--dv-gold-line);
+  box-shadow: 0 16px 36px rgba(17, 17, 15, 0.08), 0 2px 8px rgba(232, 58, 18, 0.12);
+  border-color: var(--dv-signal-red, #e83a12);
 }
 
 .cardVisualFrame {
@@ -190,7 +190,7 @@
   font-weight: 700;
   color: #ffffff;
   letter-spacing: 0.1em;
-  background: rgba(17, 17, 15, 0.6);
+  background: rgba(17, 17, 15, 0.75);
   backdrop-filter: blur(6px);
   padding: 0.25rem 0.6rem;
   border-radius: 2px;
@@ -205,13 +205,13 @@
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.14em;
-  color: var(--dv-gold-line);
+  color: #ffffff;
   text-transform: uppercase;
-  background: rgba(17, 17, 15, 0.75);
+  background: rgba(17, 17, 15, 0.82);
   backdrop-filter: blur(6px);
   padding: 0.3rem 0.7rem;
   border-radius: 2px;
-  border-left: 2px solid var(--dv-gold-art);
+  border-left: 3px solid var(--dv-signal-red, #e83a12);
   z-index: 2;
 }
 
@@ -243,13 +243,13 @@
 .cardArrow {
   font-family: var(--dv-sans);
   font-size: 1.25rem;
-  color: var(--dv-gold-art);
+  color: var(--dv-signal-red, #e83a12);
   transition: transform 240ms ease, color 240ms ease;
 }
 
 .topicCard:hover .cardArrow {
   transform: translate(3px, -3px);
-  color: var(--dv-gold-text);
+  color: var(--dv-signal-red, #e83a12);
 }
 
 .cardDescription {

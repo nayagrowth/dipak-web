@@ -2,10 +2,10 @@
   --dv-ink: #0a0a0a;
   --dv-body: #3c3933;
   --dv-canvas: #f7f7f5;
-  --dv-gold-art: #c89532;
-  --dv-gold-text: #9a7432;
+  --dv-gold-art: #e83a12;
+  --dv-gold-text: #0a0a0a;
   --dv-signal-red: #e83a12;
-  --dv-gold-line: rgba(200, 149, 69, 0.44);
+  --dv-gold-line: rgba(10, 10, 10, 0.12);
   --dv-serif: var(--font-montserrat), "Montserrat", -apple-system, sans-serif;
   --dv-sans: var(--font-poppins), "Poppins", -apple-system, sans-serif;
 
@@ -51,10 +51,8 @@
 }
 
 /* -------------------------------------------------------------------------
-   AURORA FIELD
-   The old code used three small, heavily blurred blobs above the frame.
-   The reference is a broad color field: amber along the upper-left, rose
-   around the upper-center, and a coral plume descending the left edge.
+   BRAND KIT ATMOSPHERIC FIELD
+   Clean, subtle architectural Warm White + Soft Sand gradients
    ------------------------------------------------------------------------- */
 .auroraBackground {
   position: absolute;
@@ -64,37 +62,20 @@
   overflow: hidden;
   background:
     radial-gradient(
-      ellipse 58% 52% at 13% 4%,
-      rgba(255, 153, 35, 0.88) 0%,
-      rgba(255, 167, 45, 0.72) 24%,
-      rgba(255, 188, 92, 0.38) 47%,
-      rgba(255, 205, 139, 0.13) 65%,
-      transparent 78%
+      ellipse 60% 50% at 15% 10%,
+      rgba(231, 212, 194, 0.35) 0%,
+      rgba(231, 212, 194, 0.15) 40%,
+      transparent 75%
     ),
     radial-gradient(
-      ellipse 45% 38% at 57% 7%,
-      rgba(236, 93, 112, 0.72) 0%,
-      rgba(247, 127, 112, 0.52) 32%,
-      rgba(248, 164, 143, 0.22) 57%,
-      transparent 76%
-    ),
-    radial-gradient(
-      ellipse 46% 64% at 5% 43%,
-      rgba(246, 105, 108, 0.66) 0%,
-      rgba(250, 138, 123, 0.53) 34%,
-      rgba(252, 178, 151, 0.22) 61%,
-      transparent 78%
-    ),
-    radial-gradient(
-      ellipse 30% 30% at 35% 27%,
-      rgba(255, 205, 135, 0.28) 0%,
-      rgba(255, 209, 154, 0.12) 48%,
-      transparent 76%
+      ellipse 50% 45% at 85% 85%,
+      rgba(231, 212, 194, 0.25) 0%,
+      rgba(247, 247, 245, 0.6) 50%,
+      transparent 80%
     );
 }
 
-/* Keep these hooks because the current TSX and GSAP choreography expect them.
-   They are deliberately weak; the main field above carries the composition. */
+/* Keep these hooks for GSAP choreography */
 .auroraAmberBlob,
 .auroraCoralBlob,
 .auroraRoseBlob {
@@ -109,7 +90,7 @@
   background: url("/textures/act3-grain.webp") repeat;
   background-size: 256px 256px;
   mix-blend-mode: multiply;
-  opacity: 0.055;
+  opacity: 0.035;
 }
 
 /* -------------------------------------------------------------------------
@@ -181,7 +162,7 @@
   display: grid;
   place-items: center;
   pointer-events: none;
-  color: var(--dv-gold-art);
+  color: var(--dv-signal-red, #e83a12);
 }
 
 .cornerStarTL { top: 15px; left: 14px; }
@@ -231,7 +212,7 @@
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.27em;
-  color: var(--dv-gold-text);
+  color: var(--dv-ink);
   text-transform: uppercase;
 }
 
@@ -261,7 +242,7 @@
 .goldPeriod {
   display: inline-block;
   margin-left: 0.02em;
-  color: var(--dv-gold-art);
+  color: var(--dv-signal-red, #e83a12);
   font-family: var(--dv-serif);
 }
 
@@ -287,14 +268,14 @@
   font-weight: 700;
   line-height: 1;
   letter-spacing: 0.22em;
-  color: var(--dv-gold-text);
+  color: var(--dv-signal-red, #e83a12);
   text-transform: uppercase;
 }
 
 .metaDividerStar {
   position: relative;
   top: -1px;
-  color: var(--dv-gold-art);
+  color: var(--dv-signal-red, #e83a12);
   font-size: 0.76rem;
   line-height: 1;
 }
@@ -374,19 +355,22 @@
   display: grid;
   place-items: center;
   color: var(--dv-ink);
-  background: rgba(250, 248, 242, 0.46);
-  border: 1px solid rgba(200, 149, 69, 0.42);
-  box-shadow: none;
+  background: #ffffff;
+  border: 1px solid rgba(10, 10, 10, 0.15);
+  box-shadow: 0 2px 8px rgba(10, 10, 10, 0.04);
   transition:
     transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
     border-color 220ms ease,
-    background-color 220ms ease;
+    background-color 220ms ease,
+    box-shadow 220ms ease;
 }
 
 .platformColumn:hover .iconBadge {
-  transform: translateY(-3px) scale(1.04);
-  background: rgba(255, 255, 255, 0.58);
-  border-color: rgba(200, 149, 69, 0.72);
+  transform: translateY(-3px) scale(1.05);
+  background: #ffffff;
+  border-color: var(--dv-signal-red, #e83a12);
+  box-shadow: 0 6px 18px rgba(232, 58, 18, 0.15);
+  color: var(--dv-signal-red, #e83a12);
 }
 
 .svgIcon {
@@ -407,7 +391,7 @@
 }
 
 .platformColumn:hover .platformTitle {
-  color: var(--dv-gold-text);
+  color: var(--dv-signal-red, #e83a12);
   transform: translateY(-1px);
 }
 
@@ -428,7 +412,7 @@
   right: 0;
   width: 1px;
   height: 89%;
-  background: rgba(200, 149, 69, 0.24);
+  background: rgba(10, 10, 10, 0.08);
   pointer-events: none;
 }
 
@@ -439,9 +423,9 @@
   transform: translate(-50%, -50%);
   display: block;
   padding: 3px 0;
-  color: #ec9e72;
+  color: var(--dv-signal-red, #e83a12);
   background: var(--dv-canvas);
-  font-size: 10px;
+  font-size: 8px;
   line-height: 1;
 }
 

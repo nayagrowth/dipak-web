@@ -2,9 +2,9 @@
   --dv-ink: #0a0a0a;
   --dv-body: #3c3933;
   --dv-canvas: #f7f7f5;
-  --dv-gold-art: #c89545;
-  --dv-gold-text: #8f621f;
-  --dv-gold-line: #d8aa5a;
+  --dv-gold-art: #e83a12;
+  --dv-gold-text: #0a0a0a;
+  --dv-gold-line: rgba(10, 10, 10, 0.12);
   --dv-signal-red: #e83a12;
   --dv-line: rgba(10, 10, 10, 0.12);
   --dv-serif: var(--font-montserrat), "Montserrat", -apple-system, sans-serif;
@@ -35,9 +35,9 @@
   z-index: 0;
   opacity: 0.9;
   background: 
-    radial-gradient(circle at 50% 50%, rgba(200, 149, 69, 0.08), transparent 65%),
-    radial-gradient(circle at 10% 20%, rgba(200, 149, 69, 0.04), transparent 45%),
-    radial-gradient(circle at 90% 80%, rgba(200, 149, 69, 0.04), transparent 45%);
+    radial-gradient(circle at 50% 50%, rgba(231, 212, 194, 0.2), transparent 65%),
+    radial-gradient(circle at 10% 20%, rgba(231, 212, 194, 0.1), transparent 45%),
+    radial-gradient(circle at 90% 80%, rgba(231, 212, 194, 0.1), transparent 45%);
 }
 
 /* Cinematic Background Video Layer */
@@ -58,9 +58,9 @@
   height: 100%;
   object-fit: cover;
   object-position: center 38%;
-  opacity: 0.38;
+  opacity: 0.32;
   mix-blend-mode: multiply;
-  filter: contrast(1.15) brightness(0.92) grayscale(0.2);
+  filter: contrast(1.15) brightness(0.95) grayscale(0.3);
 }
 
 .videoGradientWash {
@@ -68,9 +68,9 @@
   inset: 0;
   background: radial-gradient(
     circle at 50% 50%,
-    rgba(244, 241, 234, 0.2) 0%,
-    rgba(244, 241, 234, 0.7) 65%,
-    rgba(244, 241, 234, 0.94) 100%
+    rgba(247, 247, 245, 0.4) 0%,
+    rgba(247, 247, 245, 0.8) 65%,
+    rgba(247, 247, 245, 0.96) 100%
   );
 }
 
@@ -85,7 +85,7 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.04;
+  opacity: 0.035;
   pointer-events: none;
   z-index: 0;
   will-change: transform, opacity;
@@ -118,7 +118,7 @@
   font-size: clamp(0.78rem, 0.85vw, 0.92rem);
   font-weight: 700;
   letter-spacing: 0.26em;
-  color: var(--dv-gold-text);
+  color: var(--dv-ink);
   text-transform: uppercase;
   display: flex;
   align-items: center;
@@ -130,7 +130,7 @@
   font-family: var(--dv-mono);
   font-size: 0.72rem;
   letter-spacing: 0.2em;
-  color: #8c887f;
+  color: var(--dv-signal-red, #e83a12);
   text-transform: uppercase;
   margin: 0;
 }
@@ -171,14 +171,12 @@
 }
 
 .goldEmphasis {
-  background: linear-gradient(135deg, #8f621f 0%, #c89545 50%, #8f621f 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--dv-signal-red, #e83a12);
   font-style: italic;
   padding-right: 0.06em;
 }
 
-/* Central Gold Laser Axis with Center Accent */
+/* Central Signal Red Laser Axis with Center Accent */
 .laserContainer {
   display: flex;
   align-items: center;
@@ -194,25 +192,25 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    var(--dv-gold-line) 40%,
-    var(--dv-gold-art) 100%
+    rgba(10, 10, 10, 0.15) 60%,
+    var(--dv-signal-red, #e83a12) 100%
   );
-  opacity: 0.75;
+  opacity: 0.8;
 }
 
 .laserLine:last-child {
   background: linear-gradient(
     90deg,
-    var(--dv-gold-art) 0%,
-    var(--dv-gold-line) 60%,
+    var(--dv-signal-red, #e83a12) 0%,
+    rgba(10, 10, 10, 0.15) 40%,
     transparent 100%
   );
 }
 
 .laserDiamond {
-  width: 5px;
-  height: 5px;
-  background-color: var(--dv-gold-art);
+  width: 6px;
+  height: 6px;
+  background-color: var(--dv-signal-red, #e83a12);
   transform: rotate(45deg);
   flex-shrink: 0;
 }
@@ -244,7 +242,7 @@
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background-color: var(--dv-gold-art);
+  background-color: var(--dv-signal-red, #e83a12);
   flex-shrink: 0;
 }
 

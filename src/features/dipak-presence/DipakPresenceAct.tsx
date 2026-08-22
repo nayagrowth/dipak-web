@@ -113,17 +113,17 @@ export function DipakPresenceAct({
 
         <div className={styles.centerDividerAxis} data-story-act3-axis="true" aria-hidden="true">
           <svg className={styles.geometricSeparatorSvg} viewBox="0 0 1396 34" preserveAspectRatio="none" fill="none">
-            <line x1="0" y1="17" x2="612" y2="17" stroke="#C89532" strokeWidth="1" strokeOpacity="0.42" vectorEffect="non-scaling-stroke" />
-            <path d="M612 17 C632 17 643 16.4 650 14.5 C656 12.8 659 17 665 17" stroke="#C89532" strokeWidth="1.15" strokeOpacity="0.75" vectorEffect="non-scaling-stroke" />
-            <circle cx="665" cy="17" r="3.1" fill="#C89532" />
+            <line x1="0" y1="17" x2="612" y2="17" stroke="rgba(10, 10, 10, 0.12)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+            <path d="M612 17 C632 17 643 16.4 650 14.5 C656 12.8 659 17 665 17" stroke="#e83a12" strokeWidth="1.15" strokeOpacity="0.8" vectorEffect="non-scaling-stroke" />
+            <circle cx="665" cy="17" r="3.1" fill="#e83a12" />
 
             <g data-story-act3-axis-floret="true">
-              <path d="M698 0.7 C699.8 10.6 704.4 15.2 713.3 17 C704.4 18.8 699.8 23.4 698 33.3 C696.2 23.4 691.6 18.8 682.7 17 C691.6 15.2 696.2 10.6 698 0.7 Z" fill="#C89532" />
+              <path d="M698 0.7 C699.8 10.6 704.4 15.2 713.3 17 C704.4 18.8 699.8 23.4 698 33.3 C696.2 23.4 691.6 18.8 682.7 17 C691.6 15.2 696.2 10.6 698 0.7 Z" fill="#e83a12" />
             </g>
 
-            <circle cx="731" cy="17" r="3.1" fill="#C89532" />
-            <path d="M731 17 C737 17 740 12.8 746 14.5 C753 16.4 764 17 784 17" stroke="#C89532" strokeWidth="1.15" strokeOpacity="0.75" vectorEffect="non-scaling-stroke" />
-            <line x1="784" y1="17" x2="1396" y2="17" stroke="#C89532" strokeWidth="1" strokeOpacity="0.42" vectorEffect="non-scaling-stroke" />
+            <circle cx="731" cy="17" r="3.1" fill="#e83a12" />
+            <path d="M731 17 C737 17 740 12.8 746 14.5 C753 16.4 764 17 784 17" stroke="#e83a12" strokeWidth="1.15" strokeOpacity="0.8" vectorEffect="non-scaling-stroke" />
+            <line x1="784" y1="17" x2="1396" y2="17" stroke="rgba(10, 10, 10, 0.12)" strokeWidth="1" vectorEffect="non-scaling-stroke" />
           </svg>
         </div>
 
