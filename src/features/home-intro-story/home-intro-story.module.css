@@ -239,6 +239,8 @@
     overflow: visible;
     display: flex;
     flex-direction: column;
+    perspective: none;
+    transform-style: flat;
   }
 
   .act1Wrapper,
@@ -250,11 +252,26 @@
     width: 100%;
     height: auto;
     min-height: auto;
+    max-height: none;
+    overflow: visible;
+    transform: none !important;
     opacity: 1 !important;
     visibility: visible !important;
   }
 
+  .act1FrontContent {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: auto;
+    transform: none !important;
+  }
+
+  .act1PageBack,
+  .act1PageShadow,
+  .act1PageSheen,
+  .act2CastShadow,
   .bridgeGoldRule {
-    display: none;
+    display: none !important;
   }
 }
