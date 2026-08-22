@@ -21,7 +21,7 @@ export interface SiteBrand {
 export const siteBrand: SiteBrand = {
   firstLine: "DIPAK",
   secondLine: "VISHWAKARMA",
-  positioning: "The Certainty Builder™",
+  positioning: "Founder of Authority Closers | High-Ticket Sales Expert",
   primaryIdea: "Because people buy certainty.",
 };
 
