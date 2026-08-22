@@ -20,7 +20,7 @@ export function SiteFooter() {
         <div className={styles.footerBrandBlock}>
           <Link className={styles.footerBrandLink} href="/" aria-label="Dipak Vishwakarma — home">
             <Image
-              src="/branding/dipak-signature-full-gold.webp"
+              src="/branding/dipak-signature-full-white.webp"
               alt="Dipak Vishwakarma"
               width={220}
               height={92}

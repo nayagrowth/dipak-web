@@ -25,13 +25,13 @@
   --paper-raised: #ffffff;
   --paper-sunken: #e9e9e7;
 
-  /* --- Metallic gold & Red Signal ramp ----------------------------------- */
-  --gold: #c89545;
-  --gold-deep: #8f621f;
-  --gold-light: #f2ca77;
-  --gold-wash: rgba(200, 149, 69, 0.12);
-  --gold-hairline: rgba(200, 149, 69, 0.32);
-  --red-signal: #e83a12;
+  /* --- Brand Kit Active Accents (Signal Red & Soft Sand Ramp) ---------- */
+  --gold: var(--signal-red, #e83a12);
+  --gold-deep: var(--signal-red, #e83a12);
+  --gold-light: #ff4820;
+  --gold-wash: rgba(232, 58, 18, 0.08);
+  --gold-hairline: rgba(232, 58, 18, 0.22);
+  --red-signal: var(--signal-red, #e83a12);
   --red-wash: rgba(232, 58, 18, 0.10);
 
   /* --- Inverted (dark sections) ----------------------------------------- */
@@ -122,14 +122,24 @@ video {
   max-width: 100%;
 }
 
+mark {
+  background: rgba(231, 212, 194, 0.55);
+  color: var(--ink-obsidian);
+  padding: 0.08em 0.35em;
+  border-radius: 2px;
+  border-bottom: 2px solid var(--signal-red, #e83a12);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
 ::selection {
-  background: var(--gold);
+  background: var(--signal-red, #e83a12);
   color: #ffffff;
 }
 
 /* Visible focus for keyboard users only — never a mouse-click ring. */
 :focus-visible {
-  outline: 2px solid var(--gold-deep);
+  outline: 2px solid var(--signal-red, #e83a12);
   outline-offset: 3px;
   border-radius: 2px;
 }

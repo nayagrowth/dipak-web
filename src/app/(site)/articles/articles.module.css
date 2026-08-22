@@ -3,7 +3,7 @@
 .heroMediaFrame {
   display: flex;
   flex-direction: column;
-  border-bottom: 2px solid var(--gold);
+  border-bottom: 2px solid var(--signal-red, #e83a12);
   padding-bottom: 0.6rem;
 }
 
@@ -34,7 +34,8 @@
 }
 
 .series {
-  color: var(--gold-deep);
+  color: var(--signal-red, #e83a12);
+  font-weight: 700;
 }
 
 /* --- Lead card ------------------------------------------------------------ */
@@ -58,8 +59,8 @@
   max-width: 20ch;
   font-family: var(--font-family-serif);
   font-size: var(--step-h2);
-  font-weight: 600;
-  line-height: 1.02;
+  font-weight: 700;
+  line-height: 1.12;
   letter-spacing: var(--tracking-tight);
   text-wrap: balance;
 }
@@ -71,7 +72,7 @@
 }
 
 .titleLink:hover {
-  color: var(--gold-deep);
+  color: var(--signal-red, #e83a12);
   text-decoration: underline;
   text-underline-offset: 4px;
   text-decoration-thickness: 1px;
@@ -96,7 +97,8 @@
   font-size: var(--step-mono);
   letter-spacing: var(--tracking-mono);
   text-transform: uppercase;
-  color: var(--gold-deep);
+  color: var(--signal-red, #e83a12);
+  font-weight: 700;
 }
 
 .readCue:hover span {
@@ -128,7 +130,8 @@
   font-family: var(--font-family-mono);
   font-size: var(--step-mono);
   letter-spacing: var(--tracking-mono);
-  color: var(--gold-deep);
+  color: var(--signal-red, #e83a12);
+  font-weight: 700;
   padding-top: 0.4rem;
 }
 
@@ -372,7 +375,7 @@
 }
 
 .prose li::marker {
-  color: var(--gold-deep);
+  color: var(--signal-red, #e83a12);
 }
 
 .prose strong {
@@ -386,12 +389,13 @@
 
 .prose blockquote {
   margin: 2.25rem 0;
-  padding: 0.4rem 0 0.4rem 1.6rem;
-  border-left: 2px solid var(--gold);
+  padding: 0.6rem 0 0.6rem 1.6rem;
+  border-left: 3px solid var(--signal-red, #e83a12);
+  background: rgba(231, 212, 194, 0.16); /* subtle Soft Sand wash */
   font-family: var(--font-family-serif);
   font-size: var(--step-h3);
   font-style: italic;
-  line-height: 1.34;
+  line-height: 1.38;
   color: var(--ink-obsidian);
 }
 
@@ -400,14 +404,14 @@
 }
 
 .prose a {
-  color: var(--gold-deep);
+  color: var(--signal-red, #e83a12);
   text-decoration: underline;
   text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
+  text-decoration-thickness: 1.5px;
 }
 
 .prose a:hover {
-  color: var(--gold);
+  color: #ff4820;
 }
 
 .prose code {

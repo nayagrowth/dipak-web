@@ -237,7 +237,7 @@
 /* --- Footer --------------------------------------------------------------- */
 
 .footer {
-  background: var(--ink-obsidian-deep);
+  background: var(--carbon-black, #0a0a0a);
   color: var(--inv-text);
   padding: clamp(3.5rem, 6vw, 6rem) var(--gutter) 2rem;
 }
@@ -269,18 +269,19 @@
 .footerPositioning {
   font-family: var(--font-family-mono);
   font-size: var(--step-mono);
+  font-weight: 700;
   letter-spacing: var(--tracking-mono);
-  color: var(--gold-light);
+  color: var(--signal-red, #e83a12);
   text-transform: uppercase;
 }
 
 .footerPhilosophy {
   margin: 0;
-  max-width: 26ch;
-  font-family: var(--font-family-serif);
-  font-style: italic;
-  font-size: var(--step-body-lg);
+  max-width: 28ch;
+  font-family: var(--font-family-sans);
+  font-size: var(--step-body);
   color: var(--inv-text-muted);
+  line-height: 1.6;
 }
 
 .footerLabel {
@@ -313,7 +314,10 @@
 }
 
 .footerLink:hover {
-  color: var(--gold-light);
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: var(--signal-red, #e83a12);
 }
 
 .footerCtaBlock {
@@ -324,20 +328,25 @@
   display: inline-flex;
   align-items: center;
   gap: 0.7rem;
-  padding: 0.95rem 1.5rem;
-  border: 1px solid var(--gold-hairline);
-  color: var(--gold-light);
+  padding: 0.85rem 1.4rem;
+  background: var(--signal-red, #e83a12);
+  border: 1px solid var(--signal-red, #e83a12);
+  color: #ffffff;
+  font-family: var(--font-family-sans);
+  font-weight: 700;
   font-size: var(--step-meta);
   letter-spacing: 0.04em;
+  border-radius: 2px;
   transition: background var(--dur-fast) var(--ease-out-editorial),
     border-color var(--dur-fast) var(--ease-out-editorial),
-    color var(--dur-fast) var(--ease-out-editorial);
+    transform var(--dur-fast) var(--ease-out-editorial);
 }
 
 .footerCta:hover {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--ink-obsidian);
+  background: #ff4820;
+  border-color: #ff4820;
+  color: #ffffff;
+  transform: translateY(-1px);
 }
 
 .footerBaseline {

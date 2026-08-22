@@ -709,24 +709,31 @@
     font-size: 0.92rem;
   }
 
-  /* Single Composition Root Anchored at Bottom (Zero dead space) */
+  /* Single Composition Root Anchored at Bottom Right with Soft Blend */
   .portraitColumn {
     position: absolute;
-    left: -1.25rem;
-    right: -1.25rem;
+    left: 0;
+    right: 0;
     bottom: 0;
-    height: clamp(20rem, 52dvh, 32rem);
+    height: clamp(18rem, 48dvh, 28rem);
     min-height: 0;
     pointer-events: none;
     z-index: 2;
+    overflow: hidden;
   }
 
   .visualComposition {
-    width: min(105vw, clamp(27.5rem, 54dvh, 32rem));
+    position: absolute;
+    width: min(92vw, clamp(22rem, 46dvh, 28rem));
     max-width: none;
-    right: -6vw;
+    right: -2vw;
     bottom: 0;
     aspect-ratio: var(--mobile-aspect);
+    opacity: 0.92;
+    mask-image: linear-gradient(to top, black 75%, transparent 100%), linear-gradient(to left, black 70%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to top, black 75%, transparent 100%), linear-gradient(to left, black 70%, transparent 100%);
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
   }
 
   .desktopPortrait {
@@ -735,6 +742,8 @@
 
   .mobilePortrait {
     display: block;
+    object-fit: contain;
+    object-position: bottom right;
   }
 
   .halo {
