@@ -42,6 +42,21 @@ jobs:
           mkdir -p .next/standalone/.next
           cp -r .next/static .next/standalone/.next/static
           cp -r public .next/standalone/public
+          rm -rf .next/standalone/public/test-snapshots
+          python3 -c "
+          import os
+          keep = {
+              '01_dsc06974.webp', '02_screenshot_2026-07-29_at_4.45.57_pm__1_.png',
+              '03_dsc06998.webp', '04_dsc07013.webp', '05_dsc06990.webp',
+              '06_dsc04024.webp', '08_img_1624.webp', '09_screenshot_2026-08-08_at_10.33.36_pm.png',
+              '10_screenshot_2026-08-08_at_10.40.56_pm.png', 'authority_closers_png__1_.png'
+          }
+          media_dir = '.next/standalone/public/media'
+          if os.path.exists(media_dir):
+              for f in os.listdir(media_dir):
+                  if f not in keep and not os.path.isdir(os.path.join(media_dir, f)):
+                      os.remove(os.path.join(media_dir, f))
+          "
 
       - name: Build Production Docker Image
         run: |
