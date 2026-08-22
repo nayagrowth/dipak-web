@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
+import Link from "next/link";
 import type { HeroCta, NavLink } from "./hero.types";
 import styles from "./dipak-hero.module.css";
 
@@ -59,6 +61,86 @@ export function MobileNav({
 
   const secondaryCta = ctas.find((c) => c.kind === "secondary" && Boolean(c.href)) || ctas[0];
 
+  const drawerContent =
+    isOpen && typeof document !== "undefined" ? (
+      <div
+        id="mobile-primary-navigation"
+        className={`${styles.mobileDrawer} ${styles.mobileDrawerOpen}`}
+        aria-modal="true"
+        role="dialog"
+      >
+        {/* Drawer Header */}
+        <div className={styles.drawerHeader}>
+          <Link
+            className={styles.brandLink}
+            href="/"
+            onClick={handleCloseAndReturnFocus}
+          >
+            <Image
+              src="/branding/dipak-signature-full-black.webp"
+              alt="Dipak Vishwakarma"
+              width={160}
+              height={68}
+              className={styles.headerSignatureImg}
+              priority
+            />
+          </Link>
+
+          <button
+            ref={closeBtnRef}
+            className={styles.drawerCloseBtn}
+            aria-label="Close navigation menu"
+            type="button"
+            onClick={handleCloseAndReturnFocus}
+          >
+            <span aria-hidden="true" className={styles.closeIcon}>
+              ✕
+            </span>
+          </button>
+        </div>
+
+        {/* Numbered Editorial Navigation Links */}
+        <nav className={styles.drawerNav} aria-label="Mobile navigation">
+          {navLinks.map((link, index) => {
+            const num = (index + 1).toString().padStart(2, "0");
+            return (
+              <Link
+                key={link.label}
+                href={link.href}
+                className={`${styles.drawerNavLink} ${link.active ? styles.drawerNavLinkActive : ""}`}
+                onClick={handleCloseAndReturnFocus}
+              >
+                <span className={styles.drawerNavIndex} aria-hidden="true">
+                  {num}
+                </span>
+                <span className={styles.drawerNavLabel}>{link.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Drawer Bottom CTA */}
+        {secondaryCta?.href ? (
+          <div className={styles.drawerFooter}>
+            <div className={styles.drawerDivider} aria-hidden="true" />
+            <a
+              href={secondaryCta.href}
+              className={styles.drawerCta}
+              onClick={handleCloseAndReturnFocus}
+              data-ac-event={secondaryCta.event}
+              data-ac-event-schema="1"
+              data-ac-surface="dipak-public-hero-mobile-drawer"
+            >
+              <span>{secondaryCta.label}</span>
+              <span aria-hidden="true" className={styles.drawerCtaArrow}>
+                →
+              </span>
+            </a>
+          </div>
+        ) : null}
+      </div>
+    ) : null;
+
   return (
     <div className={styles.mobileNavContainer}>
       {/* Editorial Menu Toggle Button */}
@@ -76,85 +158,7 @@ export function MobileNav({
         <span className={styles.hamburgerLine} />
       </button>
 
-      {/* Full-Screen Editorial Mobile Drawer */}
-      <div
-        id="mobile-primary-navigation"
-        className={`${styles.mobileDrawer} ${isOpen ? styles.mobileDrawerOpen : ""}`}
-        aria-hidden={!isOpen}
-      >
-        {/* Drawer Header */}
-        <div className={styles.drawerHeader}>
-          <a
-            className={styles.brandLink}
-            href="#hero"
-            onClick={handleCloseAndReturnFocus}
-            tabIndex={isOpen ? 0 : -1}
-          >
-            <Image
-              src="/branding/dipak-signature-full-black.webp"
-              alt="Dipak Vishwakarma"
-              width={160}
-              height={68}
-              className={styles.headerSignatureImg}
-            />
-          </a>
-
-          <button
-            ref={closeBtnRef}
-            className={styles.drawerCloseBtn}
-            aria-label="Close navigation menu"
-            type="button"
-            onClick={handleCloseAndReturnFocus}
-            tabIndex={isOpen ? 0 : -1}
-          >
-            <span aria-hidden="true" className={styles.closeIcon}>
-              ✕
-            </span>
-          </button>
-        </div>
-
-        {/* Numbered Editorial Navigation Links */}
-        <nav className={styles.drawerNav} aria-label="Mobile navigation">
-          {navLinks.map((link, index) => {
-            const num = (index + 1).toString().padStart(2, "0");
-            return (
-              <a
-                key={link.label}
-                href={link.href}
-                className={`${styles.drawerNavLink} ${link.active ? styles.drawerNavLinkActive : ""}`}
-                onClick={handleCloseAndReturnFocus}
-                tabIndex={isOpen ? 0 : -1}
-              >
-                <span className={styles.drawerNavIndex} aria-hidden="true">
-                  {num}
-                </span>
-                <span className={styles.drawerNavLabel}>{link.label}</span>
-              </a>
-            );
-          })}
-        </nav>
-
-        {/* Drawer Bottom CTA */}
-        {secondaryCta?.href ? (
-          <div className={styles.drawerFooter}>
-            <div className={styles.drawerDivider} aria-hidden="true" />
-            <a
-              href={secondaryCta.href}
-              className={styles.drawerCta}
-              onClick={handleCloseAndReturnFocus}
-              tabIndex={isOpen ? 0 : -1}
-              data-ac-event={secondaryCta.event}
-              data-ac-event-schema="1"
-              data-ac-surface="dipak-public-hero-mobile-drawer"
-            >
-              <span>{secondaryCta.label}</span>
-              <span aria-hidden="true" className={styles.drawerCtaArrow}>
-                →
-              </span>
-            </a>
-          </div>
-        ) : null}
-      </div>
+      {drawerContent ? createPortal(drawerContent, document.body) : null}
     </div>
   );
 }

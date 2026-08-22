@@ -161,31 +161,50 @@
   border: none;
   cursor: pointer;
   padding: 0.6rem;
+  min-width: 44px;
+  min-height: 44px;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-end;
   gap: 5px;
   border-radius: 4px;
-  transition: opacity 150ms ease;
+  transition: opacity 150ms ease, transform 150ms ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .hamburgerBtn:hover {
-  opacity: 0.7;
+  opacity: 0.75;
+}
+
+.hamburgerBtn:active {
+  transform: scale(0.96);
 }
 
 .hamburgerLine {
   display: block;
-  width: 22px;
+  width: 24px;
   height: 2px;
-  background-color: var(--dv-ink);
-  border-radius: 1px;
+  background-color: var(--dv-ink, #0a0a0a);
+  border-radius: 2px;
+  transition: background-color 150ms ease;
+}
+
+.hamburgerLine:nth-child(2) {
+  width: 18px;
+}
+
+.hamburgerLine:nth-child(3) {
+  width: 22px;
 }
 
 /* Full-Screen Editorial Mobile Navigation Drawer */
 .mobileDrawer {
   position: fixed;
   inset: 0;
-  z-index: 99999;
-  background: #f4f1ea !important;
+  width: 100vw;
+  height: 100dvh;
+  z-index: 999999;
+  background-color: #f7f7f5 !important;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -193,16 +212,16 @@
   opacity: 0;
   visibility: hidden;
   transform: translateY(-8px);
-  transition: opacity 200ms ease, transform 200ms ease, visibility 200ms ease;
+  transition: opacity 220ms ease, transform 220ms ease, visibility 220ms ease;
   pointer-events: none;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
 }
 
 .mobileDrawerOpen {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  pointer-events: auto;
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+  pointer-events: auto !important;
 }
 
 .drawerHeader {
@@ -210,6 +229,8 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(10, 10, 10, 0.08);
 }
 
 .drawerCloseBtn {
@@ -217,19 +238,22 @@
   border: none;
   cursor: pointer;
   padding: 0.6rem;
+  min-width: 44px;
+  min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.4rem;
-  color: var(--dv-ink);
+  color: var(--dv-ink, #0a0a0a);
   border-radius: 4px;
 }
 
 .drawerNav {
   display: flex;
   flex-direction: column;
-  gap: 1.4rem;
+  gap: 1.5rem;
   margin: auto 0;
+  padding-block: 2rem;
 }
 
 .drawerNavLink {
@@ -238,24 +262,25 @@
   gap: 1.2rem;
   text-decoration: none;
   font-family: var(--dv-serif);
-  font-size: 1.65rem;
-  font-weight: 500;
-  color: var(--dv-ink);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--dv-ink, #0a0a0a);
+  letter-spacing: -0.02em;
   transition: color 150ms ease, transform 150ms ease;
 }
 
-.drawerNavLink:hover {
-  color: var(--dv-gold-text);
+.drawerNavLink:hover,
+.drawerNavLinkActive {
+  color: var(--dv-signal-red, #e83a12);
   transform: translateX(4px);
 }
 
 .drawerNavIndex {
   font-family: var(--dv-sans);
-  font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: var(--dv-gold-text);
-  opacity: 0.85;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--dv-signal-red, #e83a12);
 }
 
 .drawerFooter {
@@ -263,12 +288,12 @@
   flex-direction: column;
   gap: 1.2rem;
   width: 100%;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(10, 10, 10, 0.08);
 }
 
 .drawerDivider {
-  width: 100%;
-  height: 1px;
-  background: var(--dv-line);
+  display: none;
 }
 
 .drawerCta {
@@ -277,14 +302,24 @@
   justify-content: space-between;
   font-family: var(--dv-sans);
   font-size: 1rem;
-  font-weight: 600;
-  color: var(--dv-ink);
+  font-weight: 700;
+  color: var(--dv-ink, #0a0a0a);
   text-decoration: none;
-  padding-block: 0.4rem;
+  padding: 1rem 1.4rem;
+  background: #ffffff;
+  border: 1px solid rgba(10, 10, 10, 0.12);
+  border-radius: 6px;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.drawerCta:hover {
+  border-color: var(--dv-signal-red, #e83a12);
+  box-shadow: 0 4px 16px rgba(232, 58, 18, 0.12);
 }
 
 .drawerCtaArrow {
   font-size: 1.2rem;
+  color: var(--dv-signal-red, #e83a12);
   transition: transform 150ms ease;
 }
 
@@ -625,6 +660,10 @@
     display: none;
   }
 
+  .mobileNavContainer {
+    display: flex;
+  }
+
   .hamburgerBtn {
     display: flex;
   }
@@ -659,6 +698,10 @@
 
   .desktopNav {
     display: none;
+  }
+
+  .mobileNavContainer {
+    display: flex;
   }
 
   .hamburgerBtn {
