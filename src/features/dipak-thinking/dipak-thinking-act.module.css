@@ -17,6 +17,7 @@
   background-color: var(--dv-canvas);
   color: var(--dv-ink);
   padding: clamp(5rem, 10vh, 9rem) clamp(1.5rem, 5vw, 6rem);
+  overflow: clip;
   box-sizing: border-box;
 }
 

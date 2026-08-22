@@ -1,6 +1,14 @@
+.masterStoryWrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: clip;
+}
+
 .storyShell {
   position: relative;
   width: 100%;
+  max-width: 100vw;
   height: 320vh; /* Calibrated for immediate response, snappy transitions, and zero dead scroll */
 }
 

@@ -724,7 +724,7 @@
   /* Single Composition Root Anchored at Lower Right */
   .portraitColumn {
     position: absolute;
-    right: -4vw;
+    right: 0;
     bottom: 0;
     width: min(85vw, clamp(18rem, 42dvh, 25rem));
     height: clamp(16rem, 42dvh, 25rem);
