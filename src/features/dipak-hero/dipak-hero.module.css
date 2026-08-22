@@ -369,6 +369,26 @@
   margin-left: 0.03em;
 }
 
+.highlightSmudge {
+  display: inline;
+  position: relative;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0.04em 0.16em 0.08em;
+  margin: 0 -0.04em;
+  border-radius: 2px 4px 3px 5px;
+  background-image: linear-gradient(
+    to bottom,
+    transparent 52%,
+    rgba(232, 58, 18, 0.16) 52%,
+    rgba(232, 58, 18, 0.28) 94%,
+    transparent 94%
+  );
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: left center;
+}
+
 .supportingCopy {
   max-width: 30rem;
   margin: clamp(0.9rem, 1.8vh, 1.6rem) 0 0;

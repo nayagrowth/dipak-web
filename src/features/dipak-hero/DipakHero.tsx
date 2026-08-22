@@ -119,7 +119,9 @@ export function DipakHero({ content }: { content: HeroContent }) {
                 data-story-headline-line="true"
                 style={{ "--line-index": 2 } as React.CSSProperties}
               >
-                {content.headlinePart3}
+                <span className={styles.highlightSmudge}>
+                  {content.headlinePart3}
+                </span>
                 <span className={styles.goldDot} aria-hidden="true">
                   .
                 </span>
